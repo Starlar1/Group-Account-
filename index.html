@@ -1,6 +1,7 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="my">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GROUP ACCOUNT</title>
@@ -1086,7 +1087,7 @@ loadData();
 // Event Listeners
 openAccountBtn.addEventListener('click', openAccount);
 editProfileBtn.addEventListener('click', openEditModal);
-telegramBtn.addEventListener('click', sendToTelegram);
+// telegramBtn.addEventListener('click', sendToTelegram);
 backFromRoleBtn.addEventListener('click', () => showProfileScreen());
 closeModalBtn.addEventListener('click', closeModal);
 
@@ -1813,6 +1814,536 @@ if (profileData.accountCreated) {
     updateRoleGridSmall();
 }
         
+/* ---------- Frame Data ---------- */
+const frames = [
+    { code: "Frame8717", img: "https://i.ibb.co/V0jwnmWB/Grid-Art-20260107-162942510.png", name: "Frame 1" },
+    { code: "Frame0911", img: "https://i.ibb.co/0yLt6zhN/Grid-Art-20260107-163010511.png", name: "Frame 2" },
+    { code: "Frame7178", img: "https://i.ibb.co/JR6FLxSk/Grid-Art-20260107-163105210.png", name: "Frame 3" },
+    // ဒီနေရာမှာ သင်ထည့်ချင်တဲ့ frame အသစ်တွေကို အောက်ကလိုမျိုး ဆက်ထည့်ပါ
+    { code: "YOURCODE1", img: "https://i.ibb.co/nqnPKS8s/Grid-Art-20260108-172444726.png", name: "Frame 4" },
+    { code: "YOURCODE2", img: "https://i.ibb.co/fGn0YtFz/Grid-Art-20260108-172355483.png", name: "Frame 5" },
+    { code: "YOURCODE3", img: "https://i.ibb.co/4ZNpRWcF/Grid-Art-20260108-172326886.png", name: "Frame 6" },
+    { code: "YOURCODE4", img: "https://i.ibb.co/JWksk52j/Grid-Art-20260108-172253648.png", name: "Frame 7" },
+    { code: "YOURCODE5", img: "https://i.ibb.co/ZpjbNkkS/Grid-Art-20260108-172207855.png", name: "Frame 8" },
+    { code: "YOURCODE6", img: "https://i.ibb.co/LzLxSBwt/Grid-Art-20260108-172037847.png", name: "Frame 9" },
+    { code: "YOURCODE7", img: "https://i.ibb.co/NGtfY9w/Grid-Art-20260108-171948735.png", name: "Frame 10" },
+    { code: "YOURCODE8", img: "https://i.ibb.co/84Ps7mnj/Grid-Art-20260108-171918092.png", name: "Frame 11" },
+    { code: "YOURCODE9", img: "https://i.ibb.co/cKPtyWNJ/Grid-Art-20260108-171845241.png", name: "Frame 12" },
+    { code: "YOURCODE10", img: "https://i.ibb.co/KcbRS7hS/Grid-Art-20260108-171814728.png", name: "Frame 13" },
+    { code: "YOURCODE11", img: "https://i.ibb.co/qYVwrk3r/Grid-Art-20260108-171548360.png", name: "Frame 14" },
+    { code: "YOURCODE12", img: "https://i.ibb.co/0pRGzy5h/bceab2c603a6123d4e7f8c3189cdb77f-1.gif", name: "Animated Frame" }
+];
+/* ---------- Local Storage ---------- */
+let unlockedFrames = JSON.parse(localStorage.getItem("unlockedFrames")) || [];
+let activeFrame = localStorage.getItem("activeFrame");
+
+/* ---------- Profile Circle Fix ---------- */
+profilePic.style.position = "relative";
+profilePic.style.overflow = "visible";
+
+const profileInner = document.createElement("div");
+profileInner.style.cssText = `
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    overflow:hidden;
+    position:relative;
+    z-index:1;
+`;
+
+while (profilePic.firstChild) {
+    profileInner.appendChild(profilePic.firstChild);
+}
+profilePic.appendChild(profileInner);
+
+/* ---------- Frame Overlay ---------- */
+const frameOverlay = document.createElement("img");
+frameOverlay.style.cssText = `
+    position:absolute;
+    top:-26px;
+    left:-26px;
+    width:calc(100% + 52px);
+    height:calc(100% + 52px);
+    pointer-events:none;
+    z-index:2;
+    display:none;
+    transform: scale(0.75);
+    transform-origin: center;
+`;
+profilePic.appendChild(frameOverlay);
+
+if (activeFrame) {
+    frameOverlay.src = activeFrame;
+    frameOverlay.style.display = "block";
+}
+
+/* ---------- Edit Frame Button ---------- */
+const editFrameBtn = document.createElement("button");
+editFrameBtn.className = "edit-profile-btn";
+editFrameBtn.innerHTML = `<i class="fas fa-border-all"></i> Edit Frame`;
+editProfileBtn.after(editFrameBtn);
+
+/* ---------- Modal ---------- */
+const frameModal = document.createElement("div");
+frameModal.style.cssText = `
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.9);
+    z-index:999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+`;
+document.body.appendChild(frameModal);
+
+const frameBox = document.createElement("div");
+frameBox.style.cssText = `
+    width:360px;
+    background:#2f3136;
+    border-radius:18px;
+    padding:15px;
+`;
+frameModal.appendChild(frameBox);
+
+frameBox.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <button id="frameBack" style="background:none;border:none;color:white;font-size:20px">←</button>
+        <b style="color:#7289da;font-size:18px">Edit Frame</b>
+    </div>
+    <div id="frameGrid" style="
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+        max-height:400px;   /* Scrollable if too many frames */
+        overflow-y:auto;
+        padding-right:5px;
+    "></div>
+`;
+
+const frameGrid = frameBox.querySelector("#frameGrid");
+frameBox.querySelector("#frameBack").onclick = () => frameModal.style.display = "none";
+
+/* ---------- Render Frames ---------- */
+function renderFrames() {
+    frameGrid.innerHTML = "";
+
+    frames.forEach((f, i) => {
+        const isUnlocked = unlockedFrames.includes(i);
+        const isActive = activeFrame === f.img;
+
+        let text = "ရယူမည်";
+        let color = "#faa61a";
+
+        if (isUnlocked && !isActive) {
+            text = "တပ်မည်";
+            color = "#43b581";
+        }
+        if (isUnlocked && isActive) {
+            text = "ဖြုတ်မည်";
+            color = "#f04747";
+        }
+
+        const card = document.createElement("div");
+        card.style.cssText = `
+            background:#1a1a1a;
+            border-radius:12px;
+            padding:8px;
+            text-align:center;
+        `;
+        card.innerHTML = `
+            <img src="${f.img}" style="width:100%;border-radius:10px">
+            <div style="color:white;margin:5px 0;font-weight:bold">${f.name}</div>
+            <button style="
+                margin-top:4px;
+                width:100%;
+                padding:6px;
+                border:none;
+                border-radius:8px;
+                font-weight:bold;
+                color:white;
+                background:${color};
+            ">${text}</button>
+        `;
+
+        card.querySelector("button").onclick = () => frameAction(i);
+        frameGrid.appendChild(card);
+    });
+}
+
+/* ---------- Frame Logic ---------- */
+function frameAction(index) {
+    const f = frames[index];
+    const isUnlocked = unlockedFrames.includes(index);
+    const isActive = activeFrame === f.img;
+
+    if (!isUnlocked) {
+        const code = prompt("Frame Code ထည့်ပါ");
+        if (code !== f.code) {
+            showToast("Code မှားနေပါသည် ❌", true);
+            return;
+        }
+        unlockedFrames.push(index);
+        localStorage.setItem("unlockedFrames", JSON.stringify(unlockedFrames));
+        showToast("Frame ရယူပြီးပါပြီ 🎉");
+    } 
+    else if (isActive) {
+        activeFrame = null;
+        frameOverlay.style.display = "none";
+        localStorage.removeItem("activeFrame");
+        showToast("Frame ဖြုတ်ပြီးပါပြီ");
+    } 
+    else {
+        activeFrame = f.img;
+        frameOverlay.src = f.img;
+        frameOverlay.style.display = "block";
+        localStorage.setItem("activeFrame", activeFrame);
+        showToast("Frame တပ်ဆင်ပြီးပါပြီ");
+    }
+
+    renderFrames();
+}
+
+/* ---------- Open Modal ---------- */
+editFrameBtn.onclick = () => {
+    renderFrames();
+    frameModal.style.display = "flex";
+};
+
+frameModal.onclick = e => {
+    if (e.target === frameModal) frameModal.style.display = "none";
+};
+/* =================================================
+   TELEGRAM IMAGE FRAME OVERLAY
+================================================= */
+
+const originalSendToTelegram = sendToTelegram;
+
+sendToTelegram = async function () {
+    await originalSendToTelegram();
+
+    if (!activeFrame) return;
+
+    const ctx = telegramCanvas.getContext("2d");
+    const frameImg = new Image();
+    frameImg.src = activeFrame;
+
+    await new Promise(r => frameImg.onload = r);
+
+    const size = 220;
+    const x = 80;
+    const y = 338 - size / 2;
+
+    ctx.drawImage(frameImg, x - 26, y - 26, size + 52, size + 52);
+};
+
+/* =================================================
+
+
+   NEW TELEGRAM IMAGE GENERATION WITH FRAME
+================================================= */
+
+// New function to generate Telegram image with frame
+async function generateTelegramImageWithFrame() {
+    const ctx = telegramCanvas.getContext('2d');
+    
+    // Canvas size
+    const width = 1080;
+    const height = 1350;
+    telegramCanvas.width = width;
+    telegramCanvas.height = height;
+    
+    // 1. Draw background
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(0, 0, width, height);
+    
+    // 2. Draw banner
+    const bannerHeight = 338;
+    if (profileData.bannerImage) {
+        const bannerImg = new Image();
+        bannerImg.crossOrigin = 'anonymous';
+        await new Promise((resolve) => {
+            bannerImg.onload = resolve;
+            bannerImg.src = profileData.bannerImage;
+        });
+        
+        const bannerAspect = bannerImg.width / bannerImg.height;
+        const targetAspect = width / bannerHeight;
+        
+        let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+        
+        if (bannerAspect > targetAspect) {
+            drawHeight = bannerHeight;
+            drawWidth = drawHeight * bannerAspect;
+            offsetX = (width - drawWidth) / 2;
+        } else {
+            drawWidth = width;
+            drawHeight = drawWidth / bannerAspect;
+            offsetY = (bannerHeight - drawHeight) / 2;
+        }
+        
+        ctx.drawImage(bannerImg, offsetX, offsetY, drawWidth, drawHeight);
+    } else {
+        const gradient = ctx.createLinearGradient(0, 0, width, bannerHeight);
+        gradient.addColorStop(0, '#2f3136');
+        gradient.addColorStop(1, '#40444b');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, bannerHeight);
+    }
+    
+    // 3. Draw profile picture
+    const profileSize = 220;
+    const profileX = 80;
+    const profileY = bannerHeight - (profileSize / 2);
+    
+    if (profileData.profileImage) {
+        const profileImg = new Image();
+        profileImg.crossOrigin = 'anonymous';
+        await new Promise((resolve) => {
+            profileImg.onload = resolve;
+            profileImg.src = profileData.profileImage;
+        });
+        
+        // Draw circle mask for profile
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        
+        ctx.drawImage(profileImg, profileX, profileY, profileSize, profileSize);
+        ctx.restore();
+        
+        // Draw profile border
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+        ctx.stroke();
+    } else {
+        // Default profile placeholder
+        ctx.fillStyle = '#2f3136';
+        ctx.beginPath();
+        ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 8;
+        ctx.stroke();
+        
+        ctx.fillStyle = '#72767d';
+        ctx.font = 'bold 110px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('👤', profileX + profileSize/2, profileY + profileSize/2);
+    }
+    
+    // 4. DRAW FRAME IF ACTIVE (ADD THIS PART)
+    if (activeFrame) {
+        const frameImg = new Image();
+        frameImg.crossOrigin = 'anonymous';
+        await new Promise((resolve) => {
+            frameImg.onload = resolve;
+            frameImg.src = activeFrame;
+        });
+        
+        // Draw frame around profile (slightly larger)
+        const frameSize = profileSize + 52; // 26px each side
+        const frameX = profileX - 26;
+        const frameY = profileY - 26;
+        
+        ctx.drawImage(frameImg, frameX, frameY, frameSize, frameSize);
+    }
+    
+    // 5. Draw name
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 65px Arial';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    const nameX = profileX + profileSize + 40;
+    const nameY = profileY + 40;
+    
+    let displayName = profileData.name;
+    const maxNameWidth = width - nameX - 80;
+    let nameWidth = ctx.measureText(displayName).width;
+    
+    if (nameWidth > maxNameWidth) {
+        while (nameWidth > maxNameWidth && displayName.length > 10) {
+            displayName = displayName.substring(0, displayName.length - 1);
+            nameWidth = ctx.measureText(displayName + '...').width;
+        }
+        displayName += '...';
+    }
+    
+    ctx.fillText(displayName, nameX, nameY);
+    
+    // 6. Draw ID badge
+    const idText = profileData.id;
+    ctx.font = 'bold 40px Arial';
+    const idMetrics = ctx.measureText(idText);
+    const idWidth = idMetrics.width + 80;
+    const idHeight = 70;
+    const idX = nameX;
+    const idY = nameY + 90;
+    
+    ctx.fillStyle = '#7289da';
+    ctx.beginPath();
+    ctx.roundRect(idX, idY, idWidth, idHeight, 35);
+    ctx.fill();
+    
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(idText, idX + idWidth/2, idY + idHeight/2);
+    
+    // 7. Draw Role section
+    const roleBgY = profileY + profileSize + 100;
+    const roleSize = 280;
+    const roleGap = 30;
+    const gridWidth = (roleSize * 3) + (roleGap * 2);
+    const gridHeight = (roleSize * 2) + (roleGap * 1);
+    const gridStartX = (width - gridWidth) / 2;
+    const gridStartY = roleBgY + 80;
+    
+    // Role background
+    ctx.fillStyle = '#2f3136';
+    ctx.beginPath();
+    ctx.roundRect(gridStartX - 40, roleBgY, gridWidth + 80, gridHeight + 120, 40);
+    ctx.fill();
+    
+    // "Role" title
+    ctx.fillStyle = '#b9bbbe';
+    ctx.font = 'bold 50px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Role', width/2, roleBgY + 50);
+    
+    // Draw 6 role slots
+    for (let i = 0; i < 6; i++) {
+        const row = Math.floor(i / 3);
+        const col = i % 3;
+        const roleX = gridStartX + col * (roleSize + roleGap);
+        const roleY = gridStartY + row * (roleSize + roleGap);
+        
+        const equippedIndex = profileData.equippedRoles[i];
+        
+        if (equippedIndex !== undefined) {
+            // Draw equipped role
+            const roleImg = new Image();
+            roleImg.crossOrigin = 'anonymous';
+            await new Promise((resolve) => {
+                roleImg.onload = resolve;
+                roleImg.src = roleImages[equippedIndex];
+            });
+            
+            // Role background
+            ctx.fillStyle = '#1a1a1a';
+            ctx.beginPath();
+            ctx.roundRect(roleX, roleY, roleSize, roleSize, 30);
+            ctx.fill();
+            
+            // Role border
+            ctx.strokeStyle = '#7289da';
+            ctx.lineWidth = 6;
+            ctx.stroke();
+            
+            // Draw role image
+            const imgPadding = 40;
+            const imgWidth = roleSize - (imgPadding * 2);
+            const imgHeight = roleSize - (imgPadding * 2);
+            
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(roleX + imgPadding, roleY + imgPadding, imgWidth, imgHeight, 15);
+            ctx.closePath();
+            ctx.clip();
+            
+            const imgAspect = roleImg.width / roleImg.height;
+            const boxAspect = imgWidth / imgHeight;
+            
+            let drawImgWidth, drawImgHeight, drawImgX, drawImgY;
+            
+            if (imgAspect > boxAspect) {
+                drawImgHeight = imgHeight;
+                drawImgWidth = drawImgHeight * imgAspect;
+                drawImgX = roleX + imgPadding + (imgWidth - drawImgWidth) / 2;
+                drawImgY = roleY + imgPadding;
+            } else {
+                drawImgWidth = imgWidth;
+                drawImgHeight = drawImgWidth / imgAspect;
+                drawImgX = roleX + imgPadding;
+                drawImgY = roleY + imgPadding + (imgHeight - drawImgHeight) / 2;
+            }
+            
+            ctx.drawImage(roleImg, drawImgX, drawImgY, drawImgWidth, drawImgHeight);
+            ctx.restore();
+        } else {
+            // Draw empty role slot
+            ctx.fillStyle = '#1a1a1a';
+            ctx.beginPath();
+            ctx.roundRect(roleX, roleY, roleSize, roleSize, 30);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#40444b';
+            ctx.lineWidth = 4;
+            ctx.setLineDash([15, 10]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            ctx.fillStyle = '#72767d';
+            ctx.font = 'bold 120px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('+', roleX + roleSize/2, roleY + roleSize/2);
+        }
+    }
+    
+    return telegramCanvas;
+}
+
+// Replace the original Telegram button function
+telegramBtn.onclick = async function() {
+    const originalText = telegramBtn.innerHTML;
+    telegramBtn.innerHTML = '<div class="spinner"></div> ပို့နေသည်...';
+    telegramBtn.disabled = true;
+    
+    try {
+        // Generate image with frame
+        const canvas = await generateTelegramImageWithFrame();
+        
+        // Convert to blob
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        
+        // Send to Telegram
+        const formData = new FormData();
+        formData.append('chat_id', `@${TELEGRAM_CHAT_USERNAME}`);
+        formData.append('message_thread_id', TELEGRAM_TOPIC_ID);
+        formData.append('photo', blob, 'group_account_profile.png');
+        
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.ok) {
+            showToast('Profile ပုံကို Telegram Topic သို့ အောင်မြင်စွာပို့ပြီးပါပြီ။');
+        } else {
+            console.error('Telegram API Error:', result);
+            throw new Error(result.description || 'Telegram သို့ပို့ရာတွင် ပြဿနာရှိပါသည်။');
+        }
+    } catch (error) {
+        console.error('Telegram error:', error);
+        showToast('ပုံပို့ရာတွင် ပြဿနာရှိပါသည်။ ' + error.message, true);
+    } finally {
+        telegramBtn.innerHTML = originalText;
+        telegramBtn.disabled = false;
+    }
+};
+
 
     </script>
 </body>
