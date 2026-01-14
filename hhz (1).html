@@ -1,0 +1,2568 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="my">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GROUP ACCOUNT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 10px;
+            touch-action: pan-y;
+        }
+        
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        /* Home Screen */
+        .home-screen {
+            padding: 40px 20px;
+            text-align: center;
+            display: block;
+        }
+        
+        .home-screen.hidden {
+            display: none;
+        }
+        
+        .app-title {
+            font-size: 2rem;
+            color: #7289da;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        .photo-section {
+            margin: 30px 0 40px;
+        }
+        
+        .photo-label {
+            color: #b9bbbe;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .my-photo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: #2f3136;
+            border: 4px solid #7289da;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .my-photo i {
+            font-size: 4rem;
+            color: #72767d;
+        }
+        
+        .my-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .open-btn {
+            background: #7289da;
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 280px;
+        }
+        
+        .open-btn:hover, .open-btn:active {
+            background: #5b6eae;
+            transform: translateY(-2px);
+        }
+        
+        /* Profile Screen */
+        .profile-screen {
+            display: none;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .profile-screen.active {
+            display: block;
+        }
+        
+        /* Banner with Image */
+        .banner {
+            height: 180px;
+            background: #2f3136;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .banner-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2f3136, #40444b);
+        }
+        
+        .banner-placeholder i {
+            font-size: 3rem;
+            color: #72767d;
+        }
+        
+        /* Profile Info */
+        .profile-info {
+            padding: 0 20px;
+            position: relative;
+            margin-top: -50px;
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 25px;
+        }
+        
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #2f3136;
+            border: 4px solid #1a1a1a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .profile-pic i {
+            font-size: 2.5rem;
+            color: #72767d;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .name-id {
+            flex: 1;
+            padding-bottom: 5px;
+        }
+        
+        .profile-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        
+        .profile-id {
+            color: #ffffff !important;
+            font-size: 1rem !important;
+            background: #7289da !important;
+            padding: 5px 12px !important;
+            border-radius: 15px !important;
+            display: inline-block !important;
+            font-weight: bold !important;
+            border: 2px solid #ffffff !important;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3) !important;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Role Section Styling */
+        .role-section {
+            padding: 0 20px 15px;
+            margin-bottom: 15px;
+        }
+        
+        .role-title {
+            color: #b9bbbe;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* Smaller Role Grid */
+        .role-grid-small {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background: #2f3136;
+            border-radius: 12px;
+            padding: 12px;
+            min-height: 120px;
+        }
+        
+        .role-item-small {
+            aspect-ratio: 1;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid transparent;
+        }
+        
+        .role-item-small.has-role {
+            border-color: #7289da;
+            box-shadow: 0 2px 5px rgba(114, 137, 218, 0.2);
+        }
+        
+        .role-item-small.empty {
+            border: 2px dashed #40444b;
+        }
+        
+        .role-item-small i {
+            color: #72767d;
+            font-size: 1.2rem;
+        }
+        
+        .role-item-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Button Container - Smaller buttons */
+        .button-container {
+            padding: 0 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .edit-profile-btn {
+            background: #4f545c;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+        }
+        
+        .edit-profile-btn:hover, .edit-profile-btn:active {
+            background: #5d6269;
+            transform: translateY(-2px);
+        }
+        
+        .telegram-btn {
+            background: #0088cc;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+        }
+        
+        .telegram-btn:hover, .telegram-btn:active {
+            background: #0077b3;
+            transform: translateY(-2px);
+        }
+        
+        /* Role Screen */
+        .role-screen {
+            display: none;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .role-screen.active {
+            display: block;
+        }
+        
+        .role-header {
+            padding: 15px;
+            background: #2f3136;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #40444b;
+        }
+        
+        .back-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .back-btn:hover, .back-btn:active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .role-screen-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #7289da;
+        }
+        
+        .role-grid-container {
+            padding: 15px;
+        }
+        
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        /* Role Card Design - Smaller */
+        .role-card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .role-image-box {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #2f3136;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .role-image-box.locked {
+            border-color: #f04747;
+            background: rgba(240, 71, 71, 0.1);
+        }
+        
+        .role-image-box.unlocked {
+            border-color: #43b581;
+            background: rgba(67, 181, 129, 0.1);
+        }
+        
+        .role-image-box.active {
+            border-color: #7289da;
+            background: rgba(114, 137, 218, 0.15);
+            box-shadow: 0 0 15px rgba(114, 137, 218, 0.4);
+        }
+        
+        .role-image-box img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            object-position: center;
+        }
+        
+        .role-card-info {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        
+        .role-name {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: white;
+        }
+        
+        .role-status {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .status-locked {
+            background: #f04747;
+            color: white;
+        }
+        
+        .status-unlocked {
+            background: #43b581;
+            color: white;
+        }
+        
+        /* Role Action Button */
+        .role-action-btn {
+            background: #faa61a;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .role-action-btn:hover, .role-action-btn:active {
+            background: #e59400;
+            transform: translateY(-2px);
+        }
+        
+        .role-action-btn.unlocked {
+            background: #43b581;
+        }
+        
+        .role-action-btn.unlocked:hover, .role-action-btn.unlocked:active {
+            background: #3ca374;
+            transform: translateY(-2px);
+        }
+        
+        .role-action-btn.active {
+            background: #7289da;
+        }
+        
+        .role-action-btn.active:hover, .role-action-btn.active:active {
+            background: #5b6eae;
+            transform: translateY(-2px);
+        }
+        
+        /* Edit Modal */
+        .edit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: #2f3136;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: #202225;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        
+        .modal-header h3 {
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .close-modal {
+            background: transparent;
+            color: #b9bbbe;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover, .close-modal:active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-body {
+            padding: 15px;
+        }
+        
+        /* Edit Sections */
+        .edit-section {
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            color: #7289da;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .upload-btn {
+            background: #7289da;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .upload-btn:hover, .upload-btn:active {
+            background: #5b6eae;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #202225;
+            background: #202225;
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #7289da;
+        }
+        
+        /* Save Button */
+        .save-btn {
+            background: #43b581;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .save-btn:hover, .save-btn:active {
+            background: #3ca374;
+        }
+        
+        /* Code Modal */
+        .code-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .code-modal-content {
+            background: #2f3136;
+            width: 100%;
+            max-width: 320px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .code-modal-header {
+            background: #202225;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .code-modal-header h3 {
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .code-modal-body {
+            padding: 20px;
+        }
+        
+        .code-input-group {
+            margin-bottom: 15px;
+        }
+        
+        .code-input-label {
+            color: #b9bbbe;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        .code-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #202225;
+            background: #202225;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+        }
+        
+        .code-input:focus {
+            outline: none;
+            border-color: #7289da;
+        }
+        
+        .code-submit-btn {
+            background: #43b581;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .code-submit-btn:hover, .code-submit-btn:active {
+            background: #3ca374;
+        }
+        
+        .code-cancel-btn {
+            background: #747f8d;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            transition: background 0.3s;
+        }
+        
+        .code-cancel-btn:hover, .code-cancel-btn:active {
+            background: #5d666e;
+        }
+        
+        /* Toast Message */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #43b581;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        .toast.error {
+            background: #f04747;
+        }
+        
+        /* Mobile Optimizations */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+                border-radius: 15px;
+            }
+            
+            .home-screen {
+                padding: 30px 15px;
+            }
+            
+            .my-photo {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .banner {
+                height: 150px;
+            }
+            
+            .profile-pic {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .profile-name {
+                font-size: 1.2rem;
+            }
+            
+            .role-grid-small {
+                gap: 6px;
+                padding: 10px;
+            }
+            
+            .role-grid {
+                gap: 8px;
+            }
+            
+            .open-btn, .edit-profile-btn, .telegram-btn {
+                padding: 10px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Hide file inputs */
+        .file-input {
+            display: none;
+        }
+        
+        /* Loading Spinner for Telegram */
+        .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Canvas Container */
+        .canvas-container {
+            display: none;
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        
+        /* ဖြုတ်မည် button style */
+        .role-action-btn.remove {
+            background: #f04747;
+        }
+        
+        .role-action-btn.remove:hover, .role-action-btn.remove:active {
+            background: #d84040;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Message -->
+    <div class="toast" id="toast"></div>
+    
+    <!-- Hidden canvas for Telegram image -->
+    <div class="canvas-container">
+        <canvas id="telegramCanvas"></canvas>
+    </div>
+    
+    <div class="container">
+        <!-- Home Screen -->
+        <div class="home-screen" id="homeScreen">
+            <h1 class="app-title">GROUP ACCOUNT</h1>
+            
+            <div class="photo-section">
+                <div class="photo-label">My Photo</div>
+                <div class="my-photo" id="myPhoto">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            
+            <button class="open-btn" id="openAccountBtn">
+                <i class="fas fa-plus-circle"></i>
+                အကောင့်ဖွင့်မည်
+            </button>
+        </div>
+        
+        <!-- Profile Screen -->
+        <div class="profile-screen" id="profileScreen">
+            <!-- Banner -->
+            <div class="banner" id="profileBanner">
+                <div class="banner-placeholder" id="bannerPlaceholder">
+                    <i class="fas fa-image"></i>
+                </div>
+            </div>
+            
+            <!-- Profile Info -->
+            <div class="profile-info">
+                <div class="profile-pic" id="profilePic">
+                    <i class="fas fa-user"></i>
+                </div>
+                
+                <div class="name-id">
+                    <div class="profile-name" id="profileName">အမည်မရှိသေးပါ</div>
+                    <div class="profile-id" id="profileId">ID: မရှိသေးပါ</div>
+                </div>
+            </div>
+            
+            <!-- Role Section -->
+            <div class="role-section">
+                <div class="role-title">Role</div>
+                <div class="role-grid-small" id="roleGridSmall">
+                    <!-- Small role items will be added dynamically -->
+                </div>
+            </div>
+            
+            <!-- Button Container -->
+            <div class="button-container">
+                <button class="edit-profile-btn" id="editProfileBtn">
+                    <i class="fas fa-user-edit"></i>
+                    Edit Profile
+                </button>
+                
+                <button class="telegram-btn" id="telegramBtn">
+                    <i class="fab fa-telegram"></i>
+                    Telegram သို့ပို့မည်
+                </button>
+            </div>
+        </div>
+        
+        <!-- Role Screen -->
+        <div class="role-screen" id="roleScreen">
+            <div class="role-header">
+                <button class="back-btn" id="backFromRoleBtn">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2 class="role-screen-title">Role</h2>
+            </div>
+            
+            <div class="role-grid-container">
+                <div class="role-grid" id="roleGrid">
+                    <!-- Role cards will be added dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Modal -->
+    <div class="edit-modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Profile ပြင်ဆင်ရန်</h3>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
+            </div>
+            
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Code Modal -->
+    <div class="code-modal" id="codeModal">
+        <div class="code-modal-content">
+            <div class="code-modal-header">
+                <h3 id="codeModalTitle">Role ရယူရန်</h3>
+            </div>
+            <div class="code-modal-body" id="codeModalBody">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hidden File Inputs -->
+    <input type="file" id="bannerFileInput" class="file-input" accept="image/*">
+    <input type="file" id="profileFileInput" class="file-input" accept="image/*">
+
+    <script>
+        // Telegram Configuration (For demonstration only - In production, use backend)
+        const TELEGRAM_BOT_TOKEN = '7450074837:AAFoYI4ukGdHmYA39ZSnVdPvj33BhJvlKAE';
+        const TELEGRAM_CHAT_USERNAME = 'MLBBMCCTG';
+        const TELEGRAM_TOPIC_ID = 3484;
+        
+        // Elements
+        const homeScreen = document.getElementById('homeScreen');
+        const profileScreen = document.getElementById('profileScreen');
+        const roleScreen = document.getElementById('roleScreen');
+        const openAccountBtn = document.getElementById('openAccountBtn');
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const telegramBtn = document.getElementById('telegramBtn');
+        const backFromRoleBtn = document.getElementById('backFromRoleBtn');
+        const editModal = document.getElementById('editModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalBody = document.getElementById('modalBody');
+        const codeModal = document.getElementById('codeModal');
+        const codeModalBody = document.getElementById('codeModalBody');
+        const codeModalTitle = document.getElementById('codeModalTitle');
+        const toast = document.getElementById('toast');
+        const telegramCanvas = document.getElementById('telegramCanvas');
+        
+        const myPhoto = document.getElementById('myPhoto');
+        const profileBanner = document.getElementById('profileBanner');
+        const bannerPlaceholder = document.getElementById('bannerPlaceholder');
+        const profilePic = document.getElementById('profilePic');
+        const profileName = document.getElementById('profileName');
+        const profileId = document.getElementById('profileId');
+        const roleGridSmall = document.getElementById('roleGridSmall');
+        const roleGrid = document.getElementById('roleGrid');
+        
+        const bannerFileInput = document.getElementById('bannerFileInput');
+        const profileFileInput = document.getElementById('profileFileInput');
+        
+// Role data - Fixed PNG images
+const roleImages = [
+    'https://i.ibb.co/QF6fxvjc/Grid-Art-20260105-174219345.png',
+    'https://i.ibb.co/wrhTRHcC/Grid-Art-20260105-193610560.png',
+    'https://i.ibb.co/Gv1qpZBb/Grid-Art-20260105-193931666.png',
+    'https://i.ibb.co/BHjZ50NJ/Grid-Art-20260105-192918847.png',
+    'https://i.ibb.co/x8YpjpX9/Grid-Art-20260105-193004986.png',
+    'https://i.ibb.co/Y763MTmD/Grid-Art-20260105-193051681.png',
+    'https://i.ibb.co/93B35mdj/Grid-Art-20260106-205342446.png',
+    'https://i.ibb.co/5gVTJTGG/Grid-Art-20260106-205421669.png',
+    'https://i.ibb.co/YB5KshYY/Grid-Art-20260106-205524507.png',
+    'https://i.ibb.co/vCMB6kZg/Grid-Art-20260106-205558988.png'
+];
+
+// Role names
+const roleNames = [
+    '2026 ',
+    'ADMIN Only',
+    'တရုပ်နှစ်သစ်ကူး', 
+    'Mythic',
+    'Mythic Glory',
+    'Mythic Immortal',
+    'Gift ပေးသူ',
+    'Gift ပေးသူ Lv2',
+    'Active Member',
+    'Active Member Lv2'
+];
+
+// Profile data with localStorage
+let profileData = {
+    name: "အမည်မရှိသေးပါ",
+    id: "ID: မရှိသေးပါ",
+    bannerImage: null,
+    profileImage: null,
+    unlockedRoles: [],      // ရပြီးသား Roles
+    equippedRoles: [],      // တပ်ဆင်ထားသော Roles (အစဉ်လိုက် array)
+    accountCreated: false
+};
+
+// Load data from localStorage
+function loadData() {
+    const savedData = localStorage.getItem('groupAccountData');
+    if (savedData) {
+        try {
+            const parsedData = JSON.parse(savedData);
+            profileData = { ...profileData, ...parsedData };
+            
+            // Old data structure compatibility
+            if (!profileData.equippedRoles && profileData.activeRole !== undefined) {
+                profileData.equippedRoles = profileData.activeRole !== null ? [profileData.activeRole] : [];
+                delete profileData.activeRole;
+                saveData();
+            }
+            
+            if (profileData.accountCreated) {
+                showProfileScreen();
+                updateRoleGridSmall();
+            } else {
+                showHomeScreen();
+            }
+        } catch (e) {
+            console.log('Error loading saved data');
+            showHomeScreen();
+        }
+    } else {
+        showHomeScreen();
+    }
+}
+
+// Save data to localStorage
+function saveData() {
+    try {
+        localStorage.setItem('groupAccountData', JSON.stringify(profileData));
+    } catch (e) {
+        console.log('Error saving data');
+    }
+}
+
+// Show home screen
+function showHomeScreen() {
+    homeScreen.classList.remove('hidden');
+    profileScreen.classList.remove('active');
+    roleScreen.classList.remove('active');
+    updateMyPhotoDisplay();
+}
+
+// Show profile screen
+function showProfileScreen() {
+    homeScreen.classList.add('hidden');
+    profileScreen.classList.add('active');
+    roleScreen.classList.remove('active');
+    updateProfileDisplay();
+    updateRoleGridSmall();
+}
+
+// Show role screen
+function showRoleScreen() {
+    homeScreen.classList.add('hidden');
+    profileScreen.classList.remove('active');
+    roleScreen.classList.add('active');
+    updateRoleScreen();
+}
+
+// Initialize
+loadData();
+
+// Event Listeners
+openAccountBtn.addEventListener('click', openAccount);
+editProfileBtn.addEventListener('click', openEditModal);
+// telegramBtn.addEventListener('click', sendToTelegram);
+backFromRoleBtn.addEventListener('click', () => showProfileScreen());
+closeModalBtn.addEventListener('click', closeModal);
+
+// Home screen photo click
+myPhoto.addEventListener('click', function() {
+    profileFileInput.click();
+});
+
+// Profile screen role grid click
+roleGridSmall.addEventListener('click', function(e) {
+    if (e.target.closest('.role-item-small')) {
+        showRoleScreen();
+    }
+});
+
+// File input changes
+profileFileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            profileData.profileImage = event.target.result;
+            updateMyPhotoDisplay();
+            updateProfileDisplay();
+            saveData();
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+bannerFileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            profileData.bannerImage = event.target.result;
+            updateProfileDisplay();
+            saveData();
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Functions
+function openAccount() {
+    profileData.accountCreated = true;
+    saveData();
+    showProfileScreen();
+    showToast('အကောင့်ဖွင့်လှစ်ပြီးပါပြီ။');
+}
+
+function openEditModal() {
+    loadEditModalContent();
+    editModal.style.display = 'flex';
+}
+
+function closeModal() {
+    editModal.style.display = 'none';
+    codeModal.style.display = 'none';
+}
+
+function showToast(message, isError = false) {
+    toast.textContent = message;
+    toast.className = 'toast' + (isError ? ' error' : '');
+    toast.style.display = 'block';
+    
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 3000);
+}
+
+function updateMyPhotoDisplay() {
+    if (profileData.profileImage) {
+        myPhoto.innerHTML = `<img src="${profileData.profileImage}" alt="My Photo">`;
+    } else {
+        myPhoto.innerHTML = '<i class="fas fa-user"></i>';
+    }
+}
+
+function updateProfileDisplay() {
+    // Banner
+    if (profileData.bannerImage) {
+        bannerPlaceholder.style.display = 'none';
+        if (!document.getElementById('bannerImage')) {
+            const bannerImg = document.createElement('img');
+            bannerImg.id = 'bannerImage';
+            bannerImg.src = profileData.bannerImage;
+            profileBanner.appendChild(bannerImg);
+        } else {
+            document.getElementById('bannerImage').src = profileData.bannerImage;
+        }
+    } else {
+        bannerPlaceholder.style.display = 'flex';
+        const existingImg = document.getElementById('bannerImage');
+        if (existingImg) existingImg.remove();
+    }
+    
+    // Profile picture
+    if (profileData.profileImage) {
+        profilePic.innerHTML = `<img src="${profileData.profileImage}" alt="Profile">`;
+    } else {
+        profilePic.innerHTML = '<i class="fas fa-user"></i>';
+    }
+    
+    // Name and ID
+    profileName.textContent = profileData.name;
+    profileId.textContent = profileData.id;
+}
+
+function updateRoleGridSmall() {
+    roleGridSmall.innerHTML = '';
+    
+    // Create 6 small role items
+    for (let i = 0; i < 6; i++) {
+        const roleItem = document.createElement('div');
+        
+        const equippedIndex = profileData.equippedRoles[i];
+        
+        if (equippedIndex !== undefined) {
+            // ဒီ position မှာ equipped role ရှိတယ်
+            roleItem.className = 'role-item-small has-role';
+            
+            const img = document.createElement('img');
+            img.src = roleImages[equippedIndex];
+            img.alt = roleNames[equippedIndex];
+            img.style.objectFit = 'cover';
+            roleItem.appendChild(img);
+        } else {
+            // ဒီ position မှာ equipped role မရှိဘူး
+            roleItem.className = 'role-item-small empty';
+            
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-plus';
+            roleItem.appendChild(icon);
+        }
+        
+        roleGridSmall.appendChild(roleItem);
+    }
+}
+
+function updateRoleScreen() {
+    roleGrid.innerHTML = '';
+    
+    roleImages.forEach((img, index) => {
+        const isUnlocked = profileData.unlockedRoles.includes(index);
+        const isEquipped = profileData.equippedRoles.includes(index);
+        
+        let buttonText = 'ရယူမည်';
+        let buttonClass = 'role-action-btn';
+        let imageBoxClass = 'role-image-box';
+        
+        if (isUnlocked) {
+            if (isEquipped) {
+                // Equipped role - ဖြုတ်မည် (အပြာရောင်)
+                buttonText = 'ဖြုတ်မည်';
+                buttonClass += ' active';
+                imageBoxClass += ' active';
+            } else {
+                // Unlocked but not equipped - တပ်မည် (အစိမ်းရောင်)
+                buttonText = 'တပ်ဆင်မည်';
+                buttonClass += ' unlocked';
+                imageBoxClass += ' unlocked';
+            }
+        } else {
+            // Locked - ရယူမည် (လိမ္မော်ရောင်)
+            imageBoxClass += ' locked';
+        }
+        
+        const roleCardContainer = document.createElement('div');
+        roleCardContainer.className = 'role-card-container';
+        
+        roleCardContainer.innerHTML = `
+            <div class="${imageBoxClass}">
+                <img src="${img}" alt="${roleNames[index]}">
+            </div>
+            <div class="role-card-info">
+                <div class="role-name">${roleNames[index]}</div>
+                <div class="role-status ${isUnlocked ? 'status-unlocked' : 'status-locked'}">
+                    ${isUnlocked ? 'ရရှိပြီး' : 'မရရှိရသေး'}
+                </div>
+            </div>
+            <button class="${buttonClass}" data-index="${index}">
+                ${buttonText}
+            </button>
+        `;
+        
+        // Add remove button for unlocked roles (next to action button)
+        if (isUnlocked) {
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'role-action-btn remove';
+            removeBtn.textContent = 'ပယ်ဖြတ်မည်';
+            removeBtn.setAttribute('data-index', index);
+            removeBtn.style.marginTop = '4px';
+            
+            removeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const roleIndex = parseInt(this.getAttribute('data-index'));
+                removeRolePermanently(roleIndex);
+            });
+            
+            roleCardContainer.appendChild(removeBtn);
+        }
+        
+        const actionBtn = roleCardContainer.querySelector('.role-action-btn:not(.remove)');
+        actionBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const roleIndex = parseInt(this.getAttribute('data-index'));
+            
+            if (!isUnlocked) {
+                // မရသေးတဲ့ Role - Code မေးမယ်
+                openCodeModal(roleIndex);
+            } else {
+                // ရပြီးသား Role
+                if (isEquipped) {
+                    // Equipped Role - ဖြုတ်မည်
+                    unequipRole(roleIndex);
+                } else {
+                    // Unequipped Role - တပ်မည်
+                    equipRole(roleIndex);
+                }
+            }
+        });
+        
+        roleGrid.appendChild(roleCardContainer);
+    });
+}
+
+function equipRole(roleIndex) {
+    // တပ်မည် နှိပ်ရင် equippedRoles array ရဲ့ နောက်ဆုံးမှာ ထည့်
+    if (profileData.equippedRoles.length < 6) {
+        // Role ကိုယခင်က equip လုပ်ထားလား စစ်
+        if (!profileData.equippedRoles.includes(roleIndex)) {
+            profileData.equippedRoles.push(roleIndex);
+            saveData();
+            updateRoleScreen();
+            updateRoleGridSmall();
+            showToast(`${roleNames[roleIndex]} ကို တပ်ဆင်ပြီးပါပြီ။ (${profileData.equippedRoles.length}/6)`);
+        } else {
+            showToast('ဤ Role ကို တပ်ဆင်ပြီးသားဖြစ်ပါသည်။', true);
+        }
+    } else {
+        showToast('Role 6 ခုထက်ပိုပြီး တပ်ဆင်လို့မရပါ။', true);
+    }
+}
+
+function unequipRole(roleIndex) {
+    // ဖြုတ်မည် နှိပ်ရင် equippedRoles ထဲက ဖယ်ရှား
+    const roleIndexPos = profileData.equippedRoles.indexOf(roleIndex);
+    if (roleIndexPos > -1) {
+        profileData.equippedRoles.splice(roleIndexPos, 1);
+        saveData();
+        updateRoleScreen();
+        updateRoleGridSmall();
+        showToast(`${roleNames[roleIndex]} Role ကို ဖြုတ်လိုက်ပါပြီ။\nဒါပေမယ့် Role ကို ရရှိထားဆဲဖြစ်ပါတယ်။`);
+    }
+}
+
+function removeRolePermanently(roleIndex) {
+    if (confirm(`သင့် ${roleNames[roleIndex]} Role ကို အပြီးဖြုတ်မှာသေချာပါသလား?\n\nမှတ်ချက်: ပယ်ဖြတ်ပြီးရင် နောက်တစ်ခါ ပြန်ယူချင်ရင် Code ထပ်ထည့်ရပါမယ်။`)) {
+        // Remove from unlocked roles
+        const unlockedIndexPos = profileData.unlockedRoles.indexOf(roleIndex);
+        if (unlockedIndexPos > -1) {
+            profileData.unlockedRoles.splice(unlockedIndexPos, 1);
+        }
+        
+        // Remove from equipped roles
+        const equippedIndexPos = profileData.equippedRoles.indexOf(roleIndex);
+        if (equippedIndexPos > -1) {
+            profileData.equippedRoles.splice(equippedIndexPos, 1);
+        }
+        
+        saveData();
+        updateRoleScreen();
+        updateRoleGridSmall();
+        showToast(`${roleNames[roleIndex]} Role ကို အပြီးပယ်ဖြတ်ပြီးပါပြီ။`);
+    }
+}
+
+function openCodeModal(roleIndex) {
+    const roleName = roleNames[roleIndex];
+    
+    codeModalTitle.textContent = `${roleName} ရယူရန်`;
+    
+    codeModalBody.innerHTML = `
+        <div style="text-align: center; margin-bottom: 15px;">
+            <div style="color: #b9bbbe; font-size: 0.9rem; margin-bottom: 10px;">
+                ${roleName} အတွက် Code ထည့်ပါ
+            </div>
+        </div>
+        
+        <div class="code-input-group">
+            <label class="code-input-label">Code ထည့်ပါ</label>
+            <input type="text" class="code-input" id="codeInput" 
+                   placeholder="role code ရေးပါ" 
+                   autocomplete="off" autocapitalize="off">
+        </div>
+        
+        <button class="code-submit-btn" id="submitCodeBtn">Code အတည်ပြုရန်</button>
+        <button class="code-cancel-btn" id="cancelCodeBtn">မလုပ်တော့ပါ</button>
+    `;
+    
+    const codeInput = document.getElementById('codeInput');
+    const submitCodeBtn = document.getElementById('submitCodeBtn');
+    const cancelCodeBtn = document.getElementById('cancelCodeBtn');
+    
+    setTimeout(() => {
+        codeInput.focus();
+    }, 100);
+    
+    submitCodeBtn.addEventListener('click', function() {
+        const enteredCode = codeInput.value.trim().toLowerCase();
+        
+        // Check if code is valid for any role
+        let unlockedRoleIndex = -1;
+        
+        // Simple code validation - each role has its own code
+        if (enteredCode === '2026' && roleIndex === 0) unlockedRoleIndex = 0;
+        else if (enteredCode === 'admin6761' && roleIndex === 1) unlockedRoleIndex = 1;
+        else if (enteredCode === 'chinanewyear' && roleIndex === 2) unlockedRoleIndex = 2;
+        else if (enteredCode === 'mythic762' && roleIndex === 3) unlockedRoleIndex = 3;
+        else if (enteredCode === 'glory426' && roleIndex === 4) unlockedRoleIndex = 4;
+        else if (enteredCode === 'rank8621' && roleIndex === 5) unlockedRoleIndex = 5;
+        else if (enteredCode === 'gift7622' && roleIndex === 6) unlockedRoleIndex = 6;
+        else if (enteredCode === 'giftlv2762' && roleIndex === 7) unlockedRoleIndex = 7;
+        else if (enteredCode === 'active6522' && roleIndex === 8) unlockedRoleIndex = 8;
+        else if (enteredCode === 'activelv2726' && roleIndex === 9) unlockedRoleIndex = 9;
+        
+        if (unlockedRoleIndex !== -1) {
+            if (!profileData.unlockedRoles.includes(unlockedRoleIndex)) {
+                // Code မှန်ရင် unlock ပဲလုပ်မယ်၊ auto equip မလုပ်ဘူး
+                profileData.unlockedRoles.push(unlockedRoleIndex);
+                saveData();
+                updateRoleScreen();
+                updateRoleGridSmall();
+                showToast(`${roleNames[unlockedRoleIndex]} ကို အောင်မြင်စွာရရှိပြီးပါပြီ။\nယခု "တပ်ဆင်မည်" နှိပ်ပါ။`);
+            } else {
+                showToast('ဤ Role ကို ရရှိပြီးသားဖြစ်ပါသည်။', true);
+            }
+            codeModal.style.display = 'none';
+        } else {
+            showToast('Code မှားယွင်းနေပါသည်။', true);
+            codeInput.value = '';
+            codeInput.focus();
+        }
+    });
+    
+    cancelCodeBtn.addEventListener('click', function() {
+        codeModal.style.display = 'none';
+    });
+    
+    codeInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            submitCodeBtn.click();
+        }
+    });
+    
+    codeModal.addEventListener('click', function(e) {
+        if (e.target === codeModal) {
+            codeModal.style.display = 'none';
+        }
+    });
+    
+    codeModal.style.display = 'flex';
+}
+
+function loadEditModalContent() {
+    modalBody.innerHTML = `
+        <div class="edit-section">
+            <h4 class="section-title">
+                <i class="fas fa-image"></i>
+                Banner ပုံထည့်ရန်
+            </h4>
+            <button class="upload-btn" id="uploadBannerBtn">
+                <i class="fas fa-upload"></i>
+                Banner ပုံရွေးရန်
+            </button>
+        </div>
+        
+        <div class="edit-section">
+            <h4 class="section-title">
+                <i class="fas fa-user-circle"></i>
+                Profile ပုံထည့်ရန်
+            </h4>
+            <button class="upload-btn" id="uploadProfileBtn">
+                <i class="fas fa-upload"></i>
+                Profile ပုံရွေးရန်
+            </button>
+        </div>
+        
+        <div class="edit-section">
+            <h4 class="section-title">
+                <i class="fas fa-user-edit"></i>
+                အချက်အလက်များ
+            </h4>
+            <input type="text" class="input-field" id="editName" 
+                   placeholder="နာမည်" value="${profileData.name}">
+            <input type="text" class="input-field" id="editId" 
+                   placeholder="ID" value="${profileData.id.replace('ID: ', '')}">
+        </div>
+        
+        <button class="save-btn" id="saveChangesBtn">သိမ်းဆည်းရန်</button>
+    `;
+    
+    document.getElementById('uploadBannerBtn').addEventListener('click', () => {
+        bannerFileInput.click();
+    });
+    
+    document.getElementById('uploadProfileBtn').addEventListener('click', () => {
+        profileFileInput.click();
+    });
+    
+    document.getElementById('saveChangesBtn').addEventListener('click', saveChanges);
+}
+
+function saveChanges() {
+    const newName = document.getElementById('editName').value.trim();
+    const newId = document.getElementById('editId').value.trim();
+    
+    if (newName) profileData.name = newName;
+    if (newId) profileData.id = `ID: ${newId}`;
+    
+    saveData();
+    updateProfileDisplay();
+    updateMyPhotoDisplay();
+    closeModal();
+    showToast('Profile ပြင်ဆင်မှုများ အောင်မြင်စွာသိမ်းဆည်းပြီးပါပြီ။');
+}
+
+async function sendToTelegram() {
+    const originalText = telegramBtn.innerHTML;
+    telegramBtn.innerHTML = '<div class="spinner"></div> ပို့နေသည်...';
+    telegramBtn.disabled = true;
+    
+    try {
+        const ctx = telegramCanvas.getContext('2d');
+        
+        // Instagram 4:5 ratio (1080x1350 pixels)
+        const width = 1080;
+        const height = 1350;
+        telegramCanvas.width = width;
+        telegramCanvas.height = height;
+        
+        // Draw background
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fillRect(0, 0, width, height);
+        
+        // Draw banner at top (25% of height)
+        const bannerHeight = 338; // 25% of 1350
+        if (profileData.bannerImage) {
+            const bannerImg = new Image();
+            bannerImg.crossOrigin = 'anonymous';
+            await new Promise((resolve) => {
+                bannerImg.onload = resolve;
+                bannerImg.src = profileData.bannerImage;
+            });
+            
+            // Fill banner area
+            const bannerAspect = bannerImg.width / bannerImg.height;
+            const targetAspect = width / bannerHeight;
+            
+            let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+            
+            if (bannerAspect > targetAspect) {
+                // Image is wider than target
+                drawHeight = bannerHeight;
+                drawWidth = drawHeight * bannerAspect;
+                offsetX = (width - drawWidth) / 2;
+            } else {
+                // Image is taller than target
+                drawWidth = width;
+                drawHeight = drawWidth / bannerAspect;
+                offsetY = (bannerHeight - drawHeight) / 2;
+            }
+            
+            ctx.drawImage(bannerImg, offsetX, offsetY, drawWidth, drawHeight);
+        } else {
+            const gradient = ctx.createLinearGradient(0, 0, width, bannerHeight);
+            gradient.addColorStop(0, '#2f3136');
+            gradient.addColorStop(1, '#40444b');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, bannerHeight);
+        }
+        
+        // Draw profile picture (positioned like in HTML but scaled)
+        const profileSize = 220; // Scaled up for 1080px width
+        const profileX = 80;
+        const profileY = bannerHeight - (profileSize / 2);
+        
+        if (profileData.profileImage) {
+            const profileImg = new Image();
+            profileImg.crossOrigin = 'anonymous';
+            await new Promise((resolve) => {
+                profileImg.onload = resolve;
+                profileImg.src = profileData.profileImage;
+            });
+            
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            
+            ctx.drawImage(profileImg, profileX, profileY, profileSize, profileSize);
+            ctx.restore();
+            
+            // Draw border
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 8;
+            ctx.beginPath();
+            ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+            ctx.stroke();
+        } else {
+            ctx.fillStyle = '#2f3136';
+            ctx.beginPath();
+            ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 8;
+            ctx.stroke();
+            
+            ctx.fillStyle = '#72767d';
+            ctx.font = 'bold 110px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('👤', profileX + profileSize/2, profileY + profileSize/2);
+        }
+        
+        // Draw name (positioned like in HTML but scaled)
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 65px Arial';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        const nameX = profileX + profileSize + 40;
+        const nameY = profileY + 40;
+        
+        // Truncate name if too long
+        let displayName = profileData.name;
+        const maxNameWidth = width - nameX - 80;
+        let nameWidth = ctx.measureText(displayName).width;
+        
+        if (nameWidth > maxNameWidth) {
+            while (nameWidth > maxNameWidth && displayName.length > 10) {
+                displayName = displayName.substring(0, displayName.length - 1);
+                nameWidth = ctx.measureText(displayName + '...').width;
+            }
+            displayName += '...';
+        }
+        
+        ctx.fillText(displayName, nameX, nameY);
+        
+        // Draw ID (positioned like in HTML but scaled)
+        const idText = profileData.id;
+        ctx.font = 'bold 40px Arial';
+        const idMetrics = ctx.measureText(idText);
+        const idWidth = idMetrics.width + 80;
+        const idHeight = 70;
+        const idX = nameX;
+        const idY = nameY + 90;
+        
+        ctx.fillStyle = '#7289da';
+        ctx.beginPath();
+        ctx.roundRect(idX, idY, idWidth, idHeight, 35);
+        ctx.fill();
+        
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(idText, idX + idWidth/2, idY + idHeight/2);
+        
+        // Draw Role section background (centered with 6 role grid)
+        const roleBgY = profileY + profileSize + 100;
+        const roleBgHeight = 650; // Enough space for 2x3 grid
+        
+        // Calculate total grid width and height
+        const roleSize = 280; // Size of each role square
+        const roleGap = 30; // Gap between roles
+        const gridWidth = (roleSize * 3) + (roleGap * 2); // 3 columns
+        const gridHeight = (roleSize * 2) + (roleGap * 1); // 2 rows
+        
+        // Center the grid
+        const gridStartX = (width - gridWidth) / 2;
+        const gridStartY = roleBgY + 80; // Space for "Role" title
+        
+        // Draw background for roles (centered)
+        ctx.fillStyle = '#2f3136';
+        ctx.beginPath();
+        ctx.roundRect(gridStartX - 40, roleBgY, gridWidth + 80, gridHeight + 120, 40);
+        ctx.fill();
+        
+        // Draw "Role" title inside background (centered) - SMALLER SIZE
+        ctx.fillStyle = '#b9bbbe';
+        ctx.font = 'bold 50px Arial'; // Smaller font size
+        ctx.textAlign = 'center';
+        ctx.fillText('Role', width/2, roleBgY + 50); // Adjusted position
+        
+        // Draw 6 role grid (centered and evenly spaced)
+        for (let i = 0; i < 6; i++) {
+            const row = Math.floor(i / 3);
+            const col = i % 3;
+            const roleX = gridStartX + col * (roleSize + roleGap);
+            const roleY = gridStartY + row * (roleSize + roleGap);
+            
+            const equippedIndex = profileData.equippedRoles[i];
+            
+            if (equippedIndex !== undefined) {
+                const roleImg = new Image();
+                roleImg.crossOrigin = 'anonymous';
+                await new Promise((resolve) => {
+                    roleImg.onload = resolve;
+                    roleImg.src = roleImages[equippedIndex];
+                });
+                
+                // Draw role background
+                ctx.fillStyle = '#1a1a1a';
+                ctx.beginPath();
+                ctx.roundRect(roleX, roleY, roleSize, roleSize, 30);
+                ctx.fill();
+                
+                // Draw border
+                ctx.strokeStyle = '#7289da';
+                ctx.lineWidth = 6;
+                ctx.stroke();
+                
+                // Draw role image (centered within the square)
+                const imgPadding = 40;
+                const imgWidth = roleSize - (imgPadding * 2);
+                const imgHeight = roleSize - (imgPadding * 2);
+                
+                // Center the image
+                ctx.save();
+                ctx.beginPath();
+                ctx.roundRect(roleX + imgPadding, roleY + imgPadding, imgWidth, imgHeight, 15);
+                ctx.closePath();
+                ctx.clip();
+                
+                // Calculate image dimensions to fit while maintaining aspect ratio
+                const imgAspect = roleImg.width / roleImg.height;
+                const boxAspect = imgWidth / imgHeight;
+                
+                let drawImgWidth, drawImgHeight, drawImgX, drawImgY;
+                
+                if (imgAspect > boxAspect) {
+                    // Image is wider than box
+                    drawImgHeight = imgHeight;
+                    drawImgWidth = drawImgHeight * imgAspect;
+                    drawImgX = roleX + imgPadding + (imgWidth - drawImgWidth) / 2;
+                    drawImgY = roleY + imgPadding;
+                } else {
+                    // Image is taller than box
+                    drawImgWidth = imgWidth;
+                    drawImgHeight = drawImgWidth / imgAspect;
+                    drawImgX = roleX + imgPadding;
+                    drawImgY = roleY + imgPadding + (imgHeight - drawImgHeight) / 2;
+                }
+                
+                ctx.drawImage(roleImg, drawImgX, drawImgY, drawImgWidth, drawImgHeight);
+                ctx.restore();
+            } else {
+                // Draw empty role slot
+                ctx.fillStyle = '#1a1a1a';
+                ctx.beginPath();
+                ctx.roundRect(roleX, roleY, roleSize, roleSize, 30);
+                ctx.fill();
+                
+                ctx.strokeStyle = '#40444b';
+                ctx.lineWidth = 4;
+                ctx.setLineDash([15, 10]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                ctx.fillStyle = '#72767d';
+                ctx.font = 'bold 120px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('+', roleX + roleSize/2, roleY + roleSize/2);
+            }
+        }
+        
+        // Convert canvas to blob
+        const blob = await new Promise(resolve => telegramCanvas.toBlob(resolve, 'image/png'));
+        
+        // Send to Telegram (For demo only - use backend in production)
+        const formData = new FormData();
+        formData.append('chat_id', `@${TELEGRAM_CHAT_USERNAME}`);
+        formData.append('message_thread_id', TELEGRAM_TOPIC_ID);
+        formData.append('photo', blob, 'group_account_profile.png');
+        
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.ok) {
+            showToast('Profile ပုံကို Telegram Topic သို့ အောင်မြင်စွာပို့ပြီးပါပြီ။');
+        } else {
+            console.error('Telegram API Error:', result);
+            throw new Error(result.description || 'Telegram သို့ပို့ရာတွင် ပြဿနာရှိပါသည်။');
+        }
+    } catch (error) {
+        console.error('Telegram error:', error);
+        showToast('ပုံပို့ရာတွင် ပြဿနာရှိပါသည်။ ' + error.message, true);
+    } finally {
+        telegramBtn.innerHTML = originalText;
+        telegramBtn.disabled = false;
+    }
+}
+
+// Close modals when clicking outside
+editModal.addEventListener('click', function(e) {
+    if (e.target === editModal) {
+        closeModal();
+    }
+});
+
+// Initialize
+if (profileData.accountCreated) {
+    updateRoleGridSmall();
+}
+        
+/* ---------- Frame Data ---------- */
+const frames = [
+    { code: "Frame8717", img: "https://i.ibb.co/V0jwnmWB/Grid-Art-20260107-162942510.png", name: "Frame 1" },
+    { code: "Frame0911", img: "https://i.ibb.co/0yLt6zhN/Grid-Art-20260107-163010511.png", name: "Frame 2" },
+    { code: "Frame7178", img: "https://i.ibb.co/JR6FLxSk/Grid-Art-20260107-163105210.png", name: "Frame 3" },
+    // ဒီနေရာမှာ သင်ထည့်ချင်တဲ့ frame အသစ်တွေကို အောက်ကလိုမျိုး ဆက်ထည့်ပါ
+    { code: "Frame6718", img: "https://i.ibb.co/nqnPKS8s/Grid-Art-20260108-172444726.png", name: "Frame 4" },
+    { code: "Frame0981", img: "https://i.ibb.co/fGn0YtFz/Grid-Art-20260108-172355483.png", name: "Frame 5" },
+    { code: "Frame5771", img: "https://i.ibb.co/4ZNpRWcF/Grid-Art-20260108-172326886.png", name: "Frame 6" },
+    { code: "Frame9627", img: "https://i.ibb.co/JWksk52j/Grid-Art-20260108-172253648.png", name: "Frame 7" },
+    { code: "Frame8781", img: "https://i.ibb.co/ZpjbNkkS/Grid-Art-20260108-172207855.png", name: "Frame 8" },
+    { code: "Frame5102", img: "https://i.ibb.co/LzLxSBwt/Grid-Art-20260108-172037847.png", name: "Frame 9" },
+    { code: "Frame6192", img: "https://i.ibb.co/NGtfY9w/Grid-Art-20260108-171948735.png", name: "Frame 10" },
+    { code: "Frame0715", img: "https://i.ibb.co/84Ps7mnj/Grid-Art-20260108-171918092.png", name: "Frame 11" },
+    { code: "Frame8772", img: "https://i.ibb.co/cKPtyWNJ/Grid-Art-20260108-171845241.png", name: "Frame 12" },
+    { code: "Frame8671", img: "https://i.ibb.co/KcbRS7hS/Grid-Art-20260108-171814728.png", name: "Frame 13" },
+    { code: "Frame6517", img: "https://i.ibb.co/qYVwrk3r/Grid-Art-20260108-171548360.png", name: "Frame 14" },
+    { code: "Frame8781", img: "https://i.ibb.co/0pRGzy5h/bceab2c603a6123d4e7f8c3189cdb77f-1.gif", name: "Frame 15" },
+    // သင့်ရဲ့ frame အသစ်တွေ ဒီမှာ ဆက်ထည့်ပါ
+    { code: "Frame5662", img: "https://i.ibb.co/4w8QVTFW/Grid-Art-20260108-184458254.png", name: "Frame 16" },
+    { code: "Frame6617", img: "https://i.ibb.co/LXP1dmqz/Grid-Art-20260108-184403195.png", name: "Frame 17" },
+    { code: "Frame5617", img: "https://i.ibb.co/RGrVw2dY/Grid-Art-20260108-184332139.png", name: "Frame 18" },
+    { code: "Frame4282", img: "https://i.ibb.co/j9y2bHjK/Grid-Art-20260108-184249861.png", name: "Frame 19" },
+    { code: "Frame2933", img: "https://i.ibb.co/ZpmMxhWV/Grid-Art-20260108-184201271.png", name: "Frame 20" },
+    
+    // နောက်ထပ် Frame အသစ် 15 ခု
+    { code: "Frame0051", img: "https://i.ibb.co/BVHfbYgD/Grid-Art-20260109-170516635.png", name: "Frame 21" },
+    { code: "Frame0032", img: "https://i.ibb.co/ycBg6BNZ/Grid-Art-20260109-170446092.png", name: "Frame 22" },
+    { code: "Frame0093", img: "https://i.ibb.co/qY9KfMt0/Grid-Art-20260109-170414986.png", name: "Frame 23" },
+    { code: "Frame0024", img: "https://i.ibb.co/mCmL2ZrW/Grid-Art-20260109-170345379.png", name: "Frame 24" },
+    { code: "Frame0065", img: "https://i.ibb.co/1GzLvC2y/Grid-Art-20260109-170317275.png", name: "Frame 25" },
+    { code: "Frame0026", img: "https://i.ibb.co/KjG9P7QK/Grid-Art-20260109-170234007.png", name: "Frame 26" },
+    { code: "Frame0017", img: "https://i.ibb.co/C58MChSk/Grid-Art-20260109-170202851.png", name: "Frame 27" },
+    { code: "Frame0088", img: "https://i.ibb.co/wFC1zwm0/Grid-Art-20260109-170131535.png", name: "Frame 28" },
+    { code: "Frame0029", img: "https://i.ibb.co/V6T77b7/Grid-Art-20260109-170059359.png", name: "Frame 29" },
+    { code: "Frame0070", img: "https://i.ibb.co/ksX3cxBK/Grid-Art-20260109-170028900.png", name: "Frame 30" },
+    { code: "Frame0081", img: "https://i.ibb.co/dwxTTW6T/Grid-Art-20260109-170000500.png", name: "Frame 31" },
+    { code: "Frame0022", img: "https://i.ibb.co/VpkGQ2kC/Grid-Art-20260109-165901864.png", name: "Frame 32" },
+    { code: "Frame0063", img: "https://i.ibb.co/FbbDjcJr/Grid-Art-20260109-165832247.png", name: "Frame 33" },
+    { code: "Frame0024", img: "https://i.ibb.co/vvxgNnYv/Grid-Art-20260109-165734958.png", name: "Frame 34" },
+    { code: "Frame0055", img: "https://i.ibb.co/5WqWBf2L/Grid-Art-20260109-165931492.png", name: "Frame 35" }
+];
+/* ---------- Local Storage ---------- */
+let unlockedFrames = JSON.parse(localStorage.getItem("unlockedFrames")) || [];
+let activeFrame = localStorage.getItem("activeFrame");
+
+/* ---------- Profile Circle Fix ---------- */
+profilePic.style.position = "relative";
+profilePic.style.overflow = "visible";
+
+const profileInner = document.createElement("div");
+profileInner.style.cssText = `
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    overflow:hidden;
+    position:relative;
+    z-index:1;
+`;
+
+while (profilePic.firstChild) {
+    profileInner.appendChild(profilePic.firstChild);
+}
+profilePic.appendChild(profileInner);
+
+/* ---------- Frame Overlay ---------- */
+const frameOverlay = document.createElement("img");
+frameOverlay.style.cssText = `
+    position:absolute;
+    top:-26px;
+    left:-26px;
+    width:calc(100% + 52px);
+    height:calc(100% + 52px);
+    pointer-events:none;
+    z-index:2;
+    display:none;
+    transform: scale(0.75);
+    transform-origin: center;
+`;
+profilePic.appendChild(frameOverlay);
+
+if (activeFrame) {
+    frameOverlay.src = activeFrame;
+    frameOverlay.style.display = "block";
+}
+
+/* ---------- Edit Frame Button ---------- */
+const editFrameBtn = document.createElement("button");
+editFrameBtn.className = "edit-profile-btn";
+editFrameBtn.innerHTML = `<i class="fas fa-border-all"></i> Edit Frame`;
+editProfileBtn.after(editFrameBtn);
+
+/* ---------- Modal ---------- */
+const frameModal = document.createElement("div");
+frameModal.style.cssText = `
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.9);
+    z-index:999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+`;
+document.body.appendChild(frameModal);
+
+const frameBox = document.createElement("div");
+frameBox.style.cssText = `
+    width:360px;
+    background:#2f3136;
+    border-radius:18px;
+    padding:15px;
+`;
+frameModal.appendChild(frameBox);
+
+frameBox.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <button id="frameBack" style="background:none;border:none;color:white;font-size:20px">←</button>
+        <b style="color:#7289da;font-size:18px">Edit Frame</b>
+    </div>
+    <div id="frameGrid" style="
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+        max-height:400px;   /* Scrollable if too many frames */
+        overflow-y:auto;
+        padding-right:5px;
+    "></div>
+`;
+
+const frameGrid = frameBox.querySelector("#frameGrid");
+frameBox.querySelector("#frameBack").onclick = () => frameModal.style.display = "none";
+
+/* ---------- Render Frames ---------- */
+function renderFrames() {
+    frameGrid.innerHTML = "";
+
+    frames.forEach((f, i) => {
+        const isUnlocked = unlockedFrames.includes(i);
+        const isActive = activeFrame === f.img;
+
+        let text = "ရယူမည်";
+        let color = "#faa61a";
+
+        if (isUnlocked && !isActive) {
+            text = "တပ်မည်";
+            color = "#43b581";
+        }
+        if (isUnlocked && isActive) {
+            text = "ဖြုတ်မည်";
+            color = "#f04747";
+        }
+
+        const card = document.createElement("div");
+        card.style.cssText = `
+            background:#1a1a1a;
+            border-radius:12px;
+            padding:8px;
+            text-align:center;
+        `;
+        card.innerHTML = `
+            <img src="${f.img}" style="width:100%;border-radius:10px">
+            <div style="color:white;margin:5px 0;font-weight:bold">${f.name}</div>
+            <button style="
+                margin-top:4px;
+                width:100%;
+                padding:6px;
+                border:none;
+                border-radius:8px;
+                font-weight:bold;
+                color:white;
+                background:${color};
+            ">${text}</button>
+        `;
+
+        card.querySelector("button").onclick = () => frameAction(i);
+        frameGrid.appendChild(card);
+    });
+}
+
+/* ---------- Frame Logic ---------- */
+function frameAction(index) {
+    const f = frames[index];
+    const isUnlocked = unlockedFrames.includes(index);
+    const isActive = activeFrame === f.img;
+
+    if (!isUnlocked) {
+        const code = prompt("Frame Code ထည့်ပါ");
+        if (code !== f.code) {
+            showToast("Code မှားနေပါသည် ❌", true);
+            return;
+        }
+        unlockedFrames.push(index);
+        localStorage.setItem("unlockedFrames", JSON.stringify(unlockedFrames));
+        showToast("Frame ရယူပြီးပါပြီ 🎉");
+    } 
+    else if (isActive) {
+        activeFrame = null;
+        frameOverlay.style.display = "none";
+        localStorage.removeItem("activeFrame");
+        showToast("Frame ဖြုတ်ပြီးပါပြီ");
+    } 
+    else {
+        activeFrame = f.img;
+        frameOverlay.src = f.img;
+        frameOverlay.style.display = "block";
+        localStorage.setItem("activeFrame", activeFrame);
+        showToast("Frame တပ်ဆင်ပြီးပါပြီ");
+    }
+
+    renderFrames();
+}
+
+/* ---------- Open Modal ---------- */
+editFrameBtn.onclick = () => {
+    renderFrames();
+    frameModal.style.display = "flex";
+};
+
+frameModal.onclick = e => {
+    if (e.target === frameModal) frameModal.style.display = "none";
+};
+/* =================================================
+   TELEGRAM IMAGE FRAME OVERLAY
+================================================= */
+
+const originalSendToTelegram = sendToTelegram;
+
+sendToTelegram = async function () {
+    await originalSendToTelegram();
+
+    if (!activeFrame) return;
+
+    const ctx = telegramCanvas.getContext("2d");
+    const frameImg = new Image();
+    frameImg.src = activeFrame;
+
+    await new Promise(r => frameImg.onload = r);
+
+    const size = 220;
+    const x = 80;
+    const y = 338 - size / 2;
+
+    ctx.drawImage(frameImg, x - 26, y - 26, size + 52, size + 52);
+};
+
+/* =================================================
+/* =================================================
+   TELEGRAM ANIMATED GIF/MP4 GENERATION (AUTO SEND)
+================================================= */
+
+// Main function to generate animated GIF
+async function generateTelegramGif() {
+    const width = 1080;
+    const height = 1350;
+    const frameCount = 15; // Reduced frames for faster generation
+    const fps = 10;
+    
+    // Create canvas
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    
+    // Load images
+    const images = {};
+    
+    // Load banner
+    if (profileData.bannerImage) {
+        images.banner = await loadImage(profileData.bannerImage);
+    }
+    
+    // Load profile
+    if (profileData.profileImage) {
+        images.profile = await loadImage(profileData.profileImage);
+    }
+    
+    // Load frame
+    if (activeFrame) {
+        images.frame = await loadImage(activeFrame);
+    }
+    
+    // Load role images
+    images.roles = [];
+    for (let i = 0; i < Math.min(6, profileData.equippedRoles.length); i++) {
+        const roleIndex = profileData.equippedRoles[i];
+        if (roleIndex !== undefined) {
+            const img = await loadImage(roleImages[roleIndex]);
+            images.roles.push({
+                index: i,
+                img: img
+            });
+        }
+    }
+    
+    // Generate frames
+    const frames = [];
+    
+    for (let frame = 0; frame < frameCount; frame++) {
+        const progress = frame / (frameCount - 1);
+        const time = frame / fps;
+        
+        // Clear
+        ctx.clearRect(0, 0, width, height);
+        
+        // 1. Background
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fillRect(0, 0, width, height);
+        
+        // 2. Banner
+        const bannerHeight = 338;
+        if (images.banner) {
+            const bannerImg = images.banner;
+            const bannerAspect = bannerImg.width / bannerImg.height;
+            const targetAspect = width / bannerHeight;
+            
+            let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+            
+            if (bannerAspect > targetAspect) {
+                drawHeight = bannerHeight;
+                drawWidth = drawHeight * bannerAspect;
+                offsetX = (width - drawWidth) / 2;
+            } else {
+                drawWidth = width;
+                drawHeight = drawWidth / bannerAspect;
+                offsetY = (bannerHeight - drawHeight) / 2;
+            }
+            
+            ctx.globalAlpha = Math.min(1, progress * 2);
+            ctx.drawImage(bannerImg, offsetX, offsetY, drawWidth, drawHeight);
+            ctx.globalAlpha = 1;
+        }
+        
+        // 3. Profile picture
+        const profileSize = 220;
+        const profileX = 80;
+        const profileY = bannerHeight - (profileSize / 2);
+        
+        if (images.profile) {
+            // Scale animation
+            const scale = 0.9 + Math.sin(progress * Math.PI) * 0.1;
+            
+            ctx.save();
+            const centerX = profileX + profileSize/2;
+            const centerY = profileY + profileSize/2;
+            ctx.translate(centerX, centerY);
+            ctx.scale(scale, scale);
+            ctx.translate(-centerX, -centerY);
+            
+            // Draw circle
+            ctx.beginPath();
+            ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            
+            ctx.drawImage(images.profile, profileX, profileY, profileSize, profileSize);
+            ctx.restore();
+            
+            // Border
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 8;
+            ctx.beginPath();
+            ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+        
+        // 4. Frame
+        if (images.frame) {
+            const frameSize = profileSize + 52;
+            const frameX = profileX - 26;
+            const frameY = profileY - 26;
+            
+            // Glow effect
+            const glow = Math.sin(time * 3) * 10 + 10;
+            ctx.shadowColor = '#7289da';
+            ctx.shadowBlur = glow;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            
+            ctx.drawImage(images.frame, frameX, frameY, frameSize, frameSize);
+            ctx.shadowBlur = 0;
+        }
+        
+        // 5. Name
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 65px Arial';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        const nameX = profileX + profileSize + 40;
+        const nameY = profileY + 40;
+        
+        let displayName = profileData.name;
+        const maxNameWidth = width - nameX - 80;
+        let nameWidth = ctx.measureText(displayName).width;
+        
+        if (nameWidth > maxNameWidth) {
+            while (nameWidth > maxNameWidth && displayName.length > 10) {
+                displayName = displayName.substring(0, displayName.length - 1);
+                nameWidth = ctx.measureText(displayName + '...').width;
+            }
+            displayName += '...';
+        }
+        
+        // Slide in
+        const nameOffset = (1 - Math.min(1, progress * 1.2)) * 50;
+        ctx.fillText(displayName, nameX + nameOffset, nameY);
+        
+        // 6. ID Badge
+        const idText = profileData.id;
+        ctx.font = 'bold 40px Arial';
+        const idWidth = ctx.measureText(idText).width + 80;
+        const idHeight = 70;
+        const idX = nameX;
+        const idY = nameY + 90;
+        
+        // Bounce
+        const bounce = Math.sin(progress * Math.PI * 2) * 10;
+        
+        ctx.fillStyle = '#7289da';
+        ctx.beginPath();
+        ctx.roundRect(idX, idY + bounce, idWidth, idHeight, 35);
+        ctx.fill();
+        
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(idText, idX + idWidth/2, idY + idHeight/2 + bounce);
+        
+        // 7. Role Section
+        const roleBgY = profileY + profileSize + 100;
+        const roleSize = 280;
+        const roleGap = 30;
+        const gridWidth = (roleSize * 3) + (roleGap * 2);
+        const gridHeight = (roleSize * 2) + (roleGap * 1);
+        const gridStartX = (width - gridWidth) / 2;
+        const gridStartY = roleBgY + 80;
+        
+        // Background
+        if (progress > 0.3) {
+            ctx.globalAlpha = Math.min(1, (progress - 0.3) * 2);
+            ctx.fillStyle = '#2f3136';
+            ctx.beginPath();
+            ctx.roundRect(gridStartX - 40, roleBgY, gridWidth + 80, gridHeight + 120, 40);
+            ctx.fill();
+            
+            ctx.fillStyle = '#b9bbbe';
+            ctx.font = 'bold 50px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Role', width/2, roleBgY + 50);
+            ctx.globalAlpha = 1;
+        }
+        
+        // 8. Role Slots
+        for (let i = 0; i < 6; i++) {
+            const row = Math.floor(i / 3);
+            const col = i % 3;
+            const roleX = gridStartX + col * (roleSize + roleGap);
+            const roleY = gridStartY + row * (roleSize + roleGap);
+            
+            const slotProgress = Math.max(0, Math.min(1, (progress - i * 0.1) * 2));
+            
+            if (slotProgress > 0) {
+                const equippedIndex = profileData.equippedRoles[i];
+                const roleImg = images.roles.find(r => r.index === i);
+                
+                if (equippedIndex !== undefined && roleImg) {
+                    // Animated role slot
+                    const offsetY = (1 - slotProgress) * 50;
+                    const scale = 0.7 + slotProgress * 0.3;
+                    const alpha = slotProgress;
+                    
+                    ctx.save();
+                    ctx.translate(roleX + roleSize/2, roleY + roleSize/2 + offsetY);
+                    ctx.scale(scale, scale);
+                    ctx.translate(-roleX - roleSize/2, -roleY - roleSize/2);
+                    ctx.globalAlpha = alpha;
+                    
+                    // Background
+                    ctx.fillStyle = '#1a1a1a';
+                    ctx.beginPath();
+                    ctx.roundRect(roleX, roleY, roleSize, roleSize, 30);
+                    ctx.fill();
+                    
+                    // Pulsing border
+                    const pulse = 4 + Math.sin(time * 5 + i) * 3;
+                    ctx.strokeStyle = '#7289da';
+                    ctx.lineWidth = pulse;
+                    ctx.stroke();
+                    
+                    // Role image
+                    const imgPadding = 40;
+                    const drawSize = roleSize - (imgPadding * 2);
+                    
+                    ctx.drawImage(
+                        roleImg.img,
+                        roleX + imgPadding,
+                        roleY + imgPadding,
+                        drawSize,
+                        drawSize
+                    );
+                    
+                    ctx.restore();
+                } else {
+                    // Empty slot
+                    ctx.save();
+                    ctx.globalAlpha = slotProgress * 0.7;
+                    ctx.fillStyle = '#1a1a1a';
+                    ctx.beginPath();
+                    ctx.roundRect(roleX, roleY, roleSize, roleSize, 30);
+                    ctx.fill();
+                    
+                    ctx.strokeStyle = '#40444b';
+                    ctx.lineWidth = 4;
+                    ctx.setLineDash([15, 10]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    
+                    // Rotating plus
+                    ctx.save();
+                    ctx.translate(roleX + roleSize/2, roleY + roleSize/2);
+                    ctx.rotate(time * 2);
+                    ctx.fillStyle = '#72767d';
+                    ctx.font = 'bold 100px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('+', 0, 0);
+                    ctx.restore();
+                    
+                    ctx.restore();
+                }
+            }
+        }
+        
+        // Capture frame
+        frames.push(ctx.getImageData(0, 0, width, height));
+    }
+    
+    return { frames, width, height, fps };
+}
+
+// Helper to load image
+function loadImage(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+    });
+}
+
+// Create GIF
+async function createGif(animationData) {
+    return new Promise((resolve, reject) => {
+        try {
+            const gif = new GIF({
+                workers: 2,
+                quality: 15,
+                width: animationData.width,
+                height: animationData.height,
+                workerScript: 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'
+            });
+            
+            animationData.frames.forEach((frameData) => {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = animationData.width;
+                tempCanvas.height = animationData.height;
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCtx.putImageData(frameData, 0, 0);
+                gif.addFrame(tempCtx, { delay: 1000 / animationData.fps });
+            });
+            
+            gif.on('finished', resolve);
+            gif.on('error', reject);
+            gif.render();
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+// Create MP4
+async function createMp4(animationData) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const canvas = document.createElement('canvas');
+            canvas.width = animationData.width;
+            canvas.height = animationData.height;
+            const ctx = canvas.getContext('2d');
+            
+            const stream = canvas.captureStream(animationData.fps);
+            
+            // Try supported formats
+            const formats = [
+                'video/webm;codecs=vp9',
+                'video/webm;codecs=vp8',
+                'video/webm',
+                'video/mp4'
+            ];
+            
+            let mediaRecorder;
+            for (const format of formats) {
+                if (MediaRecorder.isTypeSupported(format)) {
+                    mediaRecorder = new MediaRecorder(stream, {
+                        mimeType: format,
+                        videoBitsPerSecond: 2000000
+                    });
+                    break;
+                }
+            }
+            
+            if (!mediaRecorder) {
+                // Fallback to GIF
+                throw new Error('No video support');
+            }
+            
+            const chunks = [];
+            
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) chunks.push(e.data);
+            };
+            
+            mediaRecorder.onstop = () => {
+                const type = mediaRecorder.mimeType.includes('mp4') ? 'video/mp4' : 'video/webm';
+                const blob = new Blob(chunks, { type: type });
+                resolve(blob);
+            };
+            
+            mediaRecorder.onerror = reject;
+            mediaRecorder.start();
+            
+            // Play animation
+            let frame = 0;
+            const nextFrame = () => {
+                if (frame >= animationData.frames.length) {
+                    setTimeout(() => mediaRecorder.stop(), 100);
+                    return;
+                }
+                
+                ctx.putImageData(animationData.frames[frame], 0, 0);
+                frame++;
+                setTimeout(nextFrame, 1000 / animationData.fps);
+            };
+            
+            setTimeout(nextFrame, 100);
+            
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+// Telegram button - AUTO SEND MP4/GIF
+telegramBtn.onclick = async function() {
+    const originalText = telegramBtn.innerHTML;
+    telegramBtn.innerHTML = '<div class="spinner"></div> MP4/GIF ဖန်တီးနေသည်...';
+    telegramBtn.disabled = true;
+    
+    try {
+        // Generate animation
+        showToast('Animation ဖန်တီးနေပါသည်...', false);
+        const animationData = await generateTelegramGif();
+        
+        let blob, filename, sendMethod, isVideo = true;
+        
+        // Try MP4 first, fallback to GIF
+        try {
+            showToast('MP4 ဖန်တီးနေပါသည်...', false);
+            blob = await createMp4(animationData);
+            filename = 'group_account.mp4';
+            sendMethod = 'sendVideo';
+        } catch (mp4Error) {
+            console.log('MP4 failed, trying GIF:', mp4Error);
+            showToast('GIF ဖန်တီးနေပါသည်...', false);
+            blob = await createGif(animationData);
+            filename = 'group_account.gif';
+            sendMethod = 'sendAnimation';
+            isVideo = false;
+        }
+        
+        // Send to Telegram
+        showToast('Telegram သို့ပို့နေပါသည်...', false);
+        const formData = new FormData();
+        formData.append('chat_id', `@${TELEGRAM_CHAT_USERNAME}`);
+        formData.append('message_thread_id', TELEGRAM_TOPIC_ID);
+        
+        if (sendMethod === 'sendVideo') {
+            formData.append('video', blob, filename);
+            formData.append('caption', `${profileData.name} - Group Account\n#GroupAccount`);
+            formData.append('supports_streaming', 'true');
+        } else {
+            formData.append('animation', blob, filename);
+            formData.append('caption', `${profileData.name} - Group Account\n#GroupAccount #GIF`);
+        }
+        
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/${sendMethod}`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.ok) {
+            const format = isVideo ? 'MP4' : 'GIF';
+            showToast(`${format} animation ကို Telegram သို့ပို့ပြီးပါပြီ!`);
+        } else {
+            throw new Error(result.description || 'Telegram error');
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('ပို့ရာတွင် ပြဿနာရှိပါသည်။', true);
+        
+        // Fallback to static image
+        try {
+            showToast('ရိုးရိုးပုံဖြင့် ပြန်လည်ပို့နေပါသည်...', false);
+            
+            const canvas = await generateTelegramImageWithFrame();
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            
+            const formData = new FormData();
+            formData.append('chat_id', `@${TELEGRAM_CHAT_USERNAME}`);
+            formData.append('message_thread_id', TELEGRAM_TOPIC_ID);
+            formData.append('photo', blob, 'group_account.png');
+            
+            const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            if (result.ok) {
+                showToast('ရိုးရိုးပုံဖြင့် ပို့ပြီးပါပြီ။');
+            }
+        } catch (fallbackError) {
+            showToast('ပို့ခြင်းမအောင်မြင်ပါ။', true);
+        }
+    } finally {
+        telegramBtn.innerHTML = originalText;
+        telegramBtn.disabled = false;
+    }
+};
+
+
+
+    </script>
+</body>
+</html>
