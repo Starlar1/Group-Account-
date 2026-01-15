@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="my">
 <head>
 
@@ -2367,7 +2367,713 @@ telegramBtn.onclick = async function() {
     }
 };
 
+/* =================================================
+   ADVANCED LEVEL SYSTEM WITH TELEGRAM IMAGE
+================================================= */
 
+// Level configuration
+const LEVEL_CONFIG = {
+    maxLevel: 100,
+    xpRequirements: [
+        { levelRange: [0, 9], xpPerLevel: 100 },
+        { levelRange: [10, 19], xpPerLevel: 300 },
+        { levelRange: [20, 29], xpPerLevel: 500 },
+        { levelRange: [30, 49], xpPerLevel: 1000 },
+        { levelRange: [50, 99], xpPerLevel: 5000 }
+    ],
+    levelBackgrounds: [
+        { minLevel: 0, maxLevel: 9, image: "https://i.ibb.co/ZzXRggqp/Grid-Art-20260115-171858308.png" },
+        { minLevel: 10, maxLevel: 19, image: "https://i.ibb.co/chFgGYjd/Grid-Art-20260115-171927220.png" },
+        { minLevel: 20, maxLevel: 29, image: "https://i.ibb.co/Wv0dkwDC/Grid-Art-20260115-171957733.png" },
+        { minLevel: 30, maxLevel: 39, image: "https://i.ibb.co/CpMBnPmC/Grid-Art-20260115-172027942.png" },
+        { minLevel: 40, maxLevel: 49, image: "https://i.ibb.co/fKDTfPv/Grid-Art-20260115-172322469.png" },
+        { minLevel: 50, maxLevel: 59, image: "https://i.ibb.co/XZpBMhzw/Grid-Art-20260115-172058901.png" },
+        { minLevel: 60, maxLevel: 69, image: "https://i.ibb.co/NnHx8HND/Grid-Art-20260115-172126359.png" },
+        { minLevel: 70, maxLevel: 79, image: "https://i.ibb.co/rK2zJs2W/Grid-Art-20260115-172206655.png" },
+        { minLevel: 80, maxLevel: 89, image: "https://i.ibb.co/7dZCs27s/Grid-Art-20260115-172354596.png" },
+        { minLevel: 90, maxLevel: 100, image: "https://i.ibb.co/4gsKb1bN/Grid-Art-20260115-172424434.png" }
+    ],
+    rankPngs: {
+        0: "https://i.ibb.co/ZzXRggqp/Grid-Art-20260115-171858308.png",
+        10: "https://i.ibb.co/chFgGYjd/Grid-Art-20260115-171927220.png",
+        20: "https://i.ibb.co/Wv0dkwDC/Grid-Art-20260115-171957733.png",
+        30: "https://i.ibb.co/CpMBnPmC/Grid-Art-20260115-172027942.png",
+        40: "https://i.ibb.co/fKDTfPv/Grid-Art-20260115-172322469.png",
+        50: "https://i.ibb.co/XZpBMhzw/Grid-Art-20260115-172058901.png",
+        60: "https://i.ibb.co/NnHx8HND/Grid-Art-20260115-172126359.png",
+        70: "https://i.ibb.co/rK2zJs2W/Grid-Art-20260115-172206655.png",
+        80: "https://i.ibb.co/7dZCs27s/Grid-Art-20260115-172354596.png",
+        90: "https://i.ibb.co/4gsKb1bN/Grid-Art-20260115-172424434.png"
+    },
+    cooldowns: {
+        xp50: 1 * 60 * 60 * 1000,
+        xp100: 5 * 60 * 60 * 1000,
+        xp300: 24 * 60 * 60 * 1000
+    }
+};
+
+// Level data structure
+let levelData = {
+    level: 0,
+    xp: 0,
+    lastClaim: {
+        xp50: 0,
+        xp100: 0,
+        xp300: 0
+    },
+    customBackground: null
+};
+
+// Create Level Screen Button
+function createLevelScreenButton() {
+    const existingLevelButtons = document.getElementById('levelButtons');
+    if (existingLevelButtons) existingLevelButtons.remove();
+    
+    const buttonContainer = document.querySelector('.button-container');
+    const levelViewBtn = document.createElement('button');
+    levelViewBtn.className = 'telegram-btn';
+    levelViewBtn.id = 'levelViewBtn';
+    levelViewBtn.innerHTML = '<i class="fas fa-chart-line"></i> Level ကြည့်မယ်';
+    levelViewBtn.style.background = '#faa61a';
+    levelViewBtn.style.marginTop = '8px';
+    
+    buttonContainer.appendChild(levelViewBtn);
+    levelViewBtn.addEventListener('click', showLevelScreen);
+}
+
+// Create Level Screen
+function createLevelScreen() {
+    const existingLevelScreen = document.getElementById('levelScreen');
+    if (existingLevelScreen) existingLevelScreen.remove();
+    
+    const levelScreen = document.createElement('div');
+    levelScreen.id = 'levelScreen';
+    levelScreen.className = 'level-screen';
+    levelScreen.style.cssText = `
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #0a0a0a;
+        z-index: 1000;
+        overflow-y: auto;
+    `;
+    
+    levelScreen.innerHTML = `
+        <div style="padding: 20px; background: #1a1a1a; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 10;">
+            <button id="backFromLevelBtn" style="background: transparent; color: white; border: none; font-size: 1.3rem; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;"><i class="fas fa-arrow-left"></i></button>
+            <h2 style="color: #7289da; font-size: 1.2rem;">Level Screen</h2>
+        </div>
+        
+        <div style="padding: 20px; margin-bottom: 20px;">
+            <div style="background: #1a1a1a; border-radius: 15px; padding: 20px; text-align: center;">
+                <div id="currentLevelBadge" style="font-size: 2.5rem; color: #7289da; font-weight: bold; margin-bottom: 10px;">Level 0</div>
+                <div id="levelProgressText" style="color: #43b581; font-size: 1.2rem; margin-bottom: 20px;">0 / 100 XP</div>
+                
+                <div style="width: 100%; height: 20px; background: #2f3136; border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
+                    <div id="levelProgressBar" style="height: 100%; background: linear-gradient(90deg, #43b581, #7289da); width: 0%; border-radius: 10px; transition: width 0.5s ease;"></div>
+                </div>
+                
+                <div id="levelBgPreview" style="width: 100%; height: 200px; background: #2f3136; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 15px; position: relative;">
+                    <div id="levelBgOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 1.5rem; font-weight: bold;" id="bgLevelDisplay">Level 0</div>
+                            <div style="font-size: 0.9rem; color: #b9bbbe;">Current Level Background</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="color: #b9bbbe; font-size: 0.9rem; margin-top: 10px;">
+                    Next background at: <span id="nextLevelThreshold" style="color: #faa61a; font-weight: bold;">Level 10</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="padding: 0 20px 20px; display: flex; flex-direction: column; gap: 10px;">
+            <button id="editLevelBgBtn" style="width: 100%; background: #7289da; color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <i class="fas fa-edit"></i> Edit Background
+            </button>
+            
+            <button id="earnXpBtn" style="width: 100%; background: #43b581; color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <i class="fas fa-bolt"></i> Level ရယူမည်
+            </button>
+            
+            <button id="sendLevelToTgBtn" style="width: 100%; background: #0088cc; color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <i class="fab fa-telegram"></i> Telegram သို့ပို့မည်
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(levelScreen);
+    document.getElementById('backFromLevelBtn').addEventListener('click', hideLevelScreen);
+    document.getElementById('editLevelBgBtn').addEventListener('click', showEditBackgroundScreen);
+    document.getElementById('earnXpBtn').addEventListener('click', showEarnXpScreen);
+    document.getElementById('sendLevelToTgBtn').addEventListener('click', sendLevelToTelegram);
+    
+    createEditBackgroundScreen();
+    createEarnXpScreen();
+}
+
+// Create Edit Background Screen
+function createEditBackgroundScreen() {
+    const editBgScreen = document.createElement('div');
+    editBgScreen.id = 'editBgScreen';
+    editBgScreen.style.cssText = `
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #0a0a0a;
+        z-index: 1001;
+        overflow-y: auto;
+    `;
+    
+    editBgScreen.innerHTML = `
+        <div style="padding: 20px; background: #1a1a1a; display: flex; align-items: center; gap: 10px;">
+            <button id="backFromEditBgBtn" style="background: transparent; color: white; border: none; font-size: 1.3rem; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;"><i class="fas fa-arrow-left"></i></button>
+            <h2 style="color: #7289da; font-size: 1.2rem;">Edit Background</h2>
+        </div>
+        
+        <div style="padding: 20px;">
+            <div style="background: #1a1a1a; border-radius: 15px; padding: 20px;">
+                <div style="color: #b9bbbe; margin-bottom: 15px; font-size: 1.1rem;">Custom Background</div>
+                <div id="currentCustomBgPreview" style="width: 100%; height: 200px; background: #2f3136; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 15px;"></div>
+                <button id="uploadCustomBgBtn" style="width: 100%; background: #7289da; color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                    <i class="fas fa-upload"></i> ပုံရွေးရန်
+                </button>
+                <button id="removeCustomBgBtn" style="width: 100%; background: #f04747; color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <i class="fas fa-trash"></i> Custom Background ဖျက်မည်
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(editBgScreen);
+    document.getElementById('backFromEditBgBtn').addEventListener('click', hideEditBackgroundScreen);
+    document.getElementById('uploadCustomBgBtn').addEventListener('click', () => document.getElementById('customBgFileInput').click());
+    document.getElementById('removeCustomBgBtn').addEventListener('click', removeCustomBackground);
+    
+    const bgFileInput = document.createElement('input');
+    bgFileInput.type = 'file';
+    bgFileInput.id = 'customBgFileInput';
+    bgFileInput.accept = 'image/*';
+    bgFileInput.style.display = 'none';
+    document.body.appendChild(bgFileInput);
+    
+    bgFileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                levelData.customBackground = event.target.result;
+                updateCustomBackgroundPreview();
+                updateLevelDisplay();
+                saveLevelData();
+                showToast('Custom background updated!');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Create Earn XP Screen
+function createEarnXpScreen() {
+    const earnXpScreen = document.createElement('div');
+    earnXpScreen.id = 'earnXpScreen';
+    earnXpScreen.style.cssText = `
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #0a0a0a;
+        z-index: 1001;
+        overflow-y: auto;
+    `;
+    
+    earnXpScreen.innerHTML = `
+        <div style="padding: 20px; background: #1a1a1a; display: flex; align-items: center; gap: 10px;">
+            <button id="backFromEarnXpBtn" style="background: transparent; color: white; border: none; font-size: 1.3rem; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;"><i class="fas fa-arrow-left"></i></button>
+            <h2 style="color: #7289da; font-size: 1.2rem;">Earn XP</h2>
+        </div>
+        
+        <div style="padding: 20px;">
+            <div style="background: #1a1a1a; border-radius: 15px; padding: 20px;">
+                <div style="color: #b9bbbe; margin-bottom: 15px; font-size: 1.1rem;">Available XP Rewards</div>
+                <div id="xpRewardsContainer" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(earnXpScreen);
+    document.getElementById('backFromEarnXpBtn').addEventListener('click', hideEarnXpScreen);
+}
+
+// Initialize Level System
+function initLevelSystem() {
+    loadLevelData();
+    createLevelScreenButton();
+    createLevelScreen();
+    if (profileData.accountCreated) updateLevelDisplay();
+}
+
+// Load level data
+function loadLevelData() {
+    const savedData = localStorage.getItem('levelSystemData');
+    if (savedData) {
+        try {
+            levelData = JSON.parse(savedData);
+        } catch (e) {
+            console.log('Error loading level data');
+        }
+    }
+}
+
+// Save level data
+function saveLevelData() {
+    try {
+        localStorage.setItem('levelSystemData', JSON.stringify(levelData));
+    } catch (e) {
+        console.log('Error saving level data');
+    }
+}
+
+// Get XP required for level
+function getXpRequiredForLevel(level) {
+    for (const req of LEVEL_CONFIG.xpRequirements) {
+        if (level >= req.levelRange[0] && level <= req.levelRange[1]) {
+            return req.xpPerLevel;
+        }
+    }
+    return 100;
+}
+
+// Calculate level from XP
+function calculateLevelFromXp(totalXp) {
+    let level = 0;
+    let remainingXp = totalXp;
+    
+    while (level < LEVEL_CONFIG.maxLevel) {
+        const xpNeeded = getXpRequiredForLevel(level);
+        if (remainingXp >= xpNeeded) {
+            remainingXp -= xpNeeded;
+            level++;
+        } else break;
+    }
+    
+    return { level, remainingXp };
+}
+
+// Get current level background
+function getCurrentLevelBackground(level) {
+    if (levelData.customBackground) return levelData.customBackground;
+    for (const bg of LEVEL_CONFIG.levelBackgrounds) {
+        if (level >= bg.minLevel && level <= bg.maxLevel) return bg.image;
+    }
+    return LEVEL_CONFIG.levelBackgrounds[0].image;
+}
+
+// Get rank PNG for level
+function getRankPngForLevel(level) {
+    const thresholds = Object.keys(LEVEL_CONFIG.rankPngs).map(Number).sort((a,b) => b-a);
+    for (const threshold of thresholds) {
+        if (level >= threshold) return LEVEL_CONFIG.rankPngs[threshold];
+    }
+    return LEVEL_CONFIG.rankPngs[0];
+}
+
+// Get next background level
+function getNextBackgroundLevel(currentLevel) {
+    for (const bg of LEVEL_CONFIG.levelBackgrounds) {
+        if (currentLevel < bg.minLevel) return bg.minLevel;
+    }
+    return LEVEL_CONFIG.maxLevel + 1;
+}
+
+// Add XP
+function addXP(amount) {
+    const currentLevelData = calculateLevelFromXp(levelData.xp);
+    levelData.xp += amount;
+    const newLevelData = calculateLevelFromXp(levelData.xp);
+    
+    if (newLevelData.level > currentLevelData.level) {
+        showToast(`Level Up! Level ${newLevelData.level} သို့တက်ပြီးပါပြီ! 🎉`);
+    }
+    
+    levelData.level = newLevelData.level;
+    saveLevelData();
+    updateLevelDisplay();
+    return newLevelData.level;
+}
+
+// Update level display
+function updateLevelDisplay() {
+    const levelInfo = calculateLevelFromXp(levelData.xp);
+    const currentLevel = levelInfo.level;
+    const currentXp = levelInfo.remainingXp;
+    const xpRequired = getXpRequiredForLevel(currentLevel);
+    const progressPercentage = (currentXp / xpRequired) * 100;
+    
+    if (document.getElementById('currentLevelBadge')) {
+        document.getElementById('currentLevelBadge').textContent = `Level ${currentLevel}`;
+        document.getElementById('levelProgressText').textContent = `${currentXp} / ${xpRequired} XP`;
+        document.getElementById('levelProgressBar').style.width = `${progressPercentage}%`;
+        
+        const bgUrl = getCurrentLevelBackground(currentLevel);
+        const bgPreview = document.getElementById('levelBgPreview');
+        bgPreview.style.backgroundImage = `url('${bgUrl}')`;
+        bgPreview.style.backgroundSize = 'cover';
+        bgPreview.style.backgroundPosition = 'center';
+        document.getElementById('bgLevelDisplay').textContent = `Level ${currentLevel}`;
+        document.getElementById('nextLevelThreshold').textContent = `Level ${getNextBackgroundLevel(currentLevel)}`;
+    }
+}
+
+// Update custom background preview
+function updateCustomBackgroundPreview() {
+    const preview = document.getElementById('currentCustomBgPreview');
+    if (!preview) return;
+    
+    if (levelData.customBackground) {
+        preview.innerHTML = `<img src="${levelData.customBackground}" style="width:100%;height:100%;object-fit:cover;">`;
+    } else {
+        preview.innerHTML = '<i class="fas fa-image" style="font-size:2rem;color:#72767d;"></i>';
+    }
+}
+
+// Load XP rewards
+function loadXPRewards() {
+    const container = document.getElementById('xpRewardsContainer');
+    if (!container) return;
+    
+    const now = Date.now();
+    const rewards = [
+        { id: 'xp50', amount: 50, label: 'XP 50 ရယူမည်', cooldown: LEVEL_CONFIG.cooldowns.xp50, description: '1 နာရီတစ်ခါ' },
+        { id: 'xp100', amount: 100, label: 'XP 100 ရယူမည်', cooldown: LEVEL_CONFIG.cooldowns.xp100, description: '5 နာရီတစ်ခါ' },
+        { id: 'xp300', amount: 300, label: 'XP 300 ရယူမည်', cooldown: LEVEL_CONFIG.cooldowns.xp300, description: '1 ရက်တစ်ခါ' }
+    ];
+    
+    container.innerHTML = '';
+    
+    rewards.forEach(reward => {
+        const lastClaimTime = levelData.lastClaim[reward.id] || 0;
+        const timeSinceLastClaim = now - lastClaimTime;
+        const isAvailable = timeSinceLastClaim >= reward.cooldown;
+        
+        let timeLeftText = '';
+        if (!isAvailable) {
+            const timeLeft = reward.cooldown - timeSinceLastClaim;
+            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            timeLeftText = hours > 0 ? `${hours} နာရီ ${minutes} မိနစ်` : `${minutes} မိနစ်`;
+        }
+        
+        const rewardDiv = document.createElement('div');
+        rewardDiv.style.cssText = `background: #2f3136; border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;`;
+        rewardDiv.innerHTML = `
+            <div>
+                <div style="color: white; font-weight: bold; margin-bottom: 4px;">${reward.label}</div>
+                <div style="color: #b9bbbe; font-size: 0.85rem;">
+                    ${reward.description} ${!isAvailable ? `<br><span style="color:#faa61a">${timeLeftText} ကျန်ပါသေးတယ်</span>` : ''}
+                </div>
+            </div>
+            <button id="${reward.id}Btn" style="background: ${isAvailable ? '#43b581' : '#747f8d'}; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: ${isAvailable ? 'pointer' : 'not-allowed'}; font-weight: bold; min-width: 100px;" ${isAvailable ? '' : 'disabled'}>
+                ${isAvailable ? 'ရယူမည်' : 'မရသေး'}
+            </button>
+        `;
+        
+        container.appendChild(rewardDiv);
+        if (isAvailable) {
+            document.getElementById(`${reward.id}Btn`).addEventListener('click', () => claimXPReward(reward.id, reward.amount));
+        }
+    });
+}
+
+// Claim XP reward
+function claimXPReward(rewardId, amount) {
+    const now = Date.now();
+    if (rewardId === 'xp50' || rewardId === 'xp100' || rewardId === 'xp300') {
+        levelData.lastClaim[rewardId] = now;
+        addXP(amount);
+        saveLevelData();
+        showToast(`XP ${amount} ရရှိပါပြီ!`);
+        loadXPRewards();
+    }
+}
+
+// Remove custom background
+function removeCustomBackground() {
+    if (confirm('Custom background ကို ဖျက်မှာသေချာပါသလား?')) {
+        levelData.customBackground = null;
+        updateCustomBackgroundPreview();
+        updateLevelDisplay();
+        saveLevelData();
+        showToast('Custom background removed!');
+    }
+}
+
+// Screen navigation functions
+function showLevelScreen() { document.getElementById('levelScreen').style.display = 'block'; updateLevelDisplay(); }
+function hideLevelScreen() { document.getElementById('levelScreen').style.display = 'none'; }
+function showEditBackgroundScreen() { document.getElementById('editBgScreen').style.display = 'block'; updateCustomBackgroundPreview(); }
+function hideEditBackgroundScreen() { document.getElementById('editBgScreen').style.display = 'none'; }
+function showEarnXpScreen() { document.getElementById('earnXpScreen').style.display = 'block'; loadXPRewards(); }
+function hideEarnXpScreen() { document.getElementById('earnXpScreen').style.display = 'none'; }
+
+// Get active frame from main system
+function getActiveFrame() {
+    return window.activeFrame || null;
+}
+
+// ... (အထက်က level system code တွေအကုန် ဒီနေရာမှာ ရှိနေပါစေ) ...
+
+// Main Telegram image generation function (Modified version)
+async function sendLevelToTelegram() {
+    const btn = document.getElementById('sendLevelToTgBtn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<div class="spinner"></div> ပို့နေသည်...';
+    btn.disabled = true;
+    
+    try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const width = 1200;
+        const height = 600;
+        canvas.width = width;
+        canvas.height = height;
+        
+        const levelInfo = calculateLevelFromXp(levelData.xp);
+        const currentLevel = levelInfo.level;
+        const currentXp = levelInfo.remainingXp;
+        const xpRequired = getXpRequiredForLevel(currentLevel);
+        const progressPercentage = (currentXp / xpRequired) * 100;
+        
+        // Draw background
+        const bgUrl = getCurrentLevelBackground(currentLevel);
+        const bgImg = new Image();
+        bgImg.crossOrigin = 'anonymous';
+        await new Promise((resolve) => {
+            bgImg.onload = resolve;
+            bgImg.src = bgUrl;
+        });
+        
+        const bgAspect = bgImg.width / bgImg.height;
+        const canvasAspect = width / height;
+        let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+        
+        if (bgAspect > canvasAspect) {
+            drawHeight = height;
+            drawWidth = drawHeight * bgAspect;
+            offsetX = (width - drawWidth) / 2;
+        } else {
+            drawWidth = width;
+            drawHeight = drawWidth / bgAspect;
+            offsetY = (height - drawHeight) / 2;
+        }
+        
+        ctx.drawImage(bgImg, offsetX, offsetY, drawWidth, drawHeight);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.fillRect(0, 0, width, height);
+        
+        // Draw profile section (LARGER and HIGHER)
+        const profileSize = 180;
+        const profileX = 80;
+        const profileY = 80;
+        
+        if (profileData.profileImage) {
+            const profileImg = new Image();
+            profileImg.crossOrigin = 'anonymous';
+            await new Promise((resolve) => {
+                profileImg.onload = resolve;
+                profileImg.src = profileData.profileImage;
+            });
+            
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(profileImg, profileX, profileY, profileSize, profileSize);
+            ctx.restore();
+        }
+        
+        ctx.strokeStyle = '#7289da';
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.arc(profileX + profileSize/2, profileY + profileSize/2, profileSize/2, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // Draw frame if active
+        const activeFrame = getActiveFrame();
+        if (activeFrame) {
+            const frameImg = new Image();
+            frameImg.crossOrigin = 'anonymous';
+            await new Promise((resolve) => {
+                frameImg.onload = resolve;
+                frameImg.src = activeFrame;
+            });
+            
+            const frameSize = profileSize + 60;
+            const frameX = profileX - 30;
+            const frameY = profileY - 30;
+            ctx.drawImage(frameImg, frameX, frameY, frameSize, frameSize);
+        }
+        
+        // Draw name and ID
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 56px Arial';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        
+        let displayName = profileData.name;
+        const maxNameWidth = 400;
+        let nameWidth = ctx.measureText(displayName).width;
+        if (nameWidth > maxNameWidth) {
+            while (nameWidth > maxNameWidth && displayName.length > 10) {
+                displayName = displayName.substring(0, displayName.length - 1);
+                nameWidth = ctx.measureText(displayName + '...').width;
+            }
+            displayName += '...';
+        }
+        
+        ctx.fillText(displayName, profileX + profileSize + 40, profileY + 20);
+        
+        ctx.fillStyle = '#b9bbbe';
+        ctx.font = 'bold 36px Arial';
+        ctx.fillText(profileData.id, profileX + profileSize + 40, profileY + 85);
+        
+        // Draw level info
+        const rightPadding = width - 80;
+        const levelRowY = profileY + 60;
+        
+        ctx.fillStyle = '#43b581';
+        ctx.font = 'bold 48px Arial';
+        ctx.textAlign = 'right';
+        ctx.fillText(`${currentXp} XP`, rightPadding - 220, levelRowY);
+        
+        ctx.fillStyle = '#7289da';
+        ctx.font = 'bold 64px Arial';
+        ctx.textAlign = 'right';
+        ctx.fillText(`Level ${currentLevel}`, rightPadding, levelRowY);
+        
+        const progressBarWidth = 500;
+        const progressBarHeight = 20;
+        const progressBarX = rightPadding - progressBarWidth;
+        const progressBarY = levelRowY + 80;
+        
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.beginPath();
+        ctx.roundRect(progressBarX, progressBarY, progressBarWidth, progressBarHeight, 10);
+        ctx.fill();
+        
+        const fillWidth = (progressPercentage / 100) * progressBarWidth;
+        const fillGradient = ctx.createLinearGradient(progressBarX, 0, progressBarX + fillWidth, 0);
+        fillGradient.addColorStop(0, '#43b581');
+        fillGradient.addColorStop(1, '#7289da');
+        ctx.fillStyle = fillGradient;
+        ctx.beginPath();
+        ctx.roundRect(progressBarX, progressBarY, fillWidth, progressBarHeight, 10);
+        ctx.fill();
+        
+        ctx.fillStyle = '#b9bbbe';
+        ctx.font = 'bold 24px Arial';
+        ctx.textAlign = 'right';
+        ctx.fillText(`${currentXp} / ${xpRequired} XP (${Math.round(progressPercentage)}%)`, rightPadding, progressBarY + 50);
+        
+        // Draw rank section at bottom left - TEXT ABOVE, PNG BELOW
+        const rankPngUrl = getRankPngForLevel(currentLevel);
+        const rankImg = new Image();
+        rankImg.crossOrigin = 'anonymous';
+        await new Promise((resolve) => {
+            rankImg.onload = resolve;
+            rankImg.src = rankPngUrl;
+        });
+        
+        const rankSize = 160; // Larger size for PNG
+        const rankX = 50;
+        const rankY = height - rankSize - 30;
+        
+        // Draw "Lv Rank" text ABOVE the PNG
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 36px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillText('Lv Rank', rankX + (rankSize / 2) - 60, rankY - 20);
+        
+        // Draw PNG image BELOW the text
+        ctx.drawImage(rankImg, rankX, rankY, rankSize, rankSize);
+        
+        // Draw name and level info below PNG
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.font = 'bold 30px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillText(`Name - ${displayName}`, rankX, rankY + rankSize + 40);
+        ctx.fillText(`Level ${currentLevel}`, rankX, rankY + rankSize + 80);
+        
+        // Convert and send to Telegram
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        const formData = new FormData();
+        formData.append('chat_id', `@${TELEGRAM_CHAT_USERNAME}`);
+        formData.append('message_thread_id', TELEGRAM_TOPIC_ID);
+        formData.append('photo', blob, 'level_card.png');
+        
+        // Add caption with name and level
+        const caption = `Name - ${profileData.name}\nLevel ${currentLevel}`;
+        formData.append('caption', caption);
+        
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.ok) {
+            showToast('Level ပုံကို Telegram သို့ အောင်မြင်စွာပို့ပြီးပါပြီ။\n\nပို့ပြီးပါပြီ ✅');
+        } else {
+            throw new Error(result.description || 'Telegram သို့ပို့ရာတွင် ပြဿနာရှိပါသည်။');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('ပုံပို့ရာတွင် ပြဿနာရှိပါသည်။ ' + error.message, true);
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
+
+// Add roundRect function
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+        if (w < 2 * r) r = w / 2;
+        if (h < 2 * r) r = h / 2;
+        this.beginPath();
+        this.moveTo(x + r, y);
+        this.arcTo(x + w, y, x + w, y + h, r);
+        this.arcTo(x + w, y + h, x, y + h, r);
+        this.arcTo(x, y + h, x, y, r);
+        this.arcTo(x, y, x + w, y, r);
+        this.closePath();
+        return this;
+    };
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        if (profileData.accountCreated) initLevelSystem();
+        
+        const originalOpenAccount = openAccount;
+        openAccount = function() {
+            originalOpenAccount();
+            setTimeout(initLevelSystem, 100);
+        };
+    }, 1000);
+});
     </script>
 </body>
 </html>
