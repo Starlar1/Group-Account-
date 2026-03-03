@@ -1,15 +1,809 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Star Store အက်ပ်</title>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Header with Logo-Star Store (left), ACC (right), Search (below) -->
+<div class="header-section">
+  <!-- Top row: Logo-Star Store (left) + ACC (right) -->
+  <div class="header-top-row">
+    <div class="brand-container">
+      <div class="store-image">
+        <a href="https://ibb.co/tpRkqsHS" target="_blank" rel="noopener">
+          <img src="https://i.ibb.co/Qv0zPNJZ/Grid-Art-20260302-142000039.png" alt="Star Store Logo">
+        </a>
+      </div>
+      <span class="store-name">Star Store</span>
+    </div>
+
+    <!-- Account Circle Button with Profile Image -->
+    <button class="header-account-btn" id="headerAccBtn" type="button" onclick="openAccountScreenFromHeader()">
+      <img id="headerProfileImage" src="" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: none;">
+      <i id="headerProfileIcon" class="fas fa-user-circle" style="display: inline-block;"></i>
+    </button>
+  </div>
+
+  <!-- Bottom row: Search (full width) -->
+  <div class="search-wrapper">
+    <div class="search-container" id="openSearch" role="button" tabindex="0" aria-label="Open search">
+      <i class="fas fa-search"></i>
+      <input id="headerSearchInput" type="text" placeholder="ပစ္စည်း ရှာရန်..." readonly>
+    </div>
+  </div>
+</div>
 
 
+<!-- Home Screen -->
+<div class="content-area">
+  <div class="hero-list" id="homeAppList">
+    <!-- App 1 - Star Store -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Store"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/5968/5968705.png"
+      data-app-bg1="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="https://raw.githubusercontent.com/Starlar1/Star-Store-/6fe36f0a478a2edb0782a0a5f09d6fe2947a3b4b/SCG%20SHOP.apk"
+      data-app-likes="1.2K"
+      data-app-downloads="45K"
+      data-app-size="45.6 MB"
+      data-app-developer="Star Studio"
+      data-app-updated="Mar 03, 2026"
+      data-app-version="2.1.0"
+      data-app-description="Star Store is the best app store for Android. Thousands of apps and games available for free download. Fast and secure."
+      data-app-group="@StarStoreChannel"
+      data-app-group-url="https://t.me/StarStoreChannel">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Icon">
+          <span class="hero-app-name">Star Store</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
 
+    <!-- App 2 - Star Chat -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Chat"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+      data-app-bg1="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="#"
+      data-app-likes="856"
+      data-app-downloads="12K"
+      data-app-size="32.1 MB"
+      data-app-developer="Star Messenger"
+      data-app-updated="Feb 28, 2026"
+      data-app-version="1.8.5"
+      data-app-description="Fast and secure messaging app. Chat with friends, share photos and videos, make voice and video calls for free."
+      data-app-group="@StarChatGroup"
+      data-app-group-url="https://t.me/StarChatGroup">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Icon">
+          <span class="hero-app-name">Star Chat</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+    <!-- App 3 - Star Player -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Player"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/888/888879.png"
+      data-app-bg1="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="#"
+      data-app-likes="2.1K"
+      data-app-downloads="78K"
+      data-app-size="28.4 MB"
+      data-app-developer="Star Media"
+      data-app-updated="Mar 01, 2026"
+      data-app-version="3.2.0"
+      data-app-description="Powerful music and video player. Supports all formats. Beautiful interface and amazing sound quality."
+      data-app-group="@StarPlayer"
+      data-app-group-url="https://t.me/StarPlayer">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="Icon">
+          <span class="hero-app-name">Star Player</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+    <!-- App 4 - Star Video -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Video"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/888/888857.png"
+      data-app-bg1="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="#"
+      data-app-likes="3.4K"
+      data-app-downloads="120K"
+      data-app-size="52.8 MB"
+      data-app-developer="Star Stream"
+      data-app-updated="Feb 25, 2026"
+      data-app-version="4.0.1"
+      data-app-description="Watch millions of videos and movies. HD quality, fast streaming, and offline download available."
+      data-app-group="@StarVideo"
+      data-app-group-url="https://t.me/StarVideo">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Icon">
+          <span class="hero-app-name">Star Video</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+    <!-- App 5 - Star Tools -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Tools"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/5968/5968350.png"
+      data-app-bg1="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="#"
+      data-app-likes="567"
+      data-app-downloads="8.5K"
+      data-app-size="18.2 MB"
+      data-app-developer="Star Utility"
+      data-app-updated="Mar 02, 2026"
+      data-app-version="1.2.3"
+      data-app-description="All-in-one tool kit: flashlight, compass, ruler, leveler, unit converter, and more useful tools for daily use."
+      data-app-group="@StarTools"
+      data-app-group-url="https://t.me/StarTools">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Icon">
+          <span class="hero-app-name">Star Tools</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bottom Nav - 4 buttons only -->
+<div class="bottom-nav">
+  <div class="nav-buttons">
+    <button class="nav-btn" id="homeBtn" type="button">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+      <div class="btn-dot"></div>
+    </button>
+    <button class="nav-btn" id="fileBtn" type="button">
+      <i class="fas fa-folder"></i>
+      <span>File</span>
+      <div class="btn-dot"></div>
+    </button>
+    <button class="nav-btn" id="topBtn" type="button">
+      <i class="fas fa-chart-line"></i>
+      <span>Top</span>
+      <div class="btn-dot"></div>
+    </button>
+    <button class="nav-btn" id="myAppBtn" type="button">
+      <i class="fas fa-star"></i>
+      <span>My App</span>
+      <div class="btn-dot"></div>
+    </button>
+  </div>
+</div>
+
+  <!-- Search Screen -->
+  <div class="search-screen" id="searchScreen" aria-hidden="true">
+    <div class="search-topbar">
+
+
+      <div class="search-input-wrap">
+        <i class="fas fa-search"></i>
+        <input id="searchInput" type="text" placeholder="App နာမည် ရှာရန်..." autocomplete="off">
+        <button class="search-clear" id="searchClear" aria-label="Clear" type="button">×</button>
+      </div>
+    </div>
+
+    <div class="search-results" id="searchResults">
+      <div class="search-hint">ရှာချင်တဲ့ App နာမည် ရိုက်ပါ…</div>
+    </div>
+  </div>
+
+<!-- Detail Screen (NEW UI with Full App Info) -->
+<div class="detail-screen" id="detailScreen" aria-hidden="true">
+  <div class="detail-cover" id="detailCover">
+
+
+    <div class="detail-oncover">
+      <img class="detail-icon" id="detailIcon">
+      <div class="detail-title" id="detailTitle">App Name</div>
+    </div>
+
+  </div>
+
+  <div class="detail-body">
+
+    <a class="detail-download" id="detailDownload" href="#">
+      <i class="fas fa-download"></i> Download Now
+    </a>
+
+    <div class="detail-stats">
+      <button class="stat blue like-btn" onclick="likeApp()" type="button">
+        <i class="fas fa-heart"></i>
+        <span id="detailLikes">0</span>
+      </button>
+      <div class="stat blue">
+        <i class="fas fa-download"></i>
+        <span id="detailDownloads">0</span>
+      </div>
+    </div>
+
+    <!-- App Info Card - Full Details -->
+    <div class="app-info-card">
+      
+      <!-- Description (အပေါ်ဆုံးမှာထား) -->
+      <div class="info-description">
+        <div class="info-label">
+          <i class="fas fa-align-left"></i>
+          <span>Description</span>
+        </div>
+        <p class="description-text" id="appDescription">
+          This is a sample app description. It can be multiple lines but we limit to 3 lines max. This app provides great features for users. Download now and enjoy!
+        </p>
+      </div>
+      
+      <div class="info-grid">
+        <!-- Size -->
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-database"></i>
+            <span>Size</span>
+          </div>
+          <div class="info-value" id="appSize">45.6 MB</div>
+        </div>
         
+        <!-- Developer -->
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-code-branch"></i>
+            <span>Developer</span>
+          </div>
+          <div class="info-value" id="appDeveloper">Star Studio</div>
+        </div>
+        
+        <!-- Updated Date -->
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Updated</span>
+          </div>
+          <div class="info-value" id="appUpdated">Mar 03, 2026</div>
+        </div>
+        
+        <!-- Version -->
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-tag"></i>
+            <span>Version</span>
+          </div>
+          <div class="info-value" id="appVersion">2.1.0</div>
+        </div>
+      </div>
+      
+      <!-- Group/Channel Link (copy ခလုတ်မပါ) -->
+      <div class="info-link">
+        <i class="fab fa-telegram"></i>
+        <span>Join Group: </span>
+        <a href="#" id="appGroupLink" class="link-value" target="_blank">@StarStoreChannel</a>
+      </div>
+      
+      <!-- Report Button -->
+      <button class="report-btn" id="reportBtn" type="button">
+        <i class="fas fa-flag"></i>
+        Report this app
+      </button>
+    </div>
+
+    <div class="other-title">Other Apps</div>
+    <div class="other-list" id="otherList"></div>
+
+  </div>
+</div>
+
+<!-- TOP Screen -->
+<div class="top-screen" id="topScreen" aria-hidden="true">
+  <div class="topbar">
+
+    <div class="top-title">Top Apps</div>
+  </div>
+
+  <div class="top-list" id="topList">
+
+    <!-- Top App 1 (Star Store) -->
+    <div class="top-card modern"
+         data-app-name="Star Store"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/5968/5968705.png"
+         data-app-bg="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="https://raw.githubusercontent.com/Starlar1/Star-Store-/6fe36f0a478a2edb0782a0a5f09d6fe2947a3b4b/SCG%20SHOP.apk"
+         data-app-likes="1.2K"
+         data-app-downloads="45K"
+         data-app-size="45.6 MB"
+         data-app-developer="Star Studio"
+         data-app-updated="Mar 03, 2026"
+         data-app-version="2.1.0"
+         data-app-description="Star Store is the best app store for Android. Thousands of apps and games available for free download. Fast and secure."
+         data-app-group="@StarStoreChannel"
+         data-app-group-url="https://t.me/StarStoreChannel">
+      <span class="top-rank-number">1.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Star Store">
+      <span class="top-name-modern">Star Store</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+    <!-- Top App 2 (Star Chat) -->
+    <div class="top-card modern"
+         data-app-name="Star Chat"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+         data-app-bg="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="#"
+         data-app-likes="856"
+         data-app-downloads="12K"
+         data-app-size="32.1 MB"
+         data-app-developer="Star Messenger"
+         data-app-updated="Feb 28, 2026"
+         data-app-version="1.8.5"
+         data-app-description="Fast and secure messaging app. Chat with friends, share photos and videos, make voice and video calls for free."
+         data-app-group="@StarChatGroup"
+         data-app-group-url="https://t.me/StarChatGroup">
+      <span class="top-rank-number">2.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Star Chat">
+      <span class="top-name-modern">Star Chat</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+    <!-- Top App 3 (Star Player) -->
+    <div class="top-card modern"
+         data-app-name="Star Player"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/888/888879.png"
+         data-app-bg="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="#"
+         data-app-likes="2.1K"
+         data-app-downloads="78K"
+         data-app-size="28.4 MB"
+         data-app-developer="Star Media"
+         data-app-updated="Mar 01, 2026"
+         data-app-version="3.2.0"
+         data-app-description="Powerful music and video player. Supports all formats. Beautiful interface and amazing sound quality."
+         data-app-group="@StarPlayer"
+         data-app-group-url="https://t.me/StarPlayer">
+      <span class="top-rank-number">3.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="Star Player">
+      <span class="top-name-modern">Star Player</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+    <!-- Top App 4 (Star Video) -->
+    <div class="top-card modern"
+         data-app-name="Star Video"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/888/888857.png"
+         data-app-bg="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="#"
+         data-app-likes="3.4K"
+         data-app-downloads="120K"
+         data-app-size="52.8 MB"
+         data-app-developer="Star Stream"
+         data-app-updated="Feb 25, 2026"
+         data-app-version="4.0.1"
+         data-app-description="Watch millions of videos and movies. HD quality, fast streaming, and offline download available."
+         data-app-group="@StarVideo"
+         data-app-group-url="https://t.me/StarVideo">
+      <span class="top-rank-number">4.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Star Video">
+      <span class="top-name-modern">Star Video</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+    <!-- Top App 5 (Star Tools) -->
+    <div class="top-card modern"
+         data-app-name="Star Tools"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/5968/5968350.png"
+         data-app-bg="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="#"
+         data-app-likes="567"
+         data-app-downloads="8.5K"
+         data-app-size="18.2 MB"
+         data-app-developer="Star Utility"
+         data-app-updated="Mar 02, 2026"
+         data-app-version="1.2.3"
+         data-app-description="All-in-one tool kit: flashlight, compass, ruler, leveler, unit converter, and more useful tools for daily use."
+         data-app-group="@StarTools"
+         data-app-group-url="https://t.me/StarTools">
+      <span class="top-rank-number">5.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Star Tools">
+      <span class="top-name-modern">Star Tools</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+  </div>
+</div>
 
 
+<!-- Account Screen (ACC Modal) - Simple UI with S Point Image Only (Server Status ဖယ်ထား) -->
+<div class="acc-screen" id="accScreen" aria-hidden="true">
+  <div class="acc-container">
+    <!-- Simple Header -->
+    <div class="acc-header">
 
+      <div class="acc-title">အကောင့်</div>
+    </div>
 
+    <!-- S Point Display - သီးသန့်အကွက်လေး -->
+    <div class="s-point-box">
+      <img src="https://i.ibb.co/B55SJzBc/Grid-Art-20260303-131631280.png" alt="S Point" class="s-point-icon">
+      <span class="s-point-value" id="accSPoint">0</span>
+    </div>
 
+    <!-- Profile Section -->
+    <div class="acc-profile-section" id="accProfileSection">
+      <!-- Not Logged In State - Simple Welcome -->
+      <div class="acc-not-logged" id="accNotLogged">
+        <div class="simple-welcome">
+          <i class="fas fa-user-circle welcome-icon"></i>
+          <h2>Welcome Back!</h2>
+          <p>အကောင့်ဖွင့်ပြီး စတင်အသုံးပြုလိုက်ပါ</p>
+          
+          <!-- Server Status ဖယ်ရှားလိုက်ပြီ -->
+          
+          <button class="acc-open-btn-simple" id="accOpenBtn" type="button">
+            <i class="fas fa-paper-plane"></i> အကောင့်ဖွင့်မည်
+          </button>
+        </div>
+      </div>
 
+      <!-- Logged In State - Simple Profile -->
+      <div class="acc-logged" id="accLogged" style="display: none;">
+        <!-- Profile Image -->
+        <div class="profile-image-container">
+          <div class="profile-image-wrapper" id="accProfileCircle">
+            <img id="accProfileImage" src="" alt="Profile">
+            <div class="profile-image-overlay">
+              <i class="fas fa-camera"></i>
+            </div>
+            <input type="file" id="accImageUpload" accept="image/*" style="display: none;">
+          </div>
+        </div>
 
-{
+        <!-- Profile Info -->
+        <div class="profile-info-simple">
+          <div class="profile-name-row">
+            <h3 id="accDisplayName">နာမည်ထည့်ပါ</h3>
+            <button class="edit-name-btn" id="accEditBtn">
+              <i class="fas fa-pen"></i>
+            </button>
+          </div>
+          
+          <div class="profile-id-simple">
+            <div class="id-row">
+              <span class="id-label">User ID:</span>
+              <span class="id-value" id="accUserId">-</span>
+            </div>
+            <div class="id-row">
+              <span class="id-label">Invite ID:</span>
+              <span class="id-value" id="accInviteId">-</span>
+            </div>
+          </div>
+          
+          <div class="server-badge-simple">
+            <i class="fas fa-server"></i>
+            <span>Server <span id="accServerNumber">1</span></span>
+          </div>
+        </div>
+
+        <!-- Edit Profile Simple -->
+        <div class="edit-profile-simple" id="accEditForm" style="display: none;">
+          <div class="edit-box">
+            <h4>ပရိုဖိုင် ပြင်ဆင်ရန်</h4>
+            <div class="edit-avatar-simple" id="editAvatarSimple">
+              <img id="editAvatarPreview" src="" alt="Preview">
+              <button class="change-avatar-simple" id="changeAvatarBtn">
+                <i class="fas fa-camera"></i> ပုံပြောင်း
+              </button>
+              <input type="file" id="editImageUpload" accept="image/*" style="display: none;">
+            </div>
+            <input type="text" id="accEditName" placeholder="နာမည်အသစ်" class="edit-input-simple">
+            <div class="edit-actions-simple">
+              <button class="save-btn-simple" id="accSaveBtn">သိမ်းမည်</button>
+              <button class="cancel-btn-simple" id="accCancelBtn">မလုပ်တော့</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Name/ID Input Modal (Simple) - ဒီအပိုင်းကို ထည့်ရန်လိုအပ်ပါတယ် -->
+<div class="simple-modal" id="nameIdModal" style="display: none;">
+  <div class="simple-modal-content">
+    <div class="simple-modal-header">
+      <i class="fas fa-user-plus modal-header-icon"></i>
+      <h3>အကောင့်အသစ်ဖွင့်ရန်</h3>
+    </div>
+    
+    <div class="simple-modal-body">
+      <!-- Image Upload -->
+      <div class="simple-avatar-selector" id="simpleAvatarSelector">
+        <div class="simple-avatar-circle" id="modalProfileCircle">
+          <img id="modalProfileImage" src="" alt="Profile">
+          <div class="simple-avatar-overlay">
+            <i class="fas fa-camera"></i>
+          </div>
+        </div>
+        <p class="simple-avatar-hint">ဓာတ်ပုံထည့်ရန် နှိပ်ပါ</p>
+        <input type="file" id="modalImageUpload" accept="image/*" style="display: none;">
+      </div>
+      
+      <!-- Name Input -->
+      <div class="simple-input-group">
+        <i class="fas fa-user input-icon-simple"></i>
+        <input type="text" id="modalName" class="simple-input" placeholder="သင့်နာမည်">
+      </div>
+      
+      <!-- Loading -->
+      <div class="simple-loading" id="modalLoading" style="display: none;">
+        <div class="simple-spinner"></div>
+        <p>အကောင့်ဖွင့်နေသည်...</p>
+      </div>
+    </div>
+    
+    <div class="simple-modal-footer">
+      <button class="simple-confirm-btn" id="modalConfirmBtn">
+        <span>အကောင့်ဖွင့်မည်</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+      <button class="simple-cancel-btn" id="modalCancelBtn">မလုပ်တော့</button>
+    </div>
+  </div>
+</div>
+
+<!-- FILE SCREEN - အပြည့်အစုံ မြင်ရမည် (ဖိုင် ၅ ခု) -->
+<div class="file-screen" id="fileScreen" aria-hidden="true">
+  <div class="file-header">
+    <div class="file-title">ဖိုင်များ</div>
+  </div>
+
+  <div class="file-grid" id="fileGrid">
+    <!-- File 1 - APK ဖိုင်များ -->
+    <div class="file-card" 
+         data-file-id="file1"
+         data-file-name="APK ဖိုင်များ"
+         data-file-icon="https://cdn-icons-png.flaticon.com/512/716/716784.png"
+         data-file-cover="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+         data-file-size="45.6 MB"
+         data-file-date="Mar 03, 2026"
+         data-file-download="#"
+         data-file-description="Android APK ဖိုင်များ စုစည်းရာ။ ဂိမ်းများ၊ အက်ပ်များ အားလုံး ဤနေရာတွင် ရှာဖွေနိုင်ပါသည်။"
+         data-file-id-number="STAR-APK-001"
+         data-file-developer="Star Studio"
+         data-file-group="@StarStoreChannel"
+         data-file-group-url="https://t.me/StarStoreChannel">
+      <div class="file-cover" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=80');">
+        <div class="file-overlay"></div>
+      </div>
+      <div class="file-content">
+        <img class="file-icon" src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="File">
+        <div class="file-info">
+          <div class="file-name">APK ဖိုင်များ</div>
+          <button class="file-download" type="button"><i class="fas fa-download"></i> ရယူရန်</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- File 2 - ZIP ဖိုင်များ -->
+    <div class="file-card" 
+         data-file-id="file2"
+         data-file-name="ZIP ဖိုင်များ"
+         data-file-icon="https://cdn-icons-png.flaticon.com/512/337/337946.png"
+         data-file-cover="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+         data-file-size="28.2 MB"
+         data-file-date="Mar 02, 2026"
+         data-file-download="#"
+         data-file-description="ZIP ဖိုင်များ စုစည်းရာ။ ဖိုင်များကို ချုံ့ထားပြီး လွယ်ကူစွာ ရယူနိုင်ပါသည်။"
+         data-file-id-number="STAR-ZIP-002"
+         data-file-developer="Star Utility"
+         data-file-group="@StarTools"
+         data-file-group-url="https://t.me/StarTools">
+      <div class="file-cover" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=500&q=80');">
+        <div class="file-overlay"></div>
+      </div>
+      <div class="file-content">
+        <img class="file-icon" src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="File">
+        <div class="file-info">
+          <div class="file-name">ZIP ဖိုင်များ</div>
+          <button class="file-download" type="button"><i class="fas fa-download"></i> ရယူရန်</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- File 3 - PDF ဖိုင်များ -->
+    <div class="file-card" 
+         data-file-id="file3"
+         data-file-name="PDF ဖိုင်များ"
+         data-file-icon="https://cdn-icons-png.flaticon.com/512/337/337954.png"
+         data-file-cover="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80"
+         data-file-size="18.7 MB"
+         data-file-date="Mar 01, 2026"
+         data-file-download="#"
+         data-file-description="PDF ဖိုင်များ စုစည်းရာ။ စာအုပ်များ၊ စာရွက်စာတမ်းများ ဤနေရာတွင် ရှာဖွေနိုင်ပါသည်။"
+         data-file-id-number="STAR-PDF-003"
+         data-file-developer="Star PDF"
+         data-file-group="@StarVideo"
+         data-file-group-url="https://t.me/StarVideo">
+      <div class="file-cover" style="background-image: url('https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=500&q=80');">
+        <div class="file-overlay"></div>
+      </div>
+      <div class="file-content">
+        <img class="file-icon" src="https://cdn-icons-png.flaticon.com/512/337/337954.png" alt="File">
+        <div class="file-info">
+          <div class="file-name">PDF ဖိုင်များ</div>
+          <button class="file-download" type="button"><i class="fas fa-download"></i> ရယူရန်</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- File 4 - MP3 ဖိုင်များ -->
+    <div class="file-card" 
+         data-file-id="file4"
+         data-file-name="MP3 ဖိုင်များ"
+         data-file-icon="https://cdn-icons-png.flaticon.com/512/727/727245.png"
+         data-file-cover="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80"
+         data-file-size="156.2 MB"
+         data-file-date="Mar 05, 2026"
+         data-file-download="#"
+         data-file-description="MP3 သီချင်းများ စုစည်းရာ။ နောက်ဆုံးပေါ် တေးသီချင်းများ ဤနေရာတွင် နားဆင်နိုင်ပါသည်။"
+         data-file-id-number="STAR-MP3-004"
+         data-file-developer="Star Music"
+         data-file-group="@StarPlayer"
+         data-file-group-url="https://t.me/StarPlayer">
+      <div class="file-cover" style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=500&q=80');">
+        <div class="file-overlay"></div>
+      </div>
+      <div class="file-content">
+        <img class="file-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="File">
+        <div class="file-info">
+          <div class="file-name">MP3 ဖိုင်များ</div>
+          <button class="file-download" type="button"><i class="fas fa-download"></i> ရယူရန်</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- File 5 - MP4 ဖိုင်များ -->
+    <div class="file-card" 
+         data-file-id="file5"
+         data-file-name="MP4 ဖိုင်များ"
+         data-file-icon="https://cdn-icons-png.flaticon.com/512/337/337979.png"
+         data-file-cover="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80"
+         data-file-size="1.2 GB"
+         data-file-date="Mar 06, 2026"
+         data-file-download="#"
+         data-file-description="MP4 ဗီဒီယိုဖိုင်များ စုစည်းရာ။ ရုပ်ရှင်များ၊ ဗီဒီယိုများ ဤနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။"
+         data-file-id-number="STAR-MP4-005"
+         data-file-developer="Star Video"
+         data-file-group="@StarVideo"
+         data-file-group-url="https://t.me/StarVideo">
+      <div class="file-cover" style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=500&q=80');">
+        <div class="file-overlay"></div>
+      </div>
+      <div class="file-content">
+        <img class="file-icon" src="https://cdn-icons-png.flaticon.com/512/337/337979.png" alt="File">
+        <div class="file-info">
+          <div class="file-name">MP4 ဖိုင်များ</div>
+          <button class="file-download" type="button"><i class="fas fa-download"></i> ရယူရန်</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILE DETAIL SCREEN (နှိပ်ရင်ပေါ်မယ့် Screen) - Download ခလုတ် ၁ ခုတည်း -->
+<div class="file-detail-screen" id="fileDetailScreen" style="display: none;">
+  <div class="file-detail-header">
+    <div class="file-detail-title" id="fileDetailTitle">ဖိုင်အသေးစိတ်</div>
+  </div>
+  
+  <div class="file-detail-cover" id="fileDetailCover"></div>
+  
+  <div class="file-detail-body">
+    <!-- Icon နဲ့ Download ခလုတ် (ဘေးချင်းကပ်) -->
+    <div class="file-detail-icon-row">
+      <img class="file-detail-icon" id="fileDetailIcon" src="" alt="icon">
+      <div class="file-detail-name" id="fileDetailName">ဖိုင်အမည်</div>
+      <button class="file-detail-download-btn" id="fileDetailDownloadBtn" type="button">
+        <i class="fas fa-download"></i> ရယူရန်
+      </button>
+    </div>
+    
+    <!-- အချက်အလက် Info အကုန် - ဖော်ပြချက်ကို အပေါ်ဆုံးမှာထား -->
+    <div class="file-detail-info-card">
+      <!-- ဖော်ပြချက် (အပေါ်ဆုံး) -->
+      <div class="file-detail-section">
+        <h4><i class="fas fa-align-left"></i> ဖော်ပြချက်</h4>
+        <p class="file-detail-description" id="fileDetailDescription">-</p>
+      </div>
+      
+      <div class="file-detail-section">
+        <h4><i class="fas fa-info-circle"></i> အချက်အလက်များ</h4>
+        <div class="file-detail-grid">
+          <div class="file-detail-item">
+            <span class="file-detail-label"><i class="fas fa-database"></i> အရွယ်အစား:</span>
+            <span class="file-detail-value" id="fileDetailSize">-</span>
+          </div>
+          <div class="file-detail-item">
+            <span class="file-detail-label"><i class="fas fa-calendar"></i> ရက်စွဲ:</span>
+            <span class="file-detail-value" id="fileDetailDate">-</span>
+          </div>
+          <div class="file-detail-item">
+            <span class="file-detail-label"><i class="fas fa-id-card"></i> ID:</span>
+            <span class="file-detail-value" id="fileDetailId">-</span>
+          </div>
+          <div class="file-detail-item">
+            <span class="file-detail-label"><i class="fas fa-user"></i> ဖန်တီးသူ:</span>
+            <span class="file-detail-value" id="fileDetailDeveloper">-</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Group/Channel Link -->
+      <div class="file-detail-section">
+        <h4><i class="fab fa-telegram"></i> Group/Channel</h4>
+        <div class="file-detail-link">
+          <i class="fab fa-telegram"></i>
+          <a href="#" id="fileDetailGroupLink" class="file-detail-group-link" target="_blank">@StarStoreChannel</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Report Button - အပေါ်နည်းနည်းတင်ထား (margin-top လျှော့) -->
+    <button class="file-detail-report-btn" id="fileDetailReportBtn" type="button">
+      <i class="fas fa-flag"></i> Report this file
+    </button>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="script.js" defer></script>
+</body>
+</html><style>*{
   margin:0;
   padding:0;
   box-sizing:border-box;
