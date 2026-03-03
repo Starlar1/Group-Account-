@@ -1,0 +1,3455 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Star Store အက်ပ်</title>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Header with Logo-Star Store (left), ACC (right), Search (below) -->
+<div class="header-section">
+  <!-- Top row: Logo-Star Store (left) + ACC (right) -->
+  <div class="header-top-row">
+    <div class="brand-container">
+      <div class="store-image">
+        <a href="https://ibb.co/tpRkqsHS" target="_blank" rel="noopener">
+          <img src="https://i.ibb.co/Qv0zPNJZ/Grid-Art-20260302-142000039.png" alt="Star Store Logo">
+        </a>
+      </div>
+      <span class="store-name">Star Store</span>
+    </div>
+
+    <!-- Account Circle Button (right side) - with onclick function -->
+    <button class="header-account-btn" id="headerAccBtn" type="button" onclick="openAccountScreenFromHeader()">
+      <i class="fas fa-user-circle"></i>
+    </button>
+  </div>
+
+  <!-- Bottom row: Search (full width) -->
+  <div class="search-wrapper">
+    <div class="search-container" id="openSearch" role="button" tabindex="0" aria-label="Open search">
+      <i class="fas fa-search"></i>
+      <input id="headerSearchInput" type="text" placeholder="ပစ္စည်း ရှာရန်..." readonly>
+    </div>
+  </div>
+</div>
+
+<!-- Home Screen -->
+<div class="content-area">
+  <div class="hero-list" id="homeAppList">
+    <!-- App 1 - Star Store -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Store"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/5968/5968705.png"
+      data-app-bg1="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="https://raw.githubusercontent.com/Starlar1/Star-Store-/6fe36f0a478a2edb0782a0a5f09d6fe2947a3b4b/SCG%20SHOP.apk"
+      data-app-likes="1.2K"
+      data-app-downloads="45K"
+      data-app-size="45.6 MB"
+      data-app-developer="Star Studio"
+      data-app-updated="Mar 03, 2026"
+      data-app-version="2.1.0"
+      data-app-description="Star Store is the best app store for Android. Thousands of apps and games available for free download. Fast and secure."
+      data-app-group="@StarStoreChannel"
+      data-app-group-url="https://t.me/StarStoreChannel">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Icon">
+          <span class="hero-app-name">Star Store</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+    <!-- App 2 - Star Chat -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Chat"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+      data-app-bg1="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="#"
+      data-app-likes="856"
+      data-app-downloads="12K"
+      data-app-size="32.1 MB"
+      data-app-developer="Star Messenger"
+      data-app-updated="Feb 28, 2026"
+      data-app-version="1.8.5"
+      data-app-description="Fast and secure messaging app. Chat with friends, share photos and videos, make voice and video calls for free."
+      data-app-group="@StarChatGroup"
+      data-app-group-url="https://t.me/StarChatGroup">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Icon">
+          <span class="hero-app-name">Star Chat</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+    <!-- App 3 - Star Player -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Player"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/888/888879.png"
+      data-app-bg1="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="#"
+      data-app-likes="2.1K"
+      data-app-downloads="78K"
+      data-app-size="28.4 MB"
+      data-app-developer="Star Media"
+      data-app-updated="Mar 01, 2026"
+      data-app-version="3.2.0"
+      data-app-description="Powerful music and video player. Supports all formats. Beautiful interface and amazing sound quality."
+      data-app-group="@StarPlayer"
+      data-app-group-url="https://t.me/StarPlayer">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="Icon">
+          <span class="hero-app-name">Star Player</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+    <!-- App 4 - Star Video -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Video"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/888/888857.png"
+      data-app-bg1="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="#"
+      data-app-likes="3.4K"
+      data-app-downloads="120K"
+      data-app-size="52.8 MB"
+      data-app-developer="Star Stream"
+      data-app-updated="Feb 25, 2026"
+      data-app-version="4.0.1"
+      data-app-description="Watch millions of videos and movies. HD quality, fast streaming, and offline download available."
+      data-app-group="@StarVideo"
+      data-app-group-url="https://t.me/StarVideo">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Icon">
+          <span class="hero-app-name">Star Video</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+    <!-- App 5 - Star Tools -->
+    <div class="hero-card"
+      style="--bg:url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80');"
+      data-app-name="Star Tools"
+      data-app-icon="https://cdn-icons-png.flaticon.com/512/5968/5968350.png"
+      data-app-bg1="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg2="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+      data-app-bg3="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+      data-app-download="#"
+      data-app-likes="567"
+      data-app-downloads="8.5K"
+      data-app-size="18.2 MB"
+      data-app-developer="Star Utility"
+      data-app-updated="Mar 02, 2026"
+      data-app-version="1.2.3"
+      data-app-description="All-in-one tool kit: flashlight, compass, ruler, leveler, unit converter, and more useful tools for daily use."
+      data-app-group="@StarTools"
+      data-app-group-url="https://t.me/StarTools">
+      <div class="hero-bottom-content">
+        <div class="hero-app-info">
+          <img class="hero-app-icon" src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Icon">
+          <span class="hero-app-name">Star Tools</span>
+        </div>
+        <button class="hero-download" type="button">Download</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bottom Nav - 4 buttons only -->
+<div class="bottom-nav">
+  <div class="nav-buttons">
+    <button class="nav-btn" id="homeBtn" type="button">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+      <div class="btn-dot"></div>
+    </button>
+    <button class="nav-btn" id="fileBtn" type="button">
+      <i class="fas fa-folder"></i>
+      <span>File</span>
+      <div class="btn-dot"></div>
+    </button>
+    <button class="nav-btn" id="topBtn" type="button">
+      <i class="fas fa-chart-line"></i>
+      <span>Top</span>
+      <div class="btn-dot"></div>
+    </button>
+    <button class="nav-btn" id="myAppBtn" type="button">
+      <i class="fas fa-star"></i>
+      <span>My App</span>
+      <div class="btn-dot"></div>
+    </button>
+  </div>
+</div>
+
+  <!-- Search Screen -->
+  <div class="search-screen" id="searchScreen" aria-hidden="true">
+    <div class="search-topbar">
+      <button class="search-back" id="closeSearch" aria-label="Back" type="button">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+
+      <div class="search-input-wrap">
+        <i class="fas fa-search"></i>
+        <input id="searchInput" type="text" placeholder="App နာမည် ရှာရန်..." autocomplete="off">
+        <button class="search-clear" id="searchClear" aria-label="Clear" type="button">×</button>
+      </div>
+    </div>
+
+    <div class="search-results" id="searchResults">
+      <div class="search-hint">ရှာချင်တဲ့ App နာမည် ရိုက်ပါ…</div>
+    </div>
+  </div>
+
+<!-- Detail Screen (NEW UI with Full App Info) -->
+<div class="detail-screen" id="detailScreen" aria-hidden="true">
+  <div class="detail-cover" id="detailCover">
+
+    <button class="detail-back" id="detailBack" type="button">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="detail-oncover">
+      <img class="detail-icon" id="detailIcon">
+      <div class="detail-title" id="detailTitle">App Name</div>
+    </div>
+
+  </div>
+
+  <div class="detail-body">
+
+    <a class="detail-download" id="detailDownload" href="#">
+      <i class="fas fa-download"></i> Download Now
+    </a>
+
+    <div class="detail-stats">
+      <button class="stat blue like-btn" onclick="likeApp()" type="button">
+        <i class="fas fa-heart"></i>
+        <span id="detailLikes">0</span>
+      </button>
+      <div class="stat blue">
+        <i class="fas fa-download"></i>
+        <span id="detailDownloads">0</span>
+      </div>
+    </div>
+
+    <!-- App Info Card - Full Details -->
+    <div class="app-info-card">
+      
+      <!-- Description (အပေါ်ဆုံးမှာထား) -->
+      <div class="info-description">
+        <div class="info-label">
+          <i class="fas fa-align-left"></i>
+          <span>Description</span>
+        </div>
+        <p class="description-text" id="appDescription">
+          This is a sample app description. It can be multiple lines but we limit to 3 lines max. This app provides great features for users. Download now and enjoy!
+        </p>
+      </div>
+      
+      <div class="info-grid">
+        <!-- Size -->
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-database"></i>
+            <span>Size</span>
+          </div>
+          <div class="info-value" id="appSize">45.6 MB</div>
+        </div>
+        
+        <!-- Developer -->
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-code-branch"></i>
+            <span>Developer</span>
+          </div>
+          <div class="info-value" id="appDeveloper">Star Studio</div>
+        </div>
+        
+        <!-- Updated Date -->
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Updated</span>
+          </div>
+          <div class="info-value" id="appUpdated">Mar 03, 2026</div>
+        </div>
+        
+        <!-- Version -->
+        <div class="info-item">
+          <div class="info-label">
+            <i class="fas fa-tag"></i>
+            <span>Version</span>
+          </div>
+          <div class="info-value" id="appVersion">2.1.0</div>
+        </div>
+      </div>
+      
+      <!-- Group/Channel Link (copy ခလုတ်မပါ) -->
+      <div class="info-link">
+        <i class="fab fa-telegram"></i>
+        <span>Join Group: </span>
+        <a href="#" id="appGroupLink" class="link-value" target="_blank">@StarStoreChannel</a>
+      </div>
+      
+      <!-- Report Button -->
+      <button class="report-btn" id="reportBtn" type="button">
+        <i class="fas fa-flag"></i>
+        Report this app
+      </button>
+    </div>
+
+    <div class="other-title">Other Apps</div>
+    <div class="other-list" id="otherList"></div>
+
+  </div>
+</div>
+
+<!-- TOP Screen -->
+<div class="top-screen" id="topScreen" aria-hidden="true">
+  <div class="topbar">
+    <button class="top-back" id="topBack" type="button" aria-label="Back">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="top-title">Top Apps</div>
+  </div>
+
+  <div class="top-list" id="topList">
+
+    <!-- Top App 1 (Star Store) -->
+    <div class="top-card modern"
+         data-app-name="Star Store"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/5968/5968705.png"
+         data-app-bg="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="https://raw.githubusercontent.com/Starlar1/Star-Store-/6fe36f0a478a2edb0782a0a5f09d6fe2947a3b4b/SCG%20SHOP.apk"
+         data-app-likes="1.2K"
+         data-app-downloads="45K"
+         data-app-size="45.6 MB"
+         data-app-developer="Star Studio"
+         data-app-updated="Mar 03, 2026"
+         data-app-version="2.1.0"
+         data-app-description="Star Store is the best app store for Android. Thousands of apps and games available for free download. Fast and secure."
+         data-app-group="@StarStoreChannel"
+         data-app-group-url="https://t.me/StarStoreChannel">
+      <span class="top-rank-number">1.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Star Store">
+      <span class="top-name-modern">Star Store</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+    <!-- Top App 2 (Star Chat) -->
+    <div class="top-card modern"
+         data-app-name="Star Chat"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+         data-app-bg="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="#"
+         data-app-likes="856"
+         data-app-downloads="12K"
+         data-app-size="32.1 MB"
+         data-app-developer="Star Messenger"
+         data-app-updated="Feb 28, 2026"
+         data-app-version="1.8.5"
+         data-app-description="Fast and secure messaging app. Chat with friends, share photos and videos, make voice and video calls for free."
+         data-app-group="@StarChatGroup"
+         data-app-group-url="https://t.me/StarChatGroup">
+      <span class="top-rank-number">2.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Star Chat">
+      <span class="top-name-modern">Star Chat</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+    <!-- Top App 3 (Star Player) -->
+    <div class="top-card modern"
+         data-app-name="Star Player"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/888/888879.png"
+         data-app-bg="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="#"
+         data-app-likes="2.1K"
+         data-app-downloads="78K"
+         data-app-size="28.4 MB"
+         data-app-developer="Star Media"
+         data-app-updated="Mar 01, 2026"
+         data-app-version="3.2.0"
+         data-app-description="Powerful music and video player. Supports all formats. Beautiful interface and amazing sound quality."
+         data-app-group="@StarPlayer"
+         data-app-group-url="https://t.me/StarPlayer">
+      <span class="top-rank-number">3.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="Star Player">
+      <span class="top-name-modern">Star Player</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+    <!-- Top App 4 (Star Video) -->
+    <div class="top-card modern"
+         data-app-name="Star Video"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/888/888857.png"
+         data-app-bg="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="#"
+         data-app-likes="3.4K"
+         data-app-downloads="120K"
+         data-app-size="52.8 MB"
+         data-app-developer="Star Stream"
+         data-app-updated="Feb 25, 2026"
+         data-app-version="4.0.1"
+         data-app-description="Watch millions of videos and movies. HD quality, fast streaming, and offline download available."
+         data-app-group="@StarVideo"
+         data-app-group-url="https://t.me/StarVideo">
+      <span class="top-rank-number">4.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Star Video">
+      <span class="top-name-modern">Star Video</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+    <!-- Top App 5 (Star Tools) -->
+    <div class="top-card modern"
+         data-app-name="Star Tools"
+         data-app-icon="https://cdn-icons-png.flaticon.com/512/5968/5968350.png"
+         data-app-bg="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
+         data-app-download="#"
+         data-app-likes="567"
+         data-app-downloads="8.5K"
+         data-app-size="18.2 MB"
+         data-app-developer="Star Utility"
+         data-app-updated="Mar 02, 2026"
+         data-app-version="1.2.3"
+         data-app-description="All-in-one tool kit: flashlight, compass, ruler, leveler, unit converter, and more useful tools for daily use."
+         data-app-group="@StarTools"
+         data-app-group-url="https://t.me/StarTools">
+      <span class="top-rank-number">5.</span>
+      <img class="top-icon-modern" src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Star Tools">
+      <span class="top-name-modern">Star Tools</span>
+      <button class="top-download-modern" type="button">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Account Screen (ACC Modal) - Simple UI with S Point Image Only (Server Status ဖယ်ထား) -->
+<div class="acc-screen" id="accScreen" aria-hidden="true">
+  <div class="acc-container">
+    <!-- Simple Header -->
+    <div class="acc-header">
+      <button class="acc-back" id="accBack" type="button">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="acc-title">အကောင့်</div>
+    </div>
+
+    <!-- S Point Display - သီးသန့်အကွက်လေး -->
+    <div class="s-point-box">
+      <img src="https://i.ibb.co/B55SJzBc/Grid-Art-20260303-131631280.png" alt="S Point" class="s-point-icon">
+      <span class="s-point-value" id="accSPoint">0</span>
+    </div>
+
+    <!-- Profile Section -->
+    <div class="acc-profile-section" id="accProfileSection">
+      <!-- Not Logged In State - Simple Welcome -->
+      <div class="acc-not-logged" id="accNotLogged">
+        <div class="simple-welcome">
+          <i class="fas fa-user-circle welcome-icon"></i>
+          <h2>Welcome Back!</h2>
+          <p>အကောင့်ဖွင့်ပြီး စတင်အသုံးပြုလိုက်ပါ</p>
+          
+          <!-- Server Status ဖယ်ရှားလိုက်ပြီ -->
+          
+          <button class="acc-open-btn-simple" id="accOpenBtn" type="button">
+            <i class="fas fa-paper-plane"></i> အကောင့်ဖွင့်မည်
+          </button>
+        </div>
+      </div>
+
+      <!-- Logged In State - Simple Profile -->
+      <div class="acc-logged" id="accLogged" style="display: none;">
+        <!-- Profile Image -->
+        <div class="profile-image-container">
+          <div class="profile-image-wrapper" id="accProfileCircle">
+            <img id="accProfileImage" src="" alt="Profile">
+            <div class="profile-image-overlay">
+              <i class="fas fa-camera"></i>
+            </div>
+            <input type="file" id="accImageUpload" accept="image/*" style="display: none;">
+          </div>
+        </div>
+
+        <!-- Profile Info -->
+        <div class="profile-info-simple">
+          <div class="profile-name-row">
+            <h3 id="accDisplayName">နာမည်ထည့်ပါ</h3>
+            <button class="edit-name-btn" id="accEditBtn">
+              <i class="fas fa-pen"></i>
+            </button>
+          </div>
+          
+          <div class="profile-id-simple">
+            <div class="id-row">
+              <span class="id-label">User ID:</span>
+              <span class="id-value" id="accUserId">-</span>
+            </div>
+            <div class="id-row">
+              <span class="id-label">Invite ID:</span>
+              <span class="id-value" id="accInviteId">-</span>
+            </div>
+          </div>
+          
+          <div class="server-badge-simple">
+            <i class="fas fa-server"></i>
+            <span>Server <span id="accServerNumber">1</span></span>
+          </div>
+        </div>
+
+        <!-- Edit Profile Simple -->
+        <div class="edit-profile-simple" id="accEditForm" style="display: none;">
+          <div class="edit-box">
+            <h4>ပရိုဖိုင် ပြင်ဆင်ရန်</h4>
+            <div class="edit-avatar-simple" id="editAvatarSimple">
+              <img id="editAvatarPreview" src="" alt="Preview">
+              <button class="change-avatar-simple" id="changeAvatarBtn">
+                <i class="fas fa-camera"></i> ပုံပြောင်း
+              </button>
+              <input type="file" id="editImageUpload" accept="image/*" style="display: none;">
+            </div>
+            <input type="text" id="accEditName" placeholder="နာမည်အသစ်" class="edit-input-simple">
+            <div class="edit-actions-simple">
+              <button class="save-btn-simple" id="accSaveBtn">သိမ်းမည်</button>
+              <button class="cancel-btn-simple" id="accCancelBtn">မလုပ်တော့</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Name/ID Input Modal (Simple) - ဒီအပိုင်းကို ထည့်ရန်လိုအပ်ပါတယ် -->
+<div class="simple-modal" id="nameIdModal" style="display: none;">
+  <div class="simple-modal-content">
+    <div class="simple-modal-header">
+      <i class="fas fa-user-plus modal-header-icon"></i>
+      <h3>အကောင့်အသစ်ဖွင့်ရန်</h3>
+    </div>
+    
+    <div class="simple-modal-body">
+      <!-- Image Upload -->
+      <div class="simple-avatar-selector" id="simpleAvatarSelector">
+        <div class="simple-avatar-circle" id="modalProfileCircle">
+          <img id="modalProfileImage" src="" alt="Profile">
+          <div class="simple-avatar-overlay">
+            <i class="fas fa-camera"></i>
+          </div>
+        </div>
+        <p class="simple-avatar-hint">ဓာတ်ပုံထည့်ရန် နှိပ်ပါ</p>
+        <input type="file" id="modalImageUpload" accept="image/*" style="display: none;">
+      </div>
+      
+      <!-- Name Input -->
+      <div class="simple-input-group">
+        <i class="fas fa-user input-icon-simple"></i>
+        <input type="text" id="modalName" class="simple-input" placeholder="သင့်နာမည်">
+      </div>
+      
+      <!-- Loading -->
+      <div class="simple-loading" id="modalLoading" style="display: none;">
+        <div class="simple-spinner"></div>
+        <p>အကောင့်ဖွင့်နေသည်...</p>
+      </div>
+    </div>
+    
+    <div class="simple-modal-footer">
+      <button class="simple-confirm-btn" id="modalConfirmBtn">
+        <span>အကောင့်ဖွင့်မည်</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+      <button class="simple-cancel-btn" id="modalCancelBtn">မလုပ်တော့</button>
+    </div>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="script.js" defer></script>
+</body>
+</html><style>*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+body{
+  background:#ffffff;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  overflow:hidden; /* scroll only middle */
+}
+
+/* Header with Logo-Star Store (left), ACC (right), Search (below) */
+.header-section {
+  padding: 12px 16px 10px 16px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid #eef2f6;
+  width: 100%;
+}
+
+/* Top row: Logo-Star Store (left) + ACC (right) */
+.header-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.store-image img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border: none;
+  border-radius: 0;
+  display: block;
+}
+
+/* Star Store animated text */
+.store-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  display: inline-block;
+  background: linear-gradient(45deg, #1a4bc4, #3f7af0, #1a4bc4);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(29,78,211,0.3);
+  animation: shine 3s linear infinite, fadeInOut 6s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+@keyframes shine {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0.7; transform: scale(0.98); }
+  25% { opacity: 1; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1); }
+  75% { opacity: 1; transform: scale(1); }
+  90% { opacity: 0.7; transform: scale(0.98); }
+  100% { opacity: 0.7; transform: scale(0.98); }
+}
+
+/* Account Circle Button - ONLY COLOR ANIMATION, NO MOVEMENT */
+.header-account-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #7c3aed, #2563eb);
+  background-size: 200% 200%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 26px;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  /* Only color and shadow animations - no movement */
+  animation: colorShift 3s ease infinite, softGlow 2.5s ease infinite;
+}
+
+.header-account-btn i {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  animation: none; /* Icon absolutely still */
+}
+
+/* Color shifting animation - background moves, button stays still */
+@keyframes colorShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Soft glow animation - shadow changes, button stays still */
+@keyframes softGlow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.5);
+  }
+}
+
+/* Glow effect on hover */
+.header-account-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.header-account-btn:hover::after {
+  opacity: 1;
+}
+
+.header-account-btn:active {
+  transform: scale(0.95);
+}
+
+/* Bottom row: Search (full width) */
+.search-wrapper {
+  width: 100%;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #f2f4f8;
+  border-radius: 40px;
+  padding: 10px 18px;
+  border: 1px solid #e0e7f0;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.search-container i {
+  color: #1d4ed3;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.search-container input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.95rem;
+  padding: 6px 0;
+  color: #1a2634;
+}
+
+.search-container input::placeholder {
+  color: #8a9bb8;
+  font-style: italic;
+}
+
+/* Mobile responsive */
+@media (max-width: 400px) {
+  .header-section {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  
+  .store-image img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .store-name {
+    font-size: 1.3rem;
+  }
+  
+  .header-account-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+  
+  .search-container {
+    padding: 8px 16px;
+  }
+  
+  .search-container i {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+  
+  .search-container input {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .header-section {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  
+  .store-image img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .store-name {
+    font-size: 1.1rem;
+  }
+  
+  .header-account-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
+  
+  .search-container {
+    padding: 6px 14px;
+  }
+  
+  .search-container i {
+    font-size: 14px;
+  }
+  
+  .search-container input {
+    font-size: 0.8rem;
+  }
+}
+
+/* Middle scroll area */
+.content-area{
+  flex:1;
+  overflow-y:auto;
+  padding:16px;
+  background:#ffffff;
+}
+
+/* Home cards */
+.hero-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.hero-card{
+  height:200px;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  background-image:var(--bg);
+  background-size:cover;
+  background-position:center;
+}
+
+.hero-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0,0,0,0.8) 100%
+  );
+  z-index:1;
+}
+
+.hero-bottom-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.15);
+  z-index: 2;
+}
+
+.hero-app-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.hero-app-icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.6);
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.hero-app-name{
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  font-size: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.hero-download{
+  background: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.4);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hero-download:hover {
+  background: #1d4ed3;
+  transform: scale(0.95);
+}
+
+.hero-download:active {
+  transform: scale(0.9);
+}
+
+/* TOP Screen */
+.top-screen {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: none;
+  flex-direction: column;
+  z-index: 10001;
+}
+
+.top-screen.show {
+  display: flex;
+}
+
+.topbar {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.top-back {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  border: none;
+  cursor: pointer;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.top-title {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #0f172a;
+}
+
+.top-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Modern Card Design - တစ်တန်းထဲဖြစ်အောင် */
+.top-card.modern {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #edf2f7;
+  transition: all 0.2s;
+}
+
+.top-card.modern:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+/* Rank Number - ဘေးမှာ */
+.top-rank-number {
+  font-weight: 700;
+  color: #64748b;
+  min-width: 24px;
+  font-size: 1rem;
+}
+
+/* Icon */
+.top-icon-modern {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+/* App Name */
+.top-name-modern {
+  flex: 1;
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Download Button - အပြာရောင်နဲ့ လှုပ်ရှားနေသလို */
+.top-download-modern {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+  animation: pulse 2s infinite;
+  transition: all 0.3s;
+}
+
+.top-download-modern i {
+  font-size: 14px;
+}
+
+.top-download-modern:hover {
+  background: #1d4ed3;
+  animation: none;
+  transform: scale(0.98);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37,99,235,0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(37,99,235,0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37,99,235,0);
+  }
+}
+
+/* Scrollbar Styling */
+.top-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.top-list::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.top-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.top-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* Bottom Nav - 4 buttons */
+.bottom-nav {
+  background: #ffffff;
+  padding: 4px 12px 8px 12px;
+  border-top: 1px solid rgba(37, 99, 235, 0.08);
+  box-shadow: 0 -2px 10px rgba(79, 70, 229, 0.05);
+  width: 100%;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  gap: 4px;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 16px;
+  padding: 4px 0 2px 0;
+  width: 22%;
+  min-width: 60px;
+  max-width: 80px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  gap: 2px;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-btn i {
+  font-size: 20px;
+  margin-bottom: 0;
+  transition: all 0.2s ease;
+}
+
+.nav-btn span {
+  transition: all 0.2s ease;
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+
+/* Active state for bottom nav */
+.nav-btn.active {
+  background: linear-gradient(135deg, #2563eb, #7c3aed, #2563eb);
+  background-size: 200% 200%;
+  color: white;
+  box-shadow: 0 3px 10px rgba(124, 58, 237, 0.3);
+  transform: translateY(-2px);
+  animation: androidGradient 3s ease infinite;
+}
+
+.nav-btn.active i {
+  animation: androidIconPop 2s ease infinite;
+}
+
+@keyframes androidGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes androidIconPop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+/* Search Screen */
+.search-screen{
+  position:fixed;
+  inset:0;
+  background:#ffffff;
+  display:none;
+  flex-direction:column;
+  z-index:9999;
+}
+.search-screen.show{ display:flex; }
+
+.search-topbar{
+  padding:14px 14px 10px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid #eef2f6;
+}
+
+.search-back{
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:12px;
+  background:#f2f4f8;
+  cursor:pointer;
+}
+
+.search-input-wrap{
+  flex:1;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#f2f4f8;
+  border:1px solid #e0e7f0;
+  border-radius:16px;
+  padding:10px 12px;
+}
+
+.search-input-wrap i{ color:#1d4ed3; }
+
+.search-input-wrap input{
+  flex:1;
+  border:none;
+  outline:none;
+  background:transparent;
+  font-size:1rem;
+}
+
+.search-clear{
+  border:none;
+  background:transparent;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  color:#6b7a90;
+}
+
+.search-results{
+  flex:1;
+  overflow-y:auto;
+  padding:14px;
+}
+
+.search-hint{
+  color:#6b7a90;
+  padding:8px 2px;
+}
+
+.result-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border:1px solid #e7edf6;
+  border-radius:16px;
+  margin-bottom:12px;
+  background:#ffffff;
+}
+
+.result-icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  object-fit:cover;
+  border:1px solid rgba(0,0,0,0.08);
+}
+
+.result-name{
+  flex:1;
+  font-weight:900;
+  color:#101827;
+}
+
+.result-download{
+  border:none;
+  border-radius:12px;
+  padding:10px 14px;
+  cursor:pointer;
+  color:#fff;
+  font-weight:900;
+  background:#2563eb;
+}
+
+.no-results{
+  color:#6b7a90;
+  padding:10px 2px;
+}
+
+/* Detail Screen (NEW UI) */
+.detail-screen{
+  position:fixed;
+  inset:0;
+  background:#ffffff;
+  display:none;
+  flex-direction:column;
+  z-index:10000;
+}
+.detail-screen.show{ display:flex; }
+
+.detail-cover{
+  height:260px;
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  border-bottom-left-radius:20px;
+  border-bottom-right-radius:20px;
+  overflow:hidden;
+}
+.detail-cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.70));
+}
+
+.detail-back{
+  position:absolute;
+  top:16px;
+  left:16px;
+  width:44px;
+  height:44px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  z-index:3;
+  cursor:pointer;
+}
+
+.detail-oncover{
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  z-index:2;
+}
+
+.detail-icon{
+  width:64px;
+  height:64px;
+  border-radius:16px;
+  border:3px solid rgba(255,255,255,0.9);
+  background:#fff;
+  object-fit:cover;
+  box-shadow:0 10px 24px rgba(0,0,0,0.25);
+}
+
+.detail-title{
+  color:#ffffff;
+  font-size:22px;
+  font-weight:900;
+  text-shadow:0 4px 14px rgba(0,0,0,0.45);
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.detail-body{
+  flex:1;
+  overflow-y:auto;
+  padding:16px;
+}
+
+.detail-download{
+  display:block;
+  width:100%;
+  background:#2563eb;
+  color:#ffffff;
+  text-align:center;
+  padding:14px;
+  border-radius:14px;
+  font-weight:900;
+  text-decoration:none;
+  box-shadow:0 10px 22px rgba(37,99,235,0.25);
+}
+
+.detail-stats{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.stat{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.stat.blue{
+  background:#eff6ff;
+  color:#2563eb;
+}
+
+/* Other Apps (row aligned) */
+.other-title{
+  margin-top:18px;
+  font-weight:900;
+  color:#111827;
+}
+
+.other-list{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.other-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:18px;
+  border:1px solid #e7edf6;
+  background:#ffffff;
+}
+
+.other-icon{
+  width:56px;
+  height:56px;
+  border-radius:16px;
+  object-fit:cover;
+  border:1px solid rgba(0,0,0,0.08);
+  background:#fff;
+}
+
+.other-name{
+  flex:1;
+  font-weight:900;
+  color:#111827;
+  font-size:1.05rem;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.other-open{
+  border:none;
+  border-radius:14px;
+  padding:10px 18px;
+  cursor:pointer;
+  color:#fff;
+  font-weight:900;
+  background:#2563eb;
+  box-shadow:0 8px 18px rgba(37,99,235,0.18);
+}
+
+
+
+
+/* Modal open: stop background scroll */
+body.modal-open{
+  overflow:hidden !important;
+}
+
+/* Mobile */
+@media (max-width:500px){
+  .header-section{ flex-direction:column; align-items:stretch; }
+  .store-name{ font-size:1.4rem; }
+  .search-wrapper{ width:100%; }
+  .nav-btn{ padding:10px 8px; min-width:70px; font-size:0.8rem; }
+}
+
+.like-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.like-btn:active {
+  transform: scale(0.95);
+}
+
+.like-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* Account Screen - Simple */
+.acc-screen {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: none;
+  flex-direction: column;
+  z-index: 10002;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.acc-screen.show {
+  display: flex;
+}
+
+.acc-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.acc-back {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f8fafc;
+  border: none;
+  cursor: pointer;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.acc-back:hover {
+  background: #e2e8f0;
+}
+
+.acc-title {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #0f172a;
+}
+
+/* Simple Welcome Screen */
+.acc-not-logged {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 20px;
+}
+
+.simple-welcome {
+  text-align: center;
+  max-width: 320px;
+}
+
+.welcome-icon {
+  font-size: 80px;
+  color: #cbd5e1;
+  margin-bottom: 20px;
+}
+
+.simple-welcome h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.simple-welcome p {
+  color: #64748b;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+/* Server Status Simple */
+.server-status-simple {
+  margin-bottom: 30px;
+}
+
+.server-loading {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.server-loading i {
+  margin-right: 8px;
+}
+
+.server-info-simple {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.server-row-simple {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.server-row-simple:last-child {
+  border-bottom: none;
+}
+
+.server-name {
+  font-weight: 600;
+  color: #334155;
+}
+
+.server-count {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.server-badge-open {
+  background: #22c55e;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ACC Open Button Simple */
+.acc-open-btn-simple {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.acc-open-btn-simple:hover {
+  background: #1d4ed3;
+  transform: scale(0.98);
+}
+
+/* Logged In State - Simple */
+.acc-logged {
+  padding: 20px;
+}
+
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.profile-image-wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border: 3px solid #e2e8f0;
+}
+
+.profile-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.profile-image-wrapper:hover .profile-image-overlay {
+  opacity: 1;
+}
+
+.profile-image-overlay i {
+  color: white;
+  font-size: 24px;
+}
+
+/* Profile Info Simple */
+.profile-info-simple {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border: 1px solid #f1f5f9;
+}
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.profile-name-row h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.edit-name-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.edit-name-btn:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+.profile-id-simple {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.id-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.id-row:last-child {
+  border-bottom: none;
+}
+
+.id-label {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.id-value {
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.5px;
+}
+
+.server-badge-simple {
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.server-badge-simple i {
+  color: #2563eb;
+}
+
+/* Edit Profile Simple */
+.edit-profile-simple {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10003;
+  backdrop-filter: blur(4px);
+}
+
+.edit-box {
+  background: white;
+  width: 90%;
+  max-width: 340px;
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.edit-box h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.edit-avatar-simple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#editAvatarPreview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e2e8f0;
+  margin-bottom: 10px;
+}
+
+.change-avatar-simple {
+  background: none;
+  border: 1px solid #e2e8f0;
+  padding: 6px 15px;
+  border-radius: 30px;
+  color: #475569;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.edit-input-simple {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.edit-actions-simple {
+  display: flex;
+  gap: 10px;
+}
+
+.save-btn-simple {
+  flex: 1;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-btn-simple {
+  flex: 1;
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Simple Modal */
+.simple-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10003;
+  backdrop-filter: blur(4px);
+}
+
+.simple-modal-content {
+  background: white;
+  width: 90%;
+  max-width: 360px;
+  border-radius: 28px;
+  overflow: hidden;
+  animation: modalFade 0.2s ease;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.simple-modal-header {
+  padding: 24px 24px 16px;
+  text-align: center;
+}
+
+.modal-header-icon {
+  font-size: 40px;
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.simple-modal-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.simple-modal-body {
+  padding: 0 24px 16px;
+}
+
+.simple-avatar-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.simple-avatar-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border: 3px solid #e2e8f0;
+  margin-bottom: 8px;
+}
+
+.simple-avatar-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.simple-avatar-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.simple-avatar-circle:hover .simple-avatar-overlay {
+  opacity: 1;
+}
+
+.simple-avatar-overlay i {
+  color: white;
+  font-size: 24px;
+}
+
+.simple-avatar-hint {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.simple-input-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.input-icon-simple {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.simple-input {
+  width: 100%;
+  padding: 14px 14px 14px 42px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.simple-input:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.simple-server-info {
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #475569;
+  font-size: 13px;
+}
+
+.simple-server-info i {
+  color: #2563eb;
+}
+
+/* Simple Loading */
+.simple-loading {
+  text-align: center;
+  padding: 15px;
+}
+
+.simple-spinner {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #e2e8f0;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 8px;
+}
+
+.simple-modal-footer {
+  padding: 16px 24px 24px;
+  display: flex;
+  gap: 10px;
+}
+
+.simple-confirm-btn {
+  flex: 1;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.simple-cancel-btn {
+  flex: 1;
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  border-radius: 40px;
+  padding: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* S Point Box - သီးသန့်အကွက်လေး */
+.s-point-box {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  background: white;
+  border-radius: 30px;
+  padding: 4px 12px 4px 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #e2e8f0;
+  z-index: 10;
+}
+
+.s-point-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.s-point-value {
+  font-weight: 700;
+  color: #f59e0b;
+  font-size: 16px;
+}
+
+/* App Info Card - Full Details */
+.app-info-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 18px;
+  margin: 16px 0 20px 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  border: 1px solid #edf2f7;
+}
+
+.info-description {
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 14px;
+}
+
+.info-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.info-label i {
+  width: 16px;
+  color: #94a3b8;
+}
+
+.description-text {
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 4.5em;
+  margin-left: 22px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 12px;
+  margin-bottom: 18px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-item .info-label {
+  margin-bottom: 0;
+}
+
+.info-value {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 15px;
+  padding-left: 22px;
+}
+
+.info-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #eff6ff;
+  border-radius: 30px;
+  margin: 16px 0;
+}
+
+.info-link i {
+  color: #2563eb;
+  font-size: 18px;
+}
+
+.info-link span {
+  color: #475569;
+  font-size: 14px;
+}
+
+.link-value {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  flex: 1;
+}
+
+.link-value:hover {
+  text-decoration: underline;
+}
+
+.report-btn {
+  width: 100%;
+  padding: 14px;
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-radius: 40px;
+  color: #dc2626;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.report-btn:hover {
+  background: #fee2e2;
+  transform: scale(0.98);
+}
+
+.report-btn i {
+  font-size: 16px;
+}
+
+/* Detail Back Button */
+.detail-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 3;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e293b;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.detail-back:hover {
+  background: rgba(255,255,255,0.95);
+}
+
+/* Detail Screen Full Screen Adjustments */
+.detail-screen {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: none;
+  flex-direction: column;
+  z-index: 10000;
+}
+
+.detail-screen.show {
+  display: flex;
+}
+
+.detail-cover {
+  height: 240px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.detail-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.70));
+  z-index: 1;
+}
+
+.detail-oncover {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+}
+
+.detail-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  border: 3px solid rgba(255,255,255,0.9);
+  background: #fff;
+  object-fit: cover;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+}
+
+.detail-title {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+  text-shadow: 0 4px 14px rgba(0,0,0,0.45);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.detail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 16px 24px 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.detail-download {
+  display: block;
+  width: 100%;
+  background: #2563eb;
+  color: #ffffff;
+  text-align: center;
+  padding: 16px;
+  border-radius: 40px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 22px rgba(37,99,235,0.25);
+  margin-bottom: 12px;
+}
+
+.detail-stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.stat {
+  flex: 1;
+  padding: 12px;
+  border-radius: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.stat.blue {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.like-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Other Apps */
+.other-title {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-weight: 800;
+  color: #111827;
+  font-size: 18px;
+}
+
+.other-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.other-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 18px;
+  border: 1px solid #e7edf6;
+  background: #ffffff;
+}
+
+.other-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.other-name {
+  flex: 1;
+  font-weight: 700;
+  color: #111827;
+  font-size: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.other-open {
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
+  background: #2563eb;
+  font-size: 14px;
+}
+
+/* Background image changing effect - မြှားမပါ၊ အရိပ်မပါ */
+.detail-cover {
+  transition: background-image 0.3s ease-in-out;
+}</style><script>// script.js (အဆင့်မြှင့်ထားသော) - S Point ကို Supabase ကနေ တိုက်ရိုက်ယူမည်
+(function () {
+  // ---------- Supabase Setup ----------
+  const supabaseClients = [
+    supabase.createClient(
+      'https://eghyyqgfunoxulthbeid.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnaHl5cWdmdW5veHVsdGhiZWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MDAyMDMsImV4cCI6MjA4ODA3NjIwM30.wieVSRijeQVMBeppp_Mnnh4LkOtd83b6FL2HjUw4VMY'
+    ), // Server 1
+    supabase.createClient(
+      'https://hqgojxvavirzlgwsybvm.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxZ29qeHZhdmlyemxnd3N5YnZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MDA1NzYsImV4cCI6MjA4ODA3NjU3Nn0.dWBXpPCzw_f6YRMxyEg_SuSPbFBYBvFXYcZRiLnTpbo'
+    ) // Server 2
+  ];
+
+  const MAX_USERS_PER_SERVER = 100;
+
+  // ---------- Helpers ----------
+  const qs = (s) => document.querySelector(s);
+  const qsa = (s) => Array.from(document.querySelectorAll(s));
+
+  function setModalOpen(isOpen) {
+    document.body.classList.toggle("modal-open", isOpen);
+  }
+
+  function getAppsFromHome() {
+    const cards = qsa(".hero-card");
+    return cards.map((card, idx) => ({
+      id: idx + 1,
+      name: card.dataset.appName || card.querySelector(".hero-app-name")?.textContent?.trim() || `App ${idx + 1}`,
+      icon: card.dataset.appIcon || card.querySelector(".hero-app-icon")?.getAttribute("src") || "",
+      bg: card.dataset.appBg || "",
+      download: card.dataset.appDownload || "#",
+      likes: "0",
+      downloads: "0",
+    }));
+  }
+
+  // Helper: Random 10 digit number
+  function generateNumberId() {
+    return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+  }
+
+  // Helper: Random 10 digit with letters and numbers
+  function generateMixedId() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    for (let i = 0; i < 10; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+
+  // ---------- Elements ----------
+  const homeBtn = qs("#homeBtn");
+  const topBtn = qs("#topBtn");
+  const myAppBtn = qs("#myAppBtn");
+  const accBtn = qs("#accBtn");
+
+  // Search
+  const openSearch = qs("#openSearch");
+  const headerSearchInput = qs("#headerSearchInput");
+  const searchScreen = qs("#searchScreen");
+  const closeSearch = qs("#closeSearch");
+  const searchInput = qs("#searchInput");
+  const searchClear = qs("#searchClear");
+  const searchResults = qs("#searchResults");
+
+  // Detail
+  const detailScreen = qs("#detailScreen");
+  const detailBack = qs("#detailBack");
+  const detailCover = qs("#detailCover");
+  const detailIcon = qs("#detailIcon");
+  const detailTitle = qs("#detailTitle");
+  const detailDownload = qs("#detailDownload");
+  const detailLikes = qs("#detailLikes");
+  const detailDownloads = qs("#detailDownloads");
+  const otherList = qs("#otherList");
+
+  // TOP
+  const topScreen = qs("#topScreen");
+  const topBack = qs("#topBack");
+
+  // Account
+  const accScreen = qs("#accScreen");
+  const accBack = qs("#accBack");
+  const accOpenBtn = qs("#accOpenBtn");
+  const nameIdModal = qs("#nameIdModal");
+  const modalConfirmBtn = qs("#modalConfirmBtn");
+  const modalCancelBtn = qs("#modalCancelBtn");
+  const modalName = qs("#modalName");
+  const accNotLogged = qs("#accNotLogged");
+  const accLogged = qs("#accLogged");
+  const accDisplayName = qs("#accDisplayName");
+  const accUserId = qs("#accUserId");
+  const accInviteId = qs("#accInviteId");
+  const accServerNumber = qs("#accServerNumber");
+  const accSPoint = qs("#accSPoint");
+  const accEditBtn = qs("#accEditBtn");
+  const accEditForm = qs("#accEditForm");
+  const accEditName = qs("#accEditName");
+  const accSaveBtn = qs("#accSaveBtn");
+  const accCancelBtn = qs("#accCancelBtn");
+  const accProfileImage = qs("#accProfileImage");
+  const accImageUpload = qs("#accImageUpload");
+  const changeAvatarBtn = qs("#changeAvatarBtn");
+  const editImageUpload = qs("#editImageUpload");
+  const editAvatarPreview = qs("#editAvatarPreview");
+  const modalProfileImage = qs("#modalProfileImage");
+  const modalImageUpload = qs("#modalImageUpload");
+  const modalProfileCircle = qs("#modalProfileCircle");
+  const modalLoading = qs("#modalLoading");
+
+  let currentUser = null;
+  let selectedImageFile = null;
+  let currentServer = 0;
+  let editSelectedImage = null;
+
+  // ---------- S Point Functions ----------
+  // Supabase ကနေ S Point ကို တိုက်ရိုက်ယူမည်
+  async function fetchUserFromSupabase(serverNum, userId) {
+    try {
+      const { data, error } = await supabaseClients[serverNum]
+        .from('users')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+      
+      if (!error && data) {
+        return data;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // S Point ကို Supabase ကနေ ယူပြီး HTML မှာပြမည်
+  async function updateSPointFromServer() {
+    if (!currentUser) return;
+    
+    const serverData = await fetchUserFromSupabase(currentServer, currentUser.user_id);
+    if (serverData && serverData.s_point !== undefined) {
+      // Supabase က တန်ဖိုးနဲ့ local ကို update လုပ်မည်
+      currentUser.s_point = serverData.s_point;
+      
+      // HTML မှာပြမည်
+      if (accSPoint) {
+        accSPoint.textContent = serverData.s_point;
+      }
+      
+      // Local storage ကိုလည်း update လုပ်မည်
+      localStorage.setItem('starStoreUser', JSON.stringify(currentUser));
+    }
+  }
+
+  // S Point ထည့်ရန် (ငွေဖြည့်)
+  async function addSPoint(userId, points) {
+    if (!currentUser) return false;
+    
+    const newPoint = (currentUser.s_point || 0) + points;
+    
+    const { error } = await supabaseClients[currentServer]
+      .from('users')
+      .update({ s_point: newPoint })
+      .eq('user_id', userId);
+      
+    if (!error) {
+      currentUser.s_point = newPoint;
+      if (accSPoint) accSPoint.textContent = newPoint;
+      localStorage.setItem('starStoreUser', JSON.stringify(currentUser));
+      return true;
+    }
+    return false;
+  }
+
+  // S Point နုတ်ရန် (ငွေသုံး)
+  async function deductSPoint(userId, points) {
+    if (!currentUser) return false;
+    if ((currentUser.s_point || 0) < points) {
+      alert('S Point မလုံလောက်ပါ');
+      return false;
+    }
+    
+    const newPoint = (currentUser.s_point || 0) - points;
+    
+    const { error } = await supabaseClients[currentServer]
+      .from('users')
+      .update({ s_point: newPoint })
+      .eq('user_id', userId);
+      
+    if (!error) {
+      currentUser.s_point = newPoint;
+      if (accSPoint) accSPoint.textContent = newPoint;
+      localStorage.setItem('starStoreUser', JSON.stringify(currentUser));
+      return true;
+    }
+    return false;
+  }
+
+  // ---------- Account Functions ----------
+  async function findBestServer() {
+    let serverCounts = [];
+    
+    for (let i = 0; i < supabaseClients.length; i++) {
+      if (!supabaseClients[i]) {
+        serverCounts.push({ server: i, count: MAX_USERS_PER_SERVER });
+        continue;
+      }
+      
+      try {
+        const { count, error } = await supabaseClients[i]
+          .from('users')
+          .select('*', { count: 'exact', head: true });
+        
+        if (!error) {
+          serverCounts.push({ server: i, count: count || 0 });
+        } else {
+          serverCounts.push({ server: i, count: MAX_USERS_PER_SERVER });
+        }
+      } catch (e) {
+        serverCounts.push({ server: i, count: MAX_USERS_PER_SERVER });
+      }
+    }
+    
+    let bestServer = null;
+    let minCount = MAX_USERS_PER_SERVER;
+    
+    for (let s of serverCounts) {
+      if (s.count < MAX_USERS_PER_SERVER && s.count < minCount) {
+        minCount = s.count;
+        bestServer = s.server;
+      }
+    }
+    
+    return bestServer;
+  }
+
+  function showLoggedInState() {
+    if (currentUser) {
+      accNotLogged.style.display = 'none';
+      accLogged.style.display = 'block';
+      accDisplayName.textContent = currentUser.name;
+      accUserId.textContent = currentUser.user_id;
+      accInviteId.textContent = currentUser.invite_id;
+      accServerNumber.textContent = currentUser.server_number || '1';
+      
+      if (accSPoint) {
+        accSPoint.textContent = currentUser.s_point || 0;
+      }
+      
+      if (currentUser.profile_image) {
+        accProfileImage.src = currentUser.profile_image;
+      }
+      
+      // S Point ကို Supabase ကနေ ပြန်ယူမည် (တခြားနေရာက ပြောင်းထားရင်)
+      setTimeout(() => {
+        updateSPointFromServer();
+      }, 500);
+    }
+  }
+
+  function saveToServer(serverNum, name, userId, inviteId, sPoint, profileImage) {
+    const userData = {
+      name: name,
+      user_id: userId,
+      invite_id: inviteId,
+      profile_image: profileImage,
+      server_number: serverNum + 1,
+      s_point: sPoint,
+      created_at: new Date().toISOString()
+    };
+
+    supabaseClients[serverNum]
+      .from('users')
+      .insert([userData])
+      .then(({ error }) => {
+        modalLoading.style.display = 'none';
+        modalConfirmBtn.disabled = false;
+        
+        if (error) {
+          alert('အကောင့်ဖွင့်ရာတွင် အမှားရှိနေပါသည်');
+          return;
+        }
+        
+        currentUser = userData;
+        currentServer = serverNum;
+        showLoggedInState();
+        nameIdModal.style.display = 'none';
+        localStorage.setItem('starStoreUser', JSON.stringify(userData));
+        
+        // Reset modal
+        modalName.value = '';
+        if (modalProfileImage) modalProfileImage.src = '';
+        selectedImageFile = null;
+      });
+  }
+
+  // ---------- Event Listeners ----------
+  
+  // Bottom nav active state
+  function setActiveNav(activeId) {
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.getElementById(activeId)?.classList.add('active');
+  }
+
+  // Navigation
+  if (homeBtn) {
+    homeBtn.addEventListener("click", () => {
+      setActiveNav('homeBtn');
+      qs(".content-area")?.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  if (topBtn) {
+    topBtn.addEventListener("click", () => {
+      setActiveNav('topBtn');
+      openTopScreen();
+    });
+  }
+
+  if (myAppBtn) {
+    myAppBtn.addEventListener("click", () => {
+      setActiveNav('myAppBtn');
+      alert("My App စာမျက်နှာသို့ သွားမည်။");
+    });
+  }
+
+  if (accBtn) {
+    accBtn.addEventListener("click", () => {
+      setActiveNav('accBtn');
+      accScreen.classList.add('show');
+      setModalOpen(true);
+      
+      // ACC Screen ဖွင့်တိုင်း S Point ကို Supabase ကနေ ပြန်ယူမည်
+      if (currentUser) {
+        updateSPointFromServer();
+      }
+    });
+  }
+
+  // Account close
+  if (accBack) {
+    accBack.addEventListener("click", () => {
+      accScreen.classList.remove('show');
+      setModalOpen(false);
+      setActiveNav('homeBtn');
+    });
+  }
+
+  // Open account creation modal
+  if (accOpenBtn) {
+    accOpenBtn.addEventListener("click", () => {
+      nameIdModal.style.display = 'flex';
+    });
+  }
+
+  // Close modal
+  if (modalCancelBtn) {
+    modalCancelBtn.addEventListener("click", () => {
+      nameIdModal.style.display = 'none';
+      modalName.value = '';
+      selectedImageFile = null;
+      if (modalProfileImage) modalProfileImage.src = '';
+    });
+  }
+
+  // Image upload for modal
+  if (modalProfileCircle && modalImageUpload) {
+    modalProfileCircle.addEventListener("click", () => {
+      modalImageUpload.click();
+    });
+
+    modalImageUpload.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        selectedImageFile = file;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (modalProfileImage) modalProfileImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Image upload for profile
+  if (accProfileCircle && accImageUpload) {
+    accProfileCircle.addEventListener("click", () => {
+      accImageUpload.click();
+    });
+
+    accImageUpload.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file && currentUser) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          accProfileImage.src = e.target.result;
+          
+          supabaseClients[currentServer]
+            .from('users')
+            .update({ profile_image: e.target.result })
+            .eq('user_id', currentUser.user_id)
+            .then(() => {
+              currentUser.profile_image = e.target.result;
+              localStorage.setItem('starStoreUser', JSON.stringify(currentUser));
+            });
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Edit profile
+  if (accEditBtn) {
+    accEditBtn.addEventListener("click", () => {
+      accEditForm.style.display = 'flex';
+      accEditName.value = currentUser.name;
+      if (editAvatarPreview) {
+        editAvatarPreview.src = currentUser.profile_image || '';
+      }
+    });
+  }
+
+  if (changeAvatarBtn && editImageUpload) {
+    changeAvatarBtn.addEventListener("click", () => {
+      editImageUpload.click();
+    });
+
+    editImageUpload.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        editSelectedImage = file;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (editAvatarPreview) editAvatarPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  if (accCancelBtn) {
+    accCancelBtn.addEventListener("click", () => {
+      accEditForm.style.display = 'none';
+      editSelectedImage = null;
+    });
+  }
+
+  if (accSaveBtn) {
+    accSaveBtn.addEventListener("click", () => {
+      const newName = accEditName.value.trim();
+      if (!newName || !currentUser) return;
+      
+      const updates = { name: newName };
+      
+      if (editSelectedImage) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          updates.profile_image = e.target.result;
+          performUpdate(updates);
+        };
+        reader.readAsDataURL(editSelectedImage);
+      } else {
+        performUpdate(updates);
+      }
+      
+      function performUpdate(updates) {
+        supabaseClients[currentServer]
+          .from('users')
+          .update(updates)
+          .eq('user_id', currentUser.user_id)
+          .then(() => {
+            currentUser = { ...currentUser, ...updates };
+            accDisplayName.textContent = currentUser.name;
+            if (updates.profile_image) {
+              accProfileImage.src = updates.profile_image;
+            }
+            accEditForm.style.display = 'none';
+            localStorage.setItem('starStoreUser', JSON.stringify(currentUser));
+            editSelectedImage = null;
+          });
+      }
+    });
+  }
+
+  // Confirm account creation
+  if (modalConfirmBtn) {
+    modalConfirmBtn.addEventListener("click", async () => {
+      const name = modalName.value.trim();
+      if (!name) {
+        alert('နာမည် ထည့်ပါ');
+        return;
+      }
+
+      modalLoading.style.display = 'block';
+      modalConfirmBtn.disabled = true;
+
+      const serverNum = await findBestServer();
+      
+      if (serverNum === null) {
+        alert('Server အားလုံး ပြည့်နေပါသည် (max 100)');
+        modalLoading.style.display = 'none';
+        modalConfirmBtn.disabled = false;
+        return;
+      }
+      
+      const userId = generateNumberId();
+      const inviteId = generateMixedId();
+      const sPoint = 0;
+      
+      if (selectedImageFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          saveToServer(serverNum, name, userId, inviteId, sPoint, e.target.result);
+        };
+        reader.readAsDataURL(selectedImageFile);
+      } else {
+        saveToServer(serverNum, name, userId, inviteId, sPoint, null);
+      }
+    });
+  }
+
+  // ---------- Load saved user ----------
+  const savedUser = localStorage.getItem('starStoreUser');
+  if (savedUser) {
+    try {
+      currentUser = JSON.parse(savedUser);
+      currentServer = (currentUser.server_number || 1) - 1;
+      showLoggedInState();
+      
+      // S Point ကို Supabase ကနေ ပြန်ယူမည်
+      setTimeout(() => {
+        updateSPointFromServer();
+      }, 1000);
+    } catch (e) {
+      localStorage.removeItem('starStoreUser');
+    }
+  } else {
+    // Auto show ACC screen on first visit
+    setTimeout(() => {
+      if (accScreen && !currentUser) {
+        accScreen.classList.add('show');
+        setModalOpen(true);
+        setActiveNav('accBtn');
+      }
+    }, 500);
+  }
+
+// ---------- Search ----------
+function openSearchScreen() {
+  searchScreen.classList.add("show");
+  searchScreen.setAttribute("aria-hidden", "false");
+  setModalOpen(true);
+  if (searchInput) {
+    searchInput.value = "";
+    renderSearch("");
+    setTimeout(() => searchInput.focus(), 0);
+  }
+}
+
+function closeSearchScreen() {
+  searchScreen.classList.remove("show");
+  searchScreen.setAttribute("aria-hidden", "true");
+  setModalOpen(false);
+}
+
+// Helper function to get app data from card
+function getAppDataFromCard(card) {
+  return {
+    name: card.dataset.appName || "App",
+    icon: card.dataset.appIcon || "",
+    bg1: card.dataset.appBg1 || "",
+    bg2: card.dataset.appBg2 || "",
+    bg3: card.dataset.appBg3 || "",
+    download: card.dataset.appDownload || "#",
+    likes: card.dataset.appLikes || "0",
+    downloads: card.dataset.appDownloads || "0",
+    size: card.dataset.appSize || "N/A",
+    developer: card.dataset.appDeveloper || "Unknown",
+    updated: card.dataset.appUpdated || "N/A",
+    version: card.dataset.appVersion || "1.0.0",
+    description: card.dataset.appDescription || "No description available",
+    group: card.dataset.appGroup || "@StarStoreChannel",
+    groupUrl: card.dataset.appGroupUrl || "https://t.me/StarStoreChannel"
+  };
+}
+
+// Update getAppsFromHome to include all data
+function getAppsFromHome() {
+  const cards = qsa(".hero-card");
+  return cards.map((card, idx) => getAppDataFromCard(card));
+}
+
+function renderSearch(query) {
+  const q = (query || "").trim().toLowerCase();
+  const apps = getAppsFromHome();
+
+  searchResults.innerHTML = "";
+
+  if (!q) {
+    const hint = document.createElement("div");
+    hint.className = "search-hint";
+    hint.textContent = "ရှာချင်တဲ့ App နာမည် ရိုက်ပါ…";
+    searchResults.appendChild(hint);
+    return;
+  }
+
+  const matched = apps.filter(a => a.name.toLowerCase().includes(q));
+
+  if (matched.length === 0) {
+    const no = document.createElement("div");
+    no.className = "no-results";
+    no.textContent = "မတွေ့ပါ…";
+    searchResults.appendChild(no);
+    return;
+  }
+
+  matched.forEach(app => {
+    const row = document.createElement("div");
+    row.className = "result-item";
+
+    const img = document.createElement("img");
+    img.className = "result-icon";
+    img.src = app.icon;
+    img.alt = app.name;
+
+    const name = document.createElement("div");
+    name.className = "result-name";
+    name.textContent = app.name;
+
+    const btn = document.createElement("button");
+    btn.className = "result-download";
+    btn.type = "button";
+    btn.textContent = "Download";
+    btn.addEventListener("click", () => {
+      closeSearchScreen();
+      // app မှာ data အကုန်ပါပြီးသား (bg1, bg2, bg3 အပါအဝင်)
+      openDetail(app);
+    });
+
+    row.appendChild(img);
+    row.appendChild(name);
+    row.appendChild(btn);
+    searchResults.appendChild(row);
+  });
+}
+
+if (openSearch) openSearch.addEventListener("click", openSearchScreen);
+if (headerSearchInput) headerSearchInput.addEventListener("click", openSearchScreen);
+if (closeSearch) closeSearch.addEventListener("click", closeSearchScreen);
+
+if (searchClear) {
+  searchClear.addEventListener("click", () => {
+    if (!searchInput) return;
+    searchInput.value = "";
+    renderSearch("");
+    searchInput.focus();
+  });
+}
+
+if (searchInput) searchInput.addEventListener("input", (e) => renderSearch(e.target.value));
+
+// ---------- Detail Screen Background Slideshow with Swipe ----------
+let backgroundImages = [];
+let currentBgIndex = 0;
+let bgInterval = null;
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Background slideshow စတင်ရန်
+function startBackgroundSlideshow(images) {
+  // ပုံဟောင်းတွေကိုရှင်းမည်
+  if (bgInterval) {
+    clearInterval(bgInterval);
+    bgInterval = null;
+  }
+  
+  // ပုံအသစ်တွေထည့်မည် (ပုံ ၃ပုံပဲယူမည်)
+  backgroundImages = images.filter(img => img && img.trim() !== "").slice(0, 3);
+  
+  // ပုံမရှိရင် ဘာမှမလုပ်ပါ
+  if (backgroundImages.length === 0) return;
+  
+  currentBgIndex = 0;
+  
+  // ပထမဆုံးပုံကိုချက်ချင်းပြမည်
+  changeBackgroundImage(backgroundImages[0]);
+  
+  // ပုံတစ်ပုံထက်ပိုရင် slideshow စတင်မည် (၃ စက္ကန့်တစ်ခါ)
+  if (backgroundImages.length > 1) {
+    startAutoSlideshow();
+  }
+}
+
+// Auto slideshow စတင်ရန်
+function startAutoSlideshow() {
+  if (bgInterval) {
+    clearInterval(bgInterval);
+  }
+  bgInterval = setInterval(() => {
+    nextBackground();
+  }, 3000); // ၃ စက္ကန့်တစ်ခါ
+}
+
+// နောက်ပုံတစ်ပုံကိုပြရန်
+function nextBackground() {
+  if (backgroundImages.length === 0) return;
+  currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
+  changeBackgroundImage(backgroundImages[currentBgIndex]);
+}
+
+// အရှေ့ပုံတစ်ပုံကိုပြရန်
+function prevBackground() {
+  if (backgroundImages.length === 0) return;
+  currentBgIndex = (currentBgIndex - 1 + backgroundImages.length) % backgroundImages.length;
+  changeBackgroundImage(backgroundImages[currentBgIndex]);
+}
+
+// နောက်ခံပုံပြောင်းရန်
+function changeBackgroundImage(imageUrl) {
+  detailCover.style.backgroundImage = `url('${imageUrl}')`;
+}
+
+// Background slideshow ရပ်ရန်
+function stopBackgroundSlideshow() {
+  if (bgInterval) {
+    clearInterval(bgInterval);
+    bgInterval = null;
+  }
+}
+
+// Touch events for swipe (မြှားမပါ၊ အရိပ်မပါ)
+function setupTouchEvents() {
+  const cover = document.querySelector('.detail-cover');
+  if (!cover) return;
+  
+  cover.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    // လက်နဲ့ထိတဲ့အခါ auto slideshow ကိုခဏရပ်မည်
+    stopBackgroundSlideshow();
+  }, { passive: true });
+  
+  cover.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+  
+  cover.addEventListener('touchcancel', (e) => {
+    // လက်နဲ့ထိတာပျက်သွားရင် auto slideshow ပြန်စမည်
+    if (backgroundImages.length > 1) {
+      startAutoSlideshow();
+    }
+  }, { passive: true });
+}
+
+// Swipe အနေအထားကိုစစ်ဆေးရန်
+function handleSwipe() {
+  const swipeThreshold = 50; // အနည်းဆုံး ဆွဲရမယ့်အကွာအဝေး
+  
+  if (touchEndX < touchStartX - swipeThreshold) {
+    // ဘယ်ဘက်ဆွဲရင် - နောက်ပုံ
+    nextBackground();
+  } else if (touchEndX > touchStartX + swipeThreshold) {
+    // ညာဘက်ဆွဲရင် - အရှေ့ပုံ
+    prevBackground();
+  }
+  
+  // လက်လွှတ်ပြီးတာနဲ့ auto slideshow ပြန်စမည်
+  if (backgroundImages.length > 1) {
+    startAutoSlideshow();
+  }
+}
+
+// ---------- Detail ----------
+function openDetail(app) {
+  // Background images ပြင်ဆင်မည် - Home Screen က bg1, bg2, bg3 ကိုယူမည်
+  const bgImages = [
+    app.bg1,
+    app.bg2,
+    app.bg3
+  ];
+  
+  // Slideshow စတင်မည်
+  startBackgroundSlideshow(bgImages);
+  
+  // Touch events ထည့်မည်
+  setupTouchEvents();
+  
+  detailIcon.src = app.icon || "";
+  detailTitle.textContent = app.name || "App";
+  detailDownload.href = app.download || "#";
+
+  // Detail Info အကုန်ဖြည့်မည် - Home Screen data ကိုပဲယူမည်
+  document.getElementById('appDescription').textContent = app.description || 'No description available';
+  document.getElementById('appSize').textContent = app.size || 'N/A';
+  document.getElementById('appDeveloper').textContent = app.developer || 'Unknown';
+  document.getElementById('appUpdated').textContent = app.updated || 'N/A';
+  document.getElementById('appVersion').textContent = app.version || '1.0.0';
+  
+  // Group Link ကို Home Screen data ကနေယူမည်
+  const groupLink = document.getElementById('appGroupLink');
+  if (groupLink) {
+    groupLink.textContent = app.group || '@StarStoreChannel';
+    groupLink.href = app.groupUrl || 'https://t.me/StarStoreChannel';
+  }
+
+  detailLikes.textContent = app.likes || "0";
+  detailDownloads.textContent = app.downloads || "0";
+
+  const others = getAppsFromHome().filter(a => a.name !== app.name);
+  otherList.innerHTML = "";
+
+  others.forEach(a => {
+    const item = document.createElement("div");
+    item.className = "other-item";
+
+    const icon = document.createElement("img");
+    icon.className = "other-icon";
+    icon.src = a.icon;
+    icon.alt = a.name;
+
+    const name = document.createElement("div");
+    name.className = "other-name";
+    name.textContent = a.name;
+
+    const openBtn = document.createElement("button");
+    openBtn.className = "other-open";
+    openBtn.type = "button";
+    openBtn.textContent = "Open";
+    openBtn.addEventListener("click", () => openDetail(a));
+
+    item.appendChild(icon);
+    item.appendChild(name);
+    item.appendChild(openBtn);
+
+    otherList.appendChild(item);
+  });
+
+  detailScreen.classList.add("show");
+  detailScreen.setAttribute("aria-hidden", "false");
+  setModalOpen(true);
+}
+
+function closeDetail() {
+  // Slideshow ရပ်မည်
+  stopBackgroundSlideshow();
+  
+  detailScreen.classList.remove("show");
+  detailScreen.setAttribute("aria-hidden", "true");
+  setModalOpen(false);
+}
+
+if (detailBack) detailBack.addEventListener("click", closeDetail);
+
+// Home download click - Data အကုန်ယူမည် (bg1, bg2, bg3 အပါအဝင်)
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".hero-download");
+  if (!btn) return;
+
+  const card = btn.closest(".hero-card");
+  if (!card) return;
+
+  e.preventDefault();
+
+  const app = {
+    name: card.dataset.appName || "App",
+    icon: card.dataset.appIcon || "",
+    bg1: card.dataset.appBg1 || "",
+    bg2: card.dataset.appBg2 || "",
+    bg3: card.dataset.appBg3 || "",
+    download: card.dataset.appDownload || "#",
+    likes: card.dataset.appLikes || "0",
+    downloads: card.dataset.appDownloads || "0",
+    size: card.dataset.appSize || "N/A",
+    developer: card.dataset.appDeveloper || "Unknown",
+    updated: card.dataset.appUpdated || "N/A",
+    version: card.dataset.appVersion || "1.0.0",
+    description: card.dataset.appDescription || "No description available",
+    group: card.dataset.appGroup || "@StarStoreChannel",
+    groupUrl: card.dataset.appGroupUrl || "https://t.me/StarStoreChannel"
+  };
+
+  openDetail(app);
+});
+
+// ---------- TOP ----------
+function openTopScreen() {
+  topScreen.classList.add("show");
+  topScreen.setAttribute("aria-hidden", "false");
+  setModalOpen(true);
+}
+
+function closeTopScreen() {
+  topScreen.classList.remove("show");
+  topScreen.setAttribute("aria-hidden", "true");
+  setModalOpen(false);
+}
+
+if (topBtn) topBtn.addEventListener("click", openTopScreen);
+if (topBack) topBack.addEventListener("click", closeTopScreen);
+
+// Top download click - Full App Screen ထဲဝင်မည် (Data အကုန်ယူ)
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".top-download-modern, .top-download");
+  if (!btn) return;
+
+  const card = btn.closest(".top-card.modern, .top-card");
+  if (!card) return;
+
+  e.preventDefault();
+
+  const app = {
+    name: card.dataset.appName || "App",
+    icon: card.dataset.appIcon || "",
+    bg: card.dataset.appBg || "",
+    download: card.dataset.appDownload || "#",
+    likes: card.dataset.appLikes || "0",
+    downloads: card.dataset.appDownloads || "0",
+    size: card.dataset.appSize || "N/A",
+    developer: card.dataset.appDeveloper || "Unknown",
+    updated: card.dataset.appUpdated || "N/A",
+    version: card.dataset.appVersion || "1.0.0",
+    description: card.dataset.appDescription || "No description available",
+    group: card.dataset.appGroup || "@StarStoreChannel",
+    groupUrl: card.dataset.appGroupUrl || "https://t.me/StarStoreChannel"
+  };
+
+  closeTopScreen();
+  openDetail(app);
+});
+
+
+  // S Point ကို ပြင်ပက ပြောင်းလဲမှုများအတွက် ပုံမှန် update လုပ်မည်
+  setInterval(() => {
+    if (currentUser && accScreen.classList.contains('show')) {
+      updateSPointFromServer();
+    }
+  }, 5000); // ၅ စက္ကန့်တစ်ခါ
+
+})();
+
+// ---------- Random App List Shuffle ----------
+// Home Screen App List ကို ကျပန်းရွေးပြီး အဆင့်လိုက်ပြောင်းပြရန်
+function shuffleAppList() {
+  const homeList = document.getElementById('homeAppList');
+  if (!homeList) return;
+  
+  // လက်ရှိ App တွေအားလုံးကိုယူမည်
+  const cards = Array.from(homeList.children);
+  
+  // ကျပန်းရွေးရန် (Fisher-Yates Shuffle)
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  
+  // HTML ကိုရှင်းပြီး အသစ်ပြန်ထည့်မည်
+  homeList.innerHTML = '';
+  cards.forEach(card => homeList.appendChild(card));
+}
+
+// စာမျက်နှာဝင်တိုင်း ကျပန်းရွေးရန်
+document.addEventListener('DOMContentLoaded', function() {
+  shuffleAppList();
+});
+
+// Optional: Home ခလုတ်နှိပ်ရင်လည်း ကျပန်းရွေးချင်ရင်
+if (homeBtn) {
+  homeBtn.addEventListener("click", function() {
+    shuffleAppList();
+    qs(".content-area")?.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+// Optional: ၅ မိနစ်တစ်ခါ အလိုအလျောက်ပြောင်းချင်ရင်
+// setInterval(shuffleAppList, 300000); // ၅ မိနစ် = 300000 ms
+// Function to open ACC screen from header button
+function openAccountScreenFromHeader() {
+  const accScreen = document.getElementById('accScreen');
+  if (accScreen) {
+    accScreen.classList.add('show');
+    accScreen.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    
+    // Update S point if user is logged in and function exists
+    if (typeof updateSPointFromServer === 'function') {
+      updateSPointFromServer();
+    }
+  } else {
+    console.log('ACC screen not found');
+  }
+}
+
+// Make sure back button works when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  const accBack = document.getElementById('accBack');
+  if (accBack) {
+    accBack.addEventListener('click', function() {
+      const accScreen = document.getElementById('accScreen');
+      if (accScreen) {
+        accScreen.classList.remove('show');
+        accScreen.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+      }
+    });
+  }
+});
+</script>
